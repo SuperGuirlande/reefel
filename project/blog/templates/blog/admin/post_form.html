@@ -1,0 +1,130 @@
+
+{% extends 'accounts/admin/admin_base.html' %}
+{% load static %}
+
+{% block title %}
+    Rédiger un article | Gestion du blog
+{% endblock %}
+
+{% block admin_head %}
+{{ form.media }}
+
+<link rel="stylesheet" href="{% static 'css/global_forms.css' %}">
+<link rel="stylesheet" href="{% static 'css/ck_editor.css' %}">
+{% endblock %}
+
+{% block admin_content %}
+
+<!-- Modale de création de catégorie -->
+{% include 'blog/admin/create_category_modal.html' %}
+
+
+<section class="flex-1 bg-minsk-50 flex flex-col min-h-full">
+
+    <div class="w-full max-w-[1080px] flex flex-col mx-auto px-3 py-6 sm:py-12">
+
+        <!-- Title -->
+        <div class="relative w-full max-w-[720px] mx-auto px-3 text-center pt-8">
+            <!-- Retour Index -->
+            <a href="{% url 'blog:admin_index' %}" class="absolute top-0 left-0 text-red-700 hover:text-red-600 flex gap-3 hover:gap-5 items-center transition-all duration-300 ease-in-out text-sm">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <p>
+                    Gestion du blog
+                </p>
+            </a>
+            <p class="text-minsk-800 text-base sm:text-lg md:text-xl uppercase font-light">
+                Gestion du blog
+            </p>
+            <h1 class="text-minsk-500 text-2xl sm:text-3xl md:text-4xl xl:text-5xl font-bold">
+                Rédiger un article
+            </h1>
+        </div>
+
+        <!-- Form -->
+        <form method="post" class="w-full max-w-[850px] mx-auto px-3 mt-8 sm:mt-12 flex flex-col gap-6" enctype="multipart/form-data">
+            {% csrf_token %}
+            <!-- Erreurs -->
+            {% if form.errors %}
+                <ul class="">
+                    {% for field in form %}
+                        {% if field.errors %}
+                            <li>{{ field.errors }}</li>
+                        {% endif %}
+                    {% endfor %}
+                    {% if form.non_field_errors %}
+                        <li>{{ form.non_field_errors }}</li>
+                    {% endif %}
+                </ul>
+            {% endif %}
+            <!-- FORMULAIRE -->
+            <!-- Titre -->
+            {{ form.title }}
+
+            <!-- Slug -->
+            {{ form.slug }}
+
+            <!-- Introduction -->
+            {{ form.introduction }}
+
+            <!-- Image de couverture -->
+            <div class="flex flex-col gap-3" id="thumbnail-container">
+                <label for="{{ form.thumbnail.id_for_label }}" class="text-sm font-medium text-gray-700">{{ form.thumbnail.label }}</label>
+                
+                <!-- Aperçu de l'image -->
+                <div id="image-preview" class="hidden">
+                    <img id="preview-img" src="" alt="Aperçu" class="max-w-[300px] mx-auto rounded-lg shadow-md">
+                </div>
+                
+                <!-- Bouton personnalisé -->
+                <label for="{{ form.thumbnail.id_for_label }}" class="custom-file-upload">
+                    <i class="fas fa-upload mr-2"></i>
+                    <span id="button-text">Choisir une image</span>
+                </label>
+                
+                <!-- Input caché -->
+                <div style="position: absolute; left: -9999px;">
+                    {{ form.thumbnail }}
+                </div>
+                
+                <!-- Nom du fichier -->
+                <span id="file-name" class="text-sm text-gray-600 text-center">Aucun fichier choisi</span>
+            </div>
+            <!-- Légende de l'image -->
+            {{ form.thumbnail_caption }}
+
+            <!-- Catégories -->
+            <div class="mt-6 flex gap-5 items-center">
+                <label for="{{ form.categories.id_for_label }}" class="text-sm font-medium text-gray-700">Catégories</label>
+
+                <a id="open_category_modal" class="text-sm text-white bg-green-600 hover:bg-green-700 transition-all duration-300 ease-in-out rounded-md px-3 py-1 flex gap-2 items-center
+                    hover:-translate-y-1 shadow-sm hover:shadow-md cursor-pointer">
+                    <i class="fa-solid fa-plus"></i>
+                    Nouvelle catégorie
+                </a>
+
+            </div>
+            {{ form.categories }}
+
+            <!-- Contenu -->
+            <label for="{{ form.content.id_for_label }}" class="text-sm font-medium text-gray-700 mt-6">Contenu de l'article</label>
+            {{ form.content }}
+
+            <!-- Bouton de soumission -->
+            <button type="submit" class="bg-minsk-500 text-white rounded-md w-fit shadow-md mx-auto
+                text-base hover:bg-minsk-600 transition-all duration-300 ease-in-out hover:shadow-xl hover:-translate-y-1 relative
+                overflow-hidden flex group">
+                <div class="absolute h-full w-0 bg-minsk-200 opacity-35 group-hover:w-full transition-all duration-300 ease-in-out"></div>
+                <div class="px-4 py-2">
+                    Rédiger l'article
+                </div>
+            </button>
+        </form>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block admin_scripts %}
+<script src="{% static 'js/global_forms.js' %}"></script>
+<script src="{% static 'js/create_category_modal.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,201 @@
+from django.shortcuts import render, redirect
+from .forms import CategoryForm, PostForm
+from .models import Category, Post
+from django.contrib import messages
+from django.http import JsonResponse
+from django.utils.text import slugify
+from django.db.models import Q
+
+
+# USER #
+
+def blog_index(request, category_slug=None):
+    articles = Post.objects.all()
+    categories = Category.objects.all()
+    
+    # Filtrage par catégorie (priorité à l'URL slug)
+    category_filter = category_slug or request.GET.get('category')
+    if category_filter:
+        articles = articles.filter(categories__slug=category_filter)
+    
+    # Recherche dans titre et contenu
+    search_query = request.GET.get('search')
+    if search_query:
+        articles = articles.filter(
+            Q(title__icontains=search_query) | 
+            Q(content__icontains=search_query) |
+            Q(introduction__icontains=search_query)
+        ).distinct()
+    
+    # Tri par date
+    sort_by = request.GET.get('sort', 'created_desc')
+    if sort_by == 'created_desc':
+        articles = articles.order_by('-created_at')
+    elif sort_by == 'created_asc':
+        articles = articles.order_by('created_at')
+    elif sort_by == 'updated_desc':
+        articles = articles.order_by('-updated_at')
+    elif sort_by == 'updated_asc':
+        articles = articles.order_by('updated_at')
+    else:
+        articles = articles.order_by('-created_at')
+
+    # Récupérer l'objet catégorie actuelle
+    current_category_obj = None
+    if category_filter:
+        try:
+            current_category_obj = Category.objects.get(slug=category_filter)
+        except Category.DoesNotExist:
+            pass
+
+    context = {
+        'articles': articles,
+        'categories': categories,
+        'current_category': category_filter,
+        'current_category_obj': current_category_obj,
+        'current_search': search_query or '',
+        'current_sort': sort_by,
+    }
+
+    return render(request, 'blog/user/index.html', context)
+
+def article_detail(request, slug):
+    post = Post.objects.get(slug=slug)
+    author = post.author
+
+    if not author.first_name or not author.last_name:
+        author_name = author.username
+    else:
+        author_name = f"{author.first_name} {author.last_name}"
+
+    # Articles relatifs
+    related_articles = []
+    
+    # 1. Chercher des articles avec les mêmes catégories
+    if post.categories.exists():
+        related_articles = Post.objects.filter(
+            categories__in=post.categories.all()
+        ).exclude(id=post.id).distinct().order_by('-created_at')[:6]
+    
+    # 2. Si pas assez d'articles relatifs, compléter avec les plus récents
+    if len(related_articles) < 4:
+        recent_articles = Post.objects.exclude(
+            id=post.id
+        ).exclude(
+            id__in=[article.id for article in related_articles]
+        ).order_by('-created_at')[:4 - len(related_articles)]
+        
+        related_articles = list(related_articles) + list(recent_articles)
+
+    context = {
+        'post': post,
+        'author_name': author_name,
+        'related_articles': related_articles
+    }
+
+    return render(request, 'blog/user/article_detail.html', context)
+
+
+
+
+# ADMIN #
+
+### GESTION DU BLOG ###
+
+# Index blog admin
+def admin_blog_index(request):
+    categories = Category.objects.all()
+    posts = Post.objects.all()
+
+    context = {
+        'categories': categories,
+        'posts': posts
+    }
+    return render(request, 'blog/admin/index.html', context)
+
+# CRÉER ET MODIFIER LES CATEGORIES
+
+# Page de formulaire de création de catégorie
+def admin_category_form(request):
+    if request.method == 'POST':
+        form = CategoryForm(request.POST)
+        if form.is_valid():
+            category = form.save()
+            name = category.name
+            messages.success(request, f'La catégorie "{name}" a été créée avec succès.')
+            return redirect('blog:admin_index')
+    else:
+        form = CategoryForm()
+    return render(request, 'blog/admin/category_form.html', {'form': form})
+
+
+# Fonction de création de catégorie en AJAX
+def create_category_ajax(request):
+    if request.method == 'POST':
+        try:
+            import json
+            data = json.loads(request.body)
+            name = data.get('category_name')
+
+            if not name:
+                return JsonResponse({'success': False, 'error': 'Le nom de la catégorie est requis'})
+            
+            if Category.objects.filter(name=name).exists():
+                return JsonResponse({'success': False, 'error': 'La catégorie existe déjà'})
+
+            category = Category.objects.create(name=name)
+            return JsonResponse({'success': True, 'category': {'id': category.id, 'name': category.name}})
+        except json.JSONDecodeError:
+            return JsonResponse({'success': False, 'error': 'Données JSON invalides'})
+        except Exception as e:
+            return JsonResponse({'success': False, 'error': str(e)})
+    return JsonResponse({'success': False, 'error': 'Invalid request method'})
+
+
+
+# Créer et modifier les articles
+def admin_post_form(request, post_slug=None):
+    post = None
+    if post_slug:
+        post = Post.objects.get(slug=post_slug)
+
+    if request.method == 'POST':
+        if post:
+            form = PostForm(request.POST, request.FILES, instance=post)
+        else:
+            form = PostForm(request.POST, request.FILES)
+        if form.is_valid():
+            post = form.save(commit=False)
+            if not post.author:
+                post.author = request.user
+            post.save()
+            return redirect('blog:admin_index')
+    else:
+        if post:
+            form = PostForm(instance=post)
+        else:
+            form = PostForm()
+
+    return render(request, 'blog/admin/post_form.html', {'form': form})
+
+# Supprimer les articles
+def confirm_delete_article(request, post_slug):
+    post = Post.objects.get(slug=post_slug)
+    return render(request, 'blog/admin/confirm_delete_article.html', {'post': post})
+
+def admin_post_delete(request, post_slug):
+    post = Post.objects.get(slug=post_slug)
+    post.delete()
+    messages.success(request, f'L\'article "{post.title}" a été supprimé avec succès.')
+    return redirect('blog:admin_index')
+
+# Supprimer les catégories
+def confirm_delete_category(request, category_slug):
+    category = Category.objects.get(slug=category_slug)
+    return render(request, 'blog/admin/confirm_delete_category.html', {'category': category})
+
+def admin_category_delete(request, category_slug):
+    category = Category.objects.get(slug=category_slug)
+    category.delete()
+    messages.success(request, f'La catégorie "{category.name}" a été supprimée avec succès.')
+    return redirect('blog:admin_index')

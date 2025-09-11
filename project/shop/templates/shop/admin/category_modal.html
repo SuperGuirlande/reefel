@@ -1,0 +1,49 @@
+<div class=" absolute h-full w-full top-0 left-0 bg-gray-800/50 z-[100] flex items-center justify-center hidden" id="create_category_modal">
+
+
+    <!-- Container -->
+    <div class="p-3 h-full w-full max-w-[950px] max-h-[600px]">
+        <div class="bg-white py-8 px-3 h-full w-full rounded-xl shadow-lg shadow-gray-700/50 flex flex-col items-center justify-center relative">
+            <!-- Close button -->
+            <i class="absolute top-[10%] right-[10%] fas fa-xmark text-2xl md:text-3xl text-gray-600 hover:text-gray-400
+                transition-all duration-200 ease-in-out cursor-pointer" id="close_category_modal_button"></i>
+
+            <!-- Content -->
+            <p class="font-light text-base lg:text-lg text-slate-600 uppercase text-center">
+                Gestion du magasin
+            </p>
+            <h2 class="text-minsk-500 text-2xl sm:text-3xl md:text-4xl font-extrabold" data-title="" id="category_modal_title">
+            </h2>
+
+
+            <form action="" method="post" class='w-full max-w-[500px] mx-auto px-3 mt-10 flex flex-col gap-4'>
+
+                <!-- Select pour la catégorie parent (visible seulement pour les sous-catégories) -->
+                <div class="hidden" id="parent_category_container">
+                    <label for="parent_category_select" class="block text-sm font-medium text-gray-700 mb-2">
+                        Catégorie parent
+                    </label>
+                    <select id="parent_category_select" class="form-field form-charfield">
+                        <option value="">Sélectionnez une catégorie</option>
+                        {% for category in categories %}
+                            <option value="{{ category.id }}">{{ category.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <input type="text" class="form-field form-charfield" placeholder="Nom de la catégorie" id="category_input">
+
+                <button type="submit" class="mx-auto w-fit py-2 px-4 bg-minsk-500 text-white flex gap-2 items-center text-sm font-sans font-semibold
+                    rounded-md shadow-md shadow-gray-700/50 hover:shadow-gray-700/50 hover:shadow-lg hover:-translate-y-1 transition-all duration-200 ease-in-out"
+                    id="submit_category_btn" data-url="{% url 'shop:create_category_ajax' %}" data-type="">
+                    <i class="fas fa-plus"></i>
+                    <p id='modal_btn_text'>Nouvelle Catégorie</p>
+                </button>
+            </form>
+
+            
+            
+        </div>
+    
+    </div>
+</div>

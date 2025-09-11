@@ -1,0 +1,119 @@
+<section class="navbar w-full bg-gradient-to-r from-minsk-500 via-minsk-400/50 to-minsk-500 from-10% via-25% to-80%
+    text-minsk-50 text-lg lg:text-xl flex justify-center items-center relative z-50 shadow-lg shadow-gray-700/20">
+
+<!-- Container -->
+<div class="w-full max-w-7xl py-4 md:py-5 px-5 mx-auto flex flex-row sm:flex-col lg:flex-row 
+    justify-between sm:justify-center lg:justify-between items-center gap-5">
+    <!-- Brand -->
+    <a href="{% url 'main:index' %}">
+        <div class="flex items-center gap-2 text-xl sm:text-2xl font-bold">
+            <i class="fa-brands fa-python text-2xl sm:text-3xl"></i>
+            <p class="">Dépôt Django Full</p>
+        </div>
+    </a>
+
+        <!-- Nav -->
+        <div class="flex relative sm:hidden items-center gap-6 text-lg" id="mobile-menu">
+            <button class="flex relative pl-6 items-center gap-2" id="mobile-menu-btn">
+                <div class="opacity-100 absolute left-0 top-1/2 -translate-y-1/2 transition-opacity duration-300 ease-in-out" id="open-btn">
+                    <i class="fa-solid fa-bars text-base"></i>
+                </div>
+                <div class="opacity-0 absolute left-0 top-1/2 -translate-y-1/2 transition-opacity duration-300 ease-in-out" id="close-btn">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </div>
+                <p>Menu</p>
+            </button>
+
+            <!-- Mobile Nav -->
+            <nav class="hidden flex-col absolute items-right text-right gap-6 text-lg right-0 top-full translate-y-4 translate-x-2
+            bg-minsk-400 py-4 px-6 rounded-lg shadow-lg shadow-gray-700/20">
+                <a href="{% url 'main:index' %}" class="">
+                    <p>Accueil</p>
+                </a>
+                <a href="{% url 'blog:index' %}" class="">
+                    <p>Boutique</p>
+                </a>
+                <a href="" class="">
+                    <p>Réalisations</p>
+                </a>
+                <a href="{% url 'blog:index' %}" class="">
+                    <p>Blog</p>
+                </a>
+                <a href="{% url 'main:contact' %}" class="">
+                    <p>Contact</p>
+                </a>
+            </nav>
+        </div>
+
+
+        <!-- Desktop Nav -->
+        <nav class="hidden sm:flex items-center gap-6 text-lg text-white">
+            <a href="{% url 'main:index' %}" class="flex items-center justify-center gap-2  group relative
+                {% if global_link == 'home' %}text-minsk-200{% else %}hover:text-minsk-200{% endif %}">
+                <i class="fa-solid fa-house text-base"></i>
+                <p>Accueil</p>
+            </a>
+            <a href="" class="flex items-center gap-2">
+                <i class="fa-solid fa-shop text-base"></i>
+                <p>Boutique</p>
+            </a>
+            <a href="" class="flex items-center gap-2">
+                <i class="fa-solid fa-hammer text-base"></i>
+                <p>Réalisations</p>
+            </a>
+            <a href="{% url 'blog:index' %}" class="flex items-center gap-2  group relative
+            {% if global_link == 'blog' %}text-minsk-200{% else %}hover:text-minsk-200{% endif %}">
+                <i class="fa-solid fa-newspaper text-base"></i>
+                <p>Blog</p>
+            </a>
+            <a href="{% url 'main:contact' %}" class="flex items-center gap-2">
+                <i class="fa-solid fa-phone text-base"></i>
+                <p>Contact</p>
+            </a>
+        </nav>
+</div>
+
+
+</section>
+
+<script>
+    
+
+
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileNav = mobileMenu.querySelector('nav');
+
+    const closeIcon = document.getElementById('close-btn');
+    const openIcon = document.getElementById('open-btn');
+
+
+    mobileMenuBtn.addEventListener('click', () => {
+        // Rendre le menu actif
+        event.preventDefault();
+        mobileMenu.classList.toggle('active');
+
+        // Si est actif
+        if (mobileMenu.classList.contains('active')) {
+            // Rendre le menu visible
+            mobileNav.classList.remove('hidden');
+            mobileNav.classList.add('flex');
+            
+            closeIcon.classList.remove('opacity-0');
+            closeIcon.classList.add('opacity-100');
+            openIcon.classList.remove('opacity-100');
+            openIcon.classList.add('opacity-0');
+
+        // Si inactif
+        } else {
+            mobileNav.classList.remove('flex');
+            mobileNav.classList.add('hidden');
+
+            closeIcon.classList.remove('opacity-100');
+            closeIcon.classList.add('opacity-0');
+
+            openIcon.classList.remove('opacity-0');
+            openIcon.classList.add('opacity-100');
+        }
+    });
+</script>

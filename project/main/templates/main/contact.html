@@ -1,0 +1,110 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/global_forms.css' %}">
+{% endblock %}
+
+
+{% block content %}
+
+<section class="w-screen overflow-hidden flex flex-1 flex-col items-center px-3 py-5
+    bg-gradient-to-br from-minsk-500 to-minsk-700">
+
+    <!-- Container -->
+    <div class="w-full max-w-[1180px] h-fit  mx-auto my-auto rounded-xl shadow-lg shadow-minsk-700/70
+        px-3 sm:px-5 lg:px-10 py-5 sm:py-10 lg:py-16 flex flex-col md:flex-row  justify-between relative z-30
+        bg-gradient-to-br from-white to-minsk-200  gap-10">
+
+        <div class="flex-1 flex flex-col">
+            <h2 class="text-2xl md:text-3xl xl:text-4xl font-extrabold text-minsk-500">
+                Agence Web Code/Master
+            </h2>
+
+            <div class="flex flex-col gap-5 text-sm sm:text-base md:text-lg text-misnk-500">
+
+                <a href="tel:0651578123" class="flex gap-2 items-center mt-8 group">
+                    
+                    <i class="fas fa-phone text-white bg-minsk-500 rounded-md p-3 flex items-center justify-center
+                        group-hover:bg-minsk-400 transition-all duration-300 ease-in-out"></i>
+                    <p class="font-semibold text-minsk-500 group-hover:text-minsk-400 transition-all duration-300 ease-in-out ">
+                        06 51 57 81 23
+                    </p>
+                </a>
+                <a href="mailto:dsj.codemaster@gmail.com" class="flex gap-2 items-center group">
+                    
+                    <i class="fas fa-envelope text-white bg-minsk-500 rounded-md p-3 flex items-center justify-center
+                        group-hover:bg-minsk-400 transition-all duration-300 ease-in-out"></i>
+                    <p class="font-semibold text-minsk-500 group-hover:text-minsk-400 transition-all duration-300 ease-in-out ">
+                        dsj.codemaster@gmail.com
+                    </p>
+                </a>
+            </div>
+
+
+            <div class="flex gap-5 items-center group mt-8">
+                <i class="fas fa-house text-white bg-minsk-500 rounded-md p-3 flex items-center justify-center
+                group-hover:bg-minsk-400 transition-all duration-300 ease-in-out"></i>
+                <p class="font-montserrat text-sm font-semibold">
+                    Courgeon <br>
+                    47 rue des écoles  <br>
+                    17400 Saint-Pierre de Juillers <br>
+                </p>
+            </div>
+
+            <iframe class="w-full min-h-[350px] mt-8" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d88787.60193959401!2d-0.4750211648261758!3d45.939042889581835!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4800c30a34aa9f59%3A0xafca58990ec41d27!2sAgence%20Web%20Code%20Master!5e0!3m2!1sfr!2sfr!4v1751040602336!5m2!1sfr!2sfr" 
+            style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+        </div>
+
+        <div class="absolute z-40 w-[90%] md:h-[90%] h-[1px] md:w-[1px] top-1/2 md:top-0 left-0 md:left-1/2 
+            translate-x-[5%] translate-y-0 md:translate-y-[5%] md:-translate-x-5 bg-minsk-700/50 my-5 md:my-0 mx-0 md:mx-5 hidden md:block"></div>
+
+        <div class="flex-1 flex flex-col">
+            <form action="" class="flex-1" method="post">
+                {% csrf_token %}
+
+                <div class="flex gap-5 flex-wrap">
+                    <div class="flex flex-1 min-w-[200px]">
+                        {{ form.first_name }}
+                    </div>
+                    <div class="flex flex-1 min-w-[200px]">
+                        {{ form.last_name }}
+                    </div>
+                    {{ form.phone }}
+                    {{ form.email }}
+                    {{ form.subject }}
+                    {{ form.message }}
+
+                    <div class="flex gap-5 items-center">
+                        {{ form.cgv_accepted }}
+                        <div class="flex-1">
+                            <p class='text-xs'>
+                                En cochant cette case et en soumettant le formulaire, vous acceptez nos coditions générales de ventes.
+                            </p>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="mx-auto w-fit py-3 px-5 bg-minsk-500 text-base md:text-lg text-white rounded-lg
+                        shadow-lg hover:shadow-xl hover:-translate-y-1 shadow-minsk-700/70 hover:shadow-minsk-700/70 
+                        flex items-center gap-3 transition-all duration-500 ease-in-out">
+                        <i class="fas fa-paper-plane"></i>
+                        <p>Envoyer le message</p>
+                    </button>
+
+                </div>
+            </form>
+        </div>
+
+
+    </div>
+
+
+
+
+</section>
+
+{% endblock %}
+
+
+{% block scripts %}{% endblock %}

@@ -1,0 +1,196 @@
+{% extends 'accounts/admin/admin_base.html' %}
+
+{% block admin_title %}Home {% endblock %}
+
+{% block admin_content %}
+
+<section class="flex-1 bg-minsk-50 flex flex-col py-12 md:py-20 w-full">
+    <!-- Title -->
+    <div class="w-fit text-wrap text-center mx-auto pt-10 relative">
+        <!-- Logout -->
+        <a href="{% url 'accounts:logout' %}" class="absolute top-0 right-0 text-red-700 hover:text-red-600 flex gap-3 hover:gap-5 items-center transition-all duration-300 ease-in-out">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            <p>
+                Se déconnecter
+            </p>
+        </a>
+        <!-- Title -->
+        <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold
+            text-minsk-500">
+            Espace Administrateur
+        </h1>
+        <p class="text-base sm:text-lg md:text-2xl text-gray-600 font-raleway mt-5">
+            Gérez votre site web avec l'espace administrateur.
+        </p>
+
+    </div>
+
+    <!-- Gestion du compte et du site -->
+    <div class="w-full max-w-[1280px] px-5 mx-auto mt-8 md:mt-16 font-poppins">
+        <div class="w-full bg-minsk-100 p-5 md:p-10 border-2 border-minsk-200 rounded-lg
+            grid grid-cols-1 md:grid-cols-2 gap-5">
+            
+            <!-- GAUCHE - Infos de Contact -->
+            <div class="">
+
+                <!-- Title -->
+                <div class="flex gap-3 text-xl sm:text-2xl md:text-3xl items-center mb-5">
+                    <i class="fa-solid fa-address-book bg-minsk-500 text-white p-3 rounded-md text-lg sm:text-xl"></i>
+                    <h3 class="text-minsk-500 font-bold">
+                        Informations de contact
+                    </h3>
+                </div>
+
+                <!-- Téléphone -->
+                <div class="flex gap-5 items-center sm:ml-5 md:ml-16">
+                    <i class="fa-solid fa-phone p-3 rounded-md bg-minsk-500/20 text-minsk-500 text-xl"></i>
+                    <div class="flex flex-col">
+                        <p>Téléphone affiché :</p>
+                        <p class="text-minsk-500 font-bold">
+                            {{ contact_infos.phone }}
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Email -->
+                <div class="flex gap-5 items-center sm:ml-5 md:ml-16 mt-8">
+                    <i class="fa-solid fa-envelope p-3 rounded-md bg-minsk-500/20 text-minsk-500 text-xl"></i>
+                    <div class="flex flex-col">
+                        <p>Email affiché :</p>
+                        <p class="text-minsk-500 font-bold">
+                            {{ contact_infos.email }}
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Modifier les informations de contact -->
+                <a href="{% url 'contact_management:change_contact_infos' %}" class="flex items-center gap-3 text-lg sm:text-xl mt-8  mt-l sm:ml-5 md:ml-16">
+                    <i class="fa-solid fa-pen-to-square text-minsk-500 text-xl"></i>
+                    <p class="text-minsk-500">Modifier</p>
+                </a>
+            </div>
+
+            <!-- DROITE - Gestion du compte -->
+            <div>
+                <!-- Title -->
+                <div class="flex gap-3 text-xl sm:text-2xl md:text-3xl items-center mb-5">
+                    <i class="fa-solid fa-user-alt bg-minsk-500 text-white p-3 rounded-md text-lg sm:text-xl"></i>
+                    <h3 class="text-minsk-500 font-bold">
+                        Gestion du compte
+                    </h3>
+                </div>
+
+                <!-- Nom - Prénom - Username -->
+                <div class="flex gap-5 items-center mt-l sm:ml-5 md:ml-16">
+                    <i class="fa-solid fa-user p-3 rounded-md bg-minsk-500/20 text-minsk-500 text-xl"></i>
+                    <div class="flex flex-col">
+                        <!-- Informations manquantes -->
+                        {% if not request.user.first_name or not request.user.last_name %}
+                            <p class="text-minsk-700 font-bold">
+                                Informations manquantes
+                            </p>
+                        {% else %}
+                            <p class="text-minsk-800 font-bold">
+                                {% if request.user.username %}
+                                    ( {{ request.user.username }} ) - 
+                                {% endif %}
+                                {{ request.user.first_name }} {{ request.user.last_name }}
+                            </p>
+                        {% endif %}
+
+                        <a href="{% url 'contact_management:change_user_names_form' %}" class="text-sm font-semibold text-minsk-500 underline">
+                            Modifier les infos →
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Email de connexion -->
+                <div class="flex gap-5 items-center mt-5 sm:ml-5 md:ml-16">
+                    <i class="fa-solid fa-envelope p-3 rounded-md bg-minsk-500/20 text-minsk-500 text-xl"></i>
+                    <div class="flex flex-col">
+                        <!-- Informations manquantes -->
+                        <p class="text-minsk-800 font-bold">
+                            {{ request.user.email }}
+                        </p>
+
+                        <a href="{% url 'contact_management:change_user_email_form' %}" class="text-sm font-semibold text-minsk-500 underline">
+                            Modifier l'email →
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Mot de passe -->
+                <div class="flex gap-5 items-center mt-5 sm:ml-5 md:ml-16">
+                    <i class="fa-solid fa-key p-3 rounded-md bg-minsk-500/20 text-minsk-500 text-xl"></i>
+                    <div class="flex flex-col">
+                        <!-- Informations manquantes -->
+                        <p class="text-minsk-800 font-bold">
+                            Mot de passe :
+                        </p>
+
+                        <a href="{% url 'accounts:change_password' %}" class="text-sm font-semibold text-minsk-500 underline">
+                            Modifier le mot de passe →
+                        </a>
+                    </div>
+                </div>                
+            
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Grid gestion du contenu -->
+    <div class="w-full max-w-[1280px] px-5 mx-auto mt-8 md:mt-16 font-poppins">
+        <div class="w-full bg-minsk-100 flex p-5 md:p-10 border-2 border-minsk-200 rounded-lg
+            shadow-lg grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
+            <!-- Card Blog -->
+            <a href="{% url 'blog:admin_index' %}" class="w-full h-48 bg-white p-3 sm:p-5 flex flex-col justify-center items-center
+                rounded-lg border-2 border-minsk-200 shadow-md hover:shadow-lg transition-all duration-300 ease-in-out
+                hover:bg-minsk-50 hover:scale-105 group relative">
+                <div class="flex items-center gap-3 text-xl sm:text-2xl md:text-3xl md:group-hover:text-4xl transition-all duration-300 ease-in-out">
+                    <i class="fa-solid fa-pen-to-square text-minsk-500"></i>
+                    <h3 class="text-minsk-500 font-bold">
+                        Blog
+                    </h3>
+                    <p class="absolute bottom-0 right-0 -translate-y-6 -translate-x-12 group-hover:-translate-x-6 transition-all duration-300 ease-in-out">
+                        <i class="fa-solid fa-arrow-right text-minsk-500 text-2xl"></i>
+                    </p>
+                </div>
+
+            </a>
+
+            <!-- Card Blog -->
+            <a href="{% url 'blog:admin_index' %}" class="w-full h-48 bg-white p-3 sm:p-5 flex flex-col justify-center items-center
+                rounded-lg border-2 border-minsk-200 shadow-md hover:shadow-lg transition-all duration-300 ease-in-out
+                hover:bg-minsk-50 hover:scale-105 group relative">
+                <div class="flex items-center gap-3 text-xl sm:text-2xl md:text-3xl md:group-hover:text-4xl transition-all duration-300 ease-in-out">
+                    <i class="fa-solid fa-shop text-minsk-500"></i>
+                    <h3 class="text-minsk-500 font-bold">
+                        Boutique
+                    </h3>
+                    <p class="absolute bottom-0 right-0 -translate-y-6 -translate-x-12 group-hover:-translate-x-6 transition-all duration-300 ease-in-out">
+                        <i class="fa-solid fa-arrow-right text-minsk-500 text-2xl"></i>
+                    </p>
+                </div>
+            </a>
+            <!-- Card Blog -->
+            <a href="{% url 'blog:admin_index' %}" class="w-full h-48 bg-white p-3 sm:p-5 flex flex-col justify-center items-center
+                rounded-lg border-2 border-minsk-200 shadow-md hover:shadow-lg transition-all duration-300 ease-in-out
+                hover:bg-minsk-50 hover:scale-105 group relative">
+                <div class="flex items-center gap-3 text-xl sm:text-2xl md:text-3xl md:group-hover:text-4xl transition-all duration-300 ease-in-out">
+                    <i class="fa-solid fa-screwdriver-wrench text-minsk-500"></i>
+                    <h3 class="text-minsk-500 font-bold">
+                        Réalisations
+                    </h3>
+                    <p class="absolute bottom-0 right-0 -translate-y-6 -translate-x-12 group-hover:-translate-x-6 transition-all duration-300 ease-in-out">
+                        <i class="fa-solid fa-arrow-right text-minsk-500 text-2xl"></i>
+                    </p>
+                </div>
+            </a>
+
+        </div>
+    </div>
+</section>
+
+
+{% endblock %}

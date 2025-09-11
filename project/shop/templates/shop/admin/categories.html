@@ -1,0 +1,279 @@
+{% extends 'accounts/admin/admin_base.html' %}
+{% load static %}
+
+{% block admin_title %}
+Catégories
+{% endblock %}
+
+{% block admin_head %}
+<link rel="stylesheet" href="{% static 'css/global_forms.css' %}">
+<style>
+    .category-card {
+        transition: all 0.3s ease;
+    }
+    .category-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    }
+    .delete-btn {
+        opacity: 0;
+        transition: opacity 0.2s ease;
+    }
+    .category-item:hover .delete-btn,
+    .subcategory-item:hover .delete-btn {
+        opacity: 1;
+    }
+</style>
+{% endblock %}
+
+{% block admin_content %}
+{% include 'shop/admin/category_modal.html' %}
+
+<section class="w-full max-w-screen overflow-x-hidden flex-1 min-h-full bg-gradient-to-br from-white to-minsk-300">
+
+    <!-- Container -->
+    <div class="w-full max-w-[1400px] mx-auto px-4 py-8 md:py-12 font-poppins">
+
+        <!-- Header -->
+        <div class="mb-8">
+            <div class="flex items-center gap-3 mb-4">
+                <div class="w-1 h-12 bg-minsk-500 rounded-full"></div>
+                <div>
+                    <p class="font-light text-slate-600 text-sm uppercase tracking-wide">
+                        Administration Boutique
+                    </p>
+                    <h1 class="text-minsk-600 text-3xl md:text-4xl font-bold">
+                        Gestion des Catégories
+                    </h1>
+                </div>
+            </div>
+        </div>
+
+        <!-- Boutons d'action -->
+        <div class="mb-8 flex flex-wrap gap-4">
+            <button class="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-6 py-3 rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200 flex items-center gap-3 font-semibold"
+                id="create_category_button">
+                <i class="fas fa-plus-circle text-lg"></i>
+                <span>Nouvelle Catégorie</span>
+            </button>
+
+            <button class="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white px-6 py-3 rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200 flex items-center gap-3 font-semibold"
+                id="create_subcategory_button">
+                <i class="fas fa-plus-circle text-lg"></i>
+                <span>Nouvelle Sous-Catégorie</span>
+            </button>
+        </div>
+
+        <!-- Contenu principal -->
+        {% if not categories %}
+            <div class="bg-white rounded-2xl shadow-lg p-12 text-center" id='no_category'>
+                <div class="mb-6">
+                    <i class="fas fa-folder-open text-6xl text-gray-300"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-600 mb-3">Aucune catégorie</h3>
+                <p class="text-gray-500 mb-6">Commencez par créer votre première catégorie pour organiser vos produits</p>
+                <button class="bg-minsk-500 hover:bg-minsk-600 text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-200"
+                    onclick="document.getElementById('create_category_button').click()">
+                    <i class="fas fa-plus mr-2"></i>
+                    Créer une catégorie
+                </button>
+            </div>
+        {% else %}
+            <!-- Grille des catégories -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6" id="categories_container">
+                {% for category in categories %}
+                    <div class="category-card bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100" data-category-id="{{ category.id }}">
+                        
+                        <!-- Header de la catégorie -->
+                        <div class="bg-gradient-to-r from-minsk-500 to-minsk-600 p-4">
+                            <div class="flex items-center justify-between category-item">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-folder text-white text-lg"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-white font-bold text-lg">{{ category.name }}</h3>
+                                        <p class="text-white text-opacity-80 text-sm">
+                                            {{ category.subcategories.count }} sous-catégorie{% if category.subcategories.count > 1 %}s{% endif %}
+                                        </p>
+                                    </div>
+                                </div>
+                                <button class="delete-btn w-8 h-8 bg-red-500 hover:bg-red-600 rounded-full flex items-center justify-center text-white transition-all duration-200 hover:scale-110"
+                                    onclick="deleteCategory(this, {{ category.id }}, '{{ category.name }}', 'category')"
+                                    title="Supprimer la catégorie">
+                                    <i class="fas fa-trash text-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Sous-catégories -->
+                        <div class="p-4">
+                            <div class="subcategories-container" data-parent-id="{{ category.id }}">
+                                {% if category.subcategories.all %}
+                                    <div class="space-y-2">
+                                        {% for sub in category.subcategories.all %}
+                                            <div class="subcategory-item bg-blue-50 hover:bg-blue-100 border border-blue-200 rounded-lg p-3 flex items-center justify-between group transition-all duration-200">
+                                                <div class="flex items-center gap-3">
+                                                    <div class="w-6 h-6 bg-blue-500 bg-opacity-20 rounded-full flex items-center justify-center">
+                                                        <i class="fas fa-tag text-blue-600 text-xs"></i>
+                                                    </div>
+                                                    <span class="text-blue-800 font-medium">{{ sub.name }}</span>
+                                                </div>
+                                                <button class="delete-btn w-6 h-6 bg-red-500 hover:bg-red-600 rounded-full flex items-center justify-center text-white transition-all duration-200 hover:scale-110"
+                                                    onclick="deleteCategory(this, {{ sub.id }}, '{{ sub.name }}', 'subcategory')"
+                                                    title="Supprimer la sous-catégorie">
+                                                    <i class="fas fa-times text-xs"></i>
+                                                </button>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    <div class="text-center py-8">
+                                        <i class="fas fa-tags text-3xl text-gray-300 mb-3"></i>
+                                        <p class="text-gray-400 text-sm mb-4">Aucune sous-catégorie</p>
+                                        <button class="text-blue-500 hover:text-blue-600 text-sm font-medium transition-colors duration-200"
+                                            onclick="document.getElementById('create_subcategory_button').click()">
+                                            <i class="fas fa-plus mr-1"></i>
+                                            Ajouter une sous-catégorie
+                                        </button>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <!-- Stats rapides -->
+        <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-white rounded-xl p-6 shadow-lg text-center">
+                <div class="w-12 h-12 bg-minsk-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <i class="fas fa-folder text-minsk-600 text-xl"></i>
+                </div>
+                <h4 class="text-2xl font-bold text-gray-800 mb-1">{{ categories.count }}</h4>
+                <p class="text-gray-600 text-sm">Catégorie{% if categories.count > 1 %}s{% endif %}</p>
+            </div>
+            
+            <div class="bg-white rounded-xl p-6 shadow-lg text-center">
+                <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <i class="fas fa-tags text-blue-600 text-xl"></i>
+                </div>
+                <h4 class="text-2xl font-bold text-gray-800 mb-1">{{ subcategories.count }}</h4>
+                <p class="text-gray-600 text-sm">Sous-catégorie{% if subcategories.count > 1 %}s{% endif %}</p>
+            </div>
+            
+            <div class="bg-white rounded-xl p-6 shadow-lg text-center">
+                <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <i class="fas fa-box text-green-600 text-xl"></i>
+                </div>
+                <h4 class="text-2xl font-bold text-gray-800 mb-1">{{ products.count }}</h4>
+                <p class="text-gray-600 text-sm">Produit{% if products.count > 1 %}s{% endif %}</p>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+{% endblock %}
+
+{% block admin_scripts %}
+<script src="{% static 'js/create_shop_category_modal.js' %}"></script>
+
+<script>
+// Fonction de suppression avec confirmation
+function deleteCategory(element, id, name, type) {
+    const typeText = type === 'category' ? 'catégorie' : 'sous-catégorie';
+    const message = `Êtes-vous sûr de vouloir supprimer la ${typeText} "${name}" ?\n\n${type === 'category' ? 'Attention: Toutes les sous-catégories seront également supprimées !' : ''}`;
+    
+    if (confirm(message)) {
+        console.log('Suppression confirmée:', {id, name, type});
+        
+        // Appel AJAX pour supprimer
+        makeAjaxRequest(
+            '{% url "shop:delete_category_ajax" %}',
+            'POST',
+            {
+                category_id: id,
+                category_type: type
+            },
+            // Succès
+            function(response) {
+                console.log('Réponse suppression:', response);
+                if (response.success) {
+                    notifications.success(`${typeText.charAt(0).toUpperCase() + typeText.slice(1)} "${name}" supprimée avec succès`);
+                    
+                    // Supprimer du DOM
+                    if (type === 'category') {
+                        const categoryCard = document.querySelector(`[data-category-id="${id}"]`);
+                        if (categoryCard) {
+                            categoryCard.remove();
+                            
+                            // Supprimer du select aussi
+                            const option = document.querySelector(`#parent_category_select option[value="${id}"]`);
+                            if (option) option.remove();
+                        }
+                        
+                        // Vérifier s'il ne reste plus de catégories
+                        const remainingCategories = document.querySelectorAll('[data-category-id]');
+                        if (remainingCategories.length === 0) {
+                            location.reload(); // Recharger pour afficher le message "aucune catégorie"
+                        }
+                    } else {
+                        // Supprimer la sous-catégorie du DOM en utilisant l'élément passé
+                        const subcategoryItem = element.closest('.subcategory-item');
+                        console.log('Element sous-catégorie trouvé:', subcategoryItem);
+                        
+                        if (subcategoryItem) {
+                            const parentContainer = subcategoryItem.closest('.subcategories-container');
+                            subcategoryItem.remove();
+                            console.log('Sous-catégorie supprimée du DOM');
+                            
+                            // Vérifier s'il ne reste plus de sous-catégories pour cette catégorie
+                            const remainingSubs = parentContainer.querySelectorAll('.subcategory-item');
+                            console.log('Sous-catégories restantes:', remainingSubs.length);
+                            
+                            if (remainingSubs.length === 0) {
+                                parentContainer.innerHTML = `
+                                    <div class="text-center py-8">
+                                        <i class="fas fa-tags text-3xl text-gray-300 mb-3"></i>
+                                        <p class="text-gray-400 text-sm mb-4">Aucune sous-catégorie</p>
+                                        <button class="text-blue-500 hover:text-blue-600 text-sm font-medium transition-colors duration-200"
+                                            onclick="document.getElementById('create_subcategory_button').click()">
+                                            <i class="fas fa-plus mr-1"></i>
+                                            Ajouter une sous-catégorie
+                                        </button>
+                                    </div>
+                                `;
+                                console.log('Message "aucune sous-catégorie" affiché');
+                            }
+                            
+                            // Mettre à jour le compteur dans le header
+                            const categoryCard = parentContainer.closest('[data-category-id]');
+                            if (categoryCard) {
+                                const countElement = categoryCard.querySelector('.text-white.text-opacity-80');
+                                if (countElement) {
+                                    const newCount = remainingSubs.length;
+                                    countElement.textContent = `${newCount} sous-catégorie${newCount > 1 ? 's' : ''}`;
+                                    console.log('Compteur mis à jour:', newCount);
+                                }
+                            }
+                        } else {
+                            console.error('Élément sous-catégorie non trouvé');
+                        }
+                    }
+                } else {
+                    console.log('Erreur réponse:', response.error);
+                    notifications.error(response.error);
+                }
+            },
+            // Erreur
+            function(error) {
+                console.error('Erreur AJAX suppression:', error);
+                notifications.error('Erreur lors de la suppression: ' + error);
+            }
+        );
+    }
+}
+</script>
+{% endblock %}

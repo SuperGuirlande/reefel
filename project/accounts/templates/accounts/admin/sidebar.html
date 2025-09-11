@@ -1,0 +1,51 @@
+<div class="fixed w-80">
+    <div class="w-full bg-minsk-900 text-minsk-200 font-raleway flex gap-3 items-center justify-center
+        py-8 text-2xl font-semibold px-3 ">
+
+        <div class="h-10 w-10 bg-minsk-200 text-minsk-900 rounded-md flex items-center justify-center">
+            <i class="fa-solid fa-shield-halved"></i>
+        </div>
+        <h3 class="">
+            Espace Admin
+        </h3>
+    </div>
+
+    <div class="p-8 md:pl-16 text-slate-200">
+
+        <nav class="flex flex-col gap-6 text-lg">
+
+            <a href="{% url 'accounts:admin_index' %}" class="flex gap-2 items-center">
+                <i class="fa-solid fa-address-card"></i>
+                Gestion du compte
+            </a>
+
+            <a href="{% url 'blog:admin_index' %}" class="flex gap-2 items-center">
+                <i class="fa-solid fa-newspaper"></i>
+                Blog
+            </a>
+
+            <a href="{% url 'shop:admin_index' %}" class="flex gap-2 items-center">
+                <i class="fa-solid fa-shop"></i>
+                Boutique
+            </a>
+
+            <a href="{% url 'accounts:admin_index' %}" class="flex gap-2 items-center">
+                <i class="fa-solid fa-hammer"></i>
+                Réalisations
+            </a>
+
+            <a href="{% url 'accounts:admin_index' %}" class="flex gap-2 items-center">
+                <i class="fa-solid fa-gear"></i>
+                Paramètres
+            </a>
+
+            <a href="{% url 'accounts:admin_index' %}" class="flex gap-2 items-center">
+                <i class="fa-solid fa-right-to-bracket"></i>
+                Logout
+            </a>
+
+        </nav>
+
+        
+    </div>
+</div>

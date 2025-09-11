@@ -1,0 +1,112 @@
+{% extends 'accounts/admin/admin_base.html' %}
+{% load static %}
+
+{% block title %}Modifier les informations de contact{% endblock %}
+
+{% block admin_head %}
+<link rel="stylesheet" href="{% static 'css/global_forms.css' %}">
+{% endblock %}
+
+{% block admin_content %}
+<section class="w-full flex-1 flex flex-col bg-minsk-50 py-8 md:py-16 min-h-full">
+
+    <!-- Title -->
+    <div class="w-fit text-wrap text-center mx-auto">
+        <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold
+            text-minsk-500">
+            Informations de l'utilisateur
+        </h1>
+        <p class="text-base sm:text-lg md:text-2xl text-gray-600 font-raleway mt-5">
+            Modifiez les informations de l'utilisateur.
+        </p>
+    </div>
+
+    <!-- Container général -->
+    <div class="w-full max-w-[1280px] px-5 mx-auto mt-8 md:mt-16 font-poppins">
+
+
+        <!-- Grid -->
+        <div class="w-full bg-minsk-100 p-5 md:p-10 border-2 border-minsk-200 rounded-lg
+            grid grid-cols-1 md:grid-cols-2 gap-5">
+
+            <!-- Gauche | Infos de Contact -->
+            <div class="">
+                <!-- Title -->
+                <div class="flex gap-3 text-xl sm:text-2xl md:text-3xl items-center mb-5">
+                    <i class="fa-solid fa-address-book bg-minsk-500 text-white p-3 rounded-md text-lg sm:text-xl"></i>
+                    <h3 class="text-minsk-500 font-semibold">
+                        Informations actuelles
+                    </h3>
+                </div>
+
+                <!-- Téléphone -->
+                <div class="flex gap-5 items-center mt-l sm:ml-5 md:ml-16">
+                    <i class="fa-solid fa-user p-3 rounded-md bg-minsk-500/20 text-minsk-500 text-xl"></i>
+                    <div class="flex flex-col">
+                        <p>Nom d'utilisateur :</p>
+                        {% if request.user.username %}
+                            <p class="text-minsk-500 font-bold">
+                                {{ request.user.username }}
+                            </p>
+                        {% else %}
+                            <p class="text-minsk-500 font-bold">
+                                Aucun username renseigné
+                            </p>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Email -->
+                <div class="flex gap-5 items-center mt-l sm:ml-5 md:ml-16 mt-8">
+                    <i class="fa-solid fa-envelope p-3 rounded-md bg-minsk-500/20 text-minsk-500 text-xl"></i>
+                    <div class="flex flex-col">
+                        <p>Nom & Prénom :</p>
+                        {% if request.user.first_name %}
+                            <p class="text-minsk-500 font-bold">
+                                {{ request.user.first_name }} {{ request.user.last_name }}
+                            </p>
+                        {% else %}
+                            <p class="text-minsk-500 font-bold">
+                                Informations manquantes
+                            </p>
+                        {% endif %}
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Droit | Formulaire de modification -->
+            <div class="">
+                <!-- Title -->
+                <div class="flex gap-3 text-xl sm:text-2xl md:text-3xl items-center mb-5">
+                    <i class="fa-solid fa-pen-to-square bg-minsk-500 text-white p-3 rounded-md text-lg sm:text-xl"></i>
+                    <h3 class="text-minsk-500 font-semibold">
+                        Mettre à jour
+                    </h3>
+                </div>
+
+                <!-- Formulaire -->
+                <form action="" method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="text-lg sm:text-xl mt-5 text-white bg-minsk-500
+                    items-center flex justify-center gap-3 w-fit mx-auto py-2 px-5 rounded-md">
+                        <i class="fa-solid fa-floppy-disk text-xl"></i>
+                        <p class="text-lg sm:text-xl">
+                            Mettre à jour
+                        </p>
+                    </button>
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+
+</section>
+{% endblock %}
+
+
+{% block admin_scripts %}
+
+{% endblock %}

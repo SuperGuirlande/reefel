@@ -1,0 +1,38 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}
+    {% block admin_title %}{% endblock %} - Espace Administrateur
+{% endblock %}
+
+{% block extra_head %}
+    {% block admin_head %}
+
+    {% endblock %}
+{% endblock %}
+
+
+{% block content %}
+<div class="flex h-full flex-1 relative">
+
+    <!-- Sidebar -->
+    <div class="min-h-full bg-slate-800 w-80 m-0 flex flex-col p-0 relative">
+        {% include 'accounts/admin/sidebar.html' %}
+    </div>
+    
+    <!-- Main content -->
+    <div class="flex-1 min-h-full relative">
+
+        {% block admin_content %}
+        
+        {% endblock %}
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+    {% block admin_scripts %}
+
+    {% endblock %}
+
+{% endblock %}

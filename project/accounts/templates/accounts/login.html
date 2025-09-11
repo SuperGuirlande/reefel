@@ -1,0 +1,49 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/global_forms.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class='py-12 md:py-20 flex flex-col justify-center items-center flex-1 bg-minsk-50'>
+
+    <!-- Title -->
+    <div class="w-fit mx-auto text-center mb-5 sm:mb-10 relative group">
+        <p class="text-minsk-800 text-base md:text-lg uppercase font-light">
+            Espace Administrateur
+        </p>
+        <h1 class='text-3xl sm:text-4xl md:text-5xl font-semibold text-minsk-500'>
+            Se Connecter
+        </h1>
+
+        <!-- LIGNE DECORATIVE -->
+        <div class="absolute top-full left-1/2 -translate-x-1/2 translate-y-1 w-32 sm:w-48 h-[2px] bg-minsk-500 group-hover:w-full transition-all duration-500 ease-in-out"></div>
+    </div>
+
+    <!-- Form -->
+    <form method='post' class='w-full max-w-[500px] mx-auto px-5 flex flex-col gap-5'>
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button class='py-2 px-6 bg-minsk-500 hover:bg-minsk-600 transition-all duration-300 text-white rounded-md my-2
+        ease-in-out hover:-translate-y-1 shadow-md hover:shadow-lg' 
+            type="submit">
+            Se Connecter
+        </button>
+
+        <!-- REGISTER -->
+        <!-- <p class="classic-p secondary">
+            Pas encore membre ? <br>
+            <a href="{% url 'accounts:register' %}">Créer un Compte ici →</a>
+        </p> -->
+
+        <!-- PASSWORD RESET -->
+        <p class="text-sm sm:text-base text-gray-600">
+            Mot de passe perdu ? 
+            <a href="{% url 'accounts:password_reset' %}" class="text-minsk-500 hover:text-minsk-600 transition-all duration-300">
+                Réinitialiser le mot de passe ici →
+            </a>
+        </p>
+    </form>
+</div>
+{% endblock %}

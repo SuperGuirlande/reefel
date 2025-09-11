@@ -1,0 +1,50 @@
+/* Animation de navigation pour le bateau */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(42px) translateX(0px);
+    }
+    25% {
+        transform: translateY(40px) translateX(2px);
+    }
+    50% {
+        transform: translateY(47px) translateX(0px);
+    }
+    75% {
+        transform: translateY(37px) translateX(-2px);
+    }
+}
+
+/* Animation douce et continue */
+.animate-float {
+    animation: float 4s ease-in-out infinite;
+}
+
+/* Animation alternative plus subtile */
+@keyframes gentle-float {
+    0%, 100% {
+        transform: translateY(-12px) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-8px) rotate(1deg);
+    }
+}
+
+.animate-gentle-float {
+    animation: gentle-float 6s ease-in-out infinite;
+}
+
+
+/* Animation de rotation légère */
+@keyframes gentle-rotate {
+    0%, 100% {
+        transform: rotate(3deg);
+    }
+    50% {
+        transform: rotate(-3deg);
+    }
+    
+}
+
+.animate-gentle-rotate {
+    animation: gentle-rotate 5s ease-in-out infinite;
+}

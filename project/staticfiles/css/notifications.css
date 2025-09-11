@@ -1,0 +1,69 @@
+/* Animations pour les notifications */
+@keyframes bounce-in {
+    0% {
+        transform: translateX(100%) scale(0.8);
+        opacity: 0;
+    }
+    50% {
+        transform: translateX(-10%) scale(1.05);
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateX(0) scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        transform: translateX(-150%) skewX(-12deg);
+        opacity: 0;
+    }
+    50% {
+        opacity: 0.1;
+    }
+    100% {
+        transform: translateX(150%) skewX(-12deg);
+        opacity: 0;
+    }
+}
+
+@keyframes fade-out {
+    0% {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(100%) scale(0.8);
+    }
+}
+
+/* Classes d'animation */
+.animate-bounce-in {
+    animation: bounce-in 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.animate-shimmer {
+    animation: shimmer 3s infinite;
+}
+
+.animate-fade-out {
+    animation: fade-out 0.4s ease-in-out forwards;
+}
+
+/* Overlay progressif sur toute la notification */
+.progress-overlay {
+    border-radius: 0.5rem;
+    z-index: 5;
+}
+
+/* Effets de hover sur les notifications */
+.notification-item:hover {
+    transform: scale(1.02);
+    transition: transform 0.2s ease-out;
+}
+
+.notification-item {
+    transition: transform 0.2s ease-out;
+} 

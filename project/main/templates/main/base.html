@@ -1,0 +1,81 @@
+{% load static %}
+{% load tailwind_tags %}
+<!DOCTYPE html>
+<html lang='fr'>
+
+<!-- |||  HEAD  ||| -->
+<head>
+    <!-- Meta -->
+    <meta charset='utf-8'>
+    <meta name='viewport' content ="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %} - Dépôt Django Full</title>
+
+    <!-- Extra Head -->
+    {% block extra_head %}
+    {% endblock %}
+
+    <!-- Tailwind CSS -->
+    <link rel="stylesheet" href="{% static 'fonts/stylesheet.css' %}">
+    {% tailwind_css %}
+    
+    <!-- Notifications CSS -->
+    <link rel="stylesheet" href="{% static 'css/notifications.css' %}">
+    
+    <!-- Animations CSS -->
+    <link rel="stylesheet" href="{% static 'css/animations.css' %}">
+    <link rel="stylesheet" href="{% static 'css/fonts.css' %}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caveat+Brush&family=Nosifer&family=Red+Hat+Display:ital,wght@0,300..900;1,300..900&family=Sedgwick+Ave&family=Story+Script&family=Zen+Dots&display=swap" rel="stylesheet">
+</head>
+
+<!-- |||  BODY  ||| -->
+<body class="font-poppins w-screen overflow-x-hidden bg-minsk-500 flex flex-col min-h-screen">
+
+    <!-- HEADER -->
+    <header>
+        <!-- {% include 'main/components/navbar.html' } -->
+    </header>
+
+    <!-- Django Messages pour les notifications JS -->
+    {% if messages %}
+        {% for message in messages %}
+            <div class="django-message" data-type="{{ message.tags }}" style="display: none;">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <!-- MAIN -->
+    <main class="flex-1 flex flex-col w-full max-w-screen overflow-x-hidden">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="mt-auto">
+        <!-- {% include 'main/components/footer.html' %} -->
+    </footer>
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/7a3b50a9a0.js" crossorigin="anonymous"></script>
+
+    <!-- Notification System -->
+    <script src="{% static 'js/notifications.js' %}"></script>
+
+    <!-- Scripts -->
+     <script src="{% static 'js/base.js' %}"> </script>
+
+    <!-- GSAP -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollSmoother.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollToPlugin.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/TextPlugin.min.js"></script>
+    {% block scripts %}
+    {% endblock %}
+</body>
+
+</html>
