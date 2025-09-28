@@ -1,4 +1,5 @@
 from .models import ContactInfos
+from django.utils import timezone
 
 def create_default_contact_infos():
     contact_infos = ContactInfos.objects.create(
@@ -13,7 +14,7 @@ def contact_infos_context(request):
     if not contact_infos:
         contact_infos = create_default_contact_infos()
 
-    print(contact_infos)
     return {
         'contact_infos': contact_infos,
+        'current_year': timezone.now().year,
     }

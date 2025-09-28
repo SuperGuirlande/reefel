@@ -45,7 +45,6 @@ class ContactMessage(models.Model):
     phone = models.CharField(verbose_name="N° de téléphone", max_length=16)
     email = models.EmailField()
 
-    subject = models.CharField(max_length=255, choices=Subjects.choices, verbose_name="Sujet de votre message", blank=True)
     message = models.TextField()
 
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Date de reception")

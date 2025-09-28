@@ -1,0 +1,55 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Article non trouvé - Reefel Workshop{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/blog.css' %}">
+<meta name="robots" content="noindex, nofollow">
+{% endblock %}
+
+{% block content %}
+<!-- 404 SECTION -->
+<section class="flex-1 flex justify-center bg-slate-900 py-20 relative min-h-screen px-3 max-w-screen overflow-hidden">
+    <!-- Background Pattern -->
+    <div class="absolute inset-0 opacity-10">
+        <div class="absolute top-20 left-10 w-32 h-32 bg-orange-500 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-20 right-10 w-40 h-40 bg-cyan-500 rounded-full blur-3xl"></div>
+    </div>
+    
+    <!-- Container -->
+    <div class="flex flex-col w-full max-w-4xl justify-center items-center min-h-96 relative z-20 text-center">
+        
+        <!-- 404 Number -->
+        <div class="mb-8">
+            <h1 class="text-[120px] md:text-[200px] font-bold bg-gradient-to-b from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+                404
+            </h1>
+        </div>
+
+        <!-- Message -->
+        <div class="mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
+                Article non trouvé
+            </h2>
+            <p class="text-lg md:text-xl text-slate-400 max-w-2xl">
+                Désolé, l'article que vous recherchez n'existe pas ou a été supprimé.
+            </p>
+        </div>
+
+        <!-- Actions -->
+        <div class="flex flex-col sm:flex-row gap-4">
+            <a href="{% url 'blog:index' %}" 
+               class="inline-flex items-center bg-gradient-to-r from-cyan-500 to-blue-600 text-white px-8 py-4 rounded-xl hover:from-cyan-400 hover:to-blue-500 transition-all duration-300 font-semibold">
+                <i class="fas fa-newspaper mr-2"></i>
+                Voir tous les articles
+            </a>
+            <a href="{% url 'main:index' %}" 
+               class="inline-flex items-center bg-gradient-to-r from-orange-500 to-red-500 text-white px-8 py-4 rounded-xl hover:from-orange-400 hover:to-red-400 transition-all duration-300 font-semibold">
+                <i class="fas fa-home mr-2"></i>
+                Retour à l'accueil
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

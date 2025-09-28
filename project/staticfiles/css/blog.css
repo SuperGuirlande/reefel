@@ -1,0 +1,330 @@
+/* Blog Styles - Reefel Workshop */
+
+/* Animations d'entrée */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Classes d'animation */
+.animate-fade-in-up {
+    animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.animate-fade-in-left {
+    animation: fadeInLeft 0.6s ease-out forwards;
+}
+
+.animate-fade-in-right {
+    animation: fadeInRight 0.6s ease-out forwards;
+}
+
+/* Styles pour les articles */
+.article-card {
+    transition: all 0.3s ease;
+}
+
+.article-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Styles pour le contenu des articles */
+.prose {
+    line-height: 1.8;
+}
+
+.prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
+    font-weight: 700;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+.prose h2 {
+    font-size: 2rem;
+    border-bottom: 2px solid #0ea5e9;
+    padding-bottom: 0.5rem;
+}
+
+.prose h3 {
+    font-size: 1.5rem;
+    color: #0ea5e9;
+}
+
+.prose p {
+    margin-bottom: 1.5rem;
+    text-align: justify;
+}
+
+.prose ul, .prose ol {
+    margin-bottom: 1.5rem;
+    padding-left: 2rem;
+}
+
+.prose li {
+    margin-bottom: 0.75rem;
+}
+
+.prose blockquote {
+    border-left: 4px solid #0ea5e9;
+    padding-left: 1.5rem;
+    margin: 2rem 0;
+    font-style: italic;
+    color: #94a3b8;
+    background: rgba(14, 165, 233, 0.05);
+    padding: 1rem 1.5rem;
+    border-radius: 0 0.5rem 0.5rem 0;
+}
+
+.prose code {
+    background-color: #1e293b;
+    color: #0ea5e9;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    font-family: 'Courier New', monospace;
+}
+
+.prose pre {
+    background-color: #1e293b;
+    color: #e2e8f0;
+    padding: 1.5rem;
+    border-radius: 0.75rem;
+    overflow-x: auto;
+    margin: 2rem 0;
+    border: 1px solid #334155;
+}
+
+.prose pre code {
+    background: none;
+    padding: 0;
+    color: inherit;
+}
+
+.prose img {
+    border-radius: 0.75rem;
+    margin: 2rem 0;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    max-width: 100%;
+    height: auto;
+}
+
+.prose a {
+    color: #0ea5e9;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.prose a:hover {
+    color: #38bdf8;
+    text-decoration: underline;
+}
+
+.prose table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2rem 0;
+    background: #1e293b;
+    border-radius: 0.75rem;
+    overflow: hidden;
+}
+
+.prose th, .prose td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #334155;
+}
+
+.prose th {
+    background: #0f172a;
+    font-weight: 600;
+    color: #f1f5f9;
+}
+
+.prose tr:hover {
+    background: #334155;
+}
+
+/* Styles pour les filtres */
+.filter-section {
+    backdrop-filter: blur(10px);
+    background: rgba(30, 41, 59, 0.5);
+}
+
+/* Styles pour la pagination */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.pagination a, .pagination span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2.5rem;
+    height: 2.5rem;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.pagination a {
+    background: #475569;
+    color: #f1f5f9;
+}
+
+.pagination a:hover {
+    background: #64748b;
+    transform: translateY(-2px);
+}
+
+.pagination .current {
+    background: #0ea5e9;
+    color: white;
+    font-weight: 600;
+}
+
+/* Styles pour les boutons de partage */
+.share-button {
+    transition: all 0.3s ease;
+}
+
+.share-button:hover {
+    transform: translateY(-2px) scale(1.05);
+}
+
+/* Styles pour les catégories */
+.category-tag {
+    transition: all 0.3s ease;
+}
+
+.category-tag:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Styles pour les articles liés */
+.related-article {
+    transition: all 0.3s ease;
+}
+
+.related-article:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .prose h2 {
+        font-size: 1.75rem;
+    }
+    
+    .prose h3 {
+        font-size: 1.25rem;
+    }
+    
+    .prose {
+        font-size: 0.95rem;
+    }
+    
+    .prose pre {
+        padding: 1rem;
+        font-size: 0.875rem;
+    }
+    
+    .prose table {
+        font-size: 0.875rem;
+    }
+    
+    .prose th, .prose td {
+        padding: 0.75rem 0.5rem;
+    }
+}
+
+/* Styles pour les images dans les articles */
+.article-image {
+    border-radius: 0.75rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+}
+
+.article-image:hover {
+    transform: scale(1.02);
+}
+
+/* Styles pour les citations */
+.prose blockquote::before {
+    content: '"';
+    font-size: 4rem;
+    color: #0ea5e9;
+    position: absolute;
+    left: 0.5rem;
+    top: -0.5rem;
+    opacity: 0.3;
+}
+
+/* Styles pour les listes à puces personnalisées */
+.prose ul li::marker {
+    color: #0ea5e9;
+}
+
+.prose ol li::marker {
+    color: #0ea5e9;
+    font-weight: 600;
+}
+
+/* Styles pour les liens externes */
+.prose a[href^="http"]::after {
+    content: " ↗";
+    font-size: 0.75rem;
+    opacity: 0.7;
+}
+
+/* Animation de chargement */
+.loading-skeleton {
+    background: linear-gradient(90deg, #334155 25%, #475569 50%, #334155 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}

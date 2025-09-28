@@ -8,6 +8,7 @@
     <!-- Meta -->
     <meta charset='utf-8'>
     <meta name='viewport' content ="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
     <title>{% block title %}{% endblock %} - Reefel WorkShop</title>
 
     <!-- Extra Head -->
@@ -23,7 +24,9 @@
     
     <!-- Animations CSS -->
     <link rel="stylesheet" href="{% static 'css/animations.css' %}">
-    <link rel="stylesheet" href="{% static 'css/fonts.css' %}">
+    
+    <!-- Navigation CSS -->
+    <link rel="stylesheet" href="{% static 'css/navigation.css' %}">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -35,7 +38,7 @@
 
     <!-- HEADER -->
     <header>
-        <!-- {% include 'main/components/navbar.html' } -->
+        {% include 'main/components/navbar.html' %}
     </header>
 
     <!-- Django Messages pour les notifications JS -->
@@ -55,7 +58,7 @@
 
     <!-- FOOTER -->
     <footer class="mt-auto">
-        <!-- {% include 'main/components/footer.html' %} -->
+        {% include 'main/components/footer.html' %}
     </footer>
 
     <!-- Font Awesome -->
@@ -63,6 +66,9 @@
 
     <!-- Notification System -->
     <script src="{% static 'js/notifications.js' %}"></script>
+
+    <!-- Navbar Script -->
+    <script src="{% static 'js/navbar.js' %}"></script>
 
     <!-- Scripts -->
      <script src="{% static 'js/base.js' %}"> </script>

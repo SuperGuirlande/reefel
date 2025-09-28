@@ -200,7 +200,7 @@
                 </div>
 
                 <!-- Boutons d'action -->
-                <div class="flex flex-col sm:flex-row gap-4 pt-6">
+                <div class="flex flex-col sm:flex-row gap-4 pt-6 ml-auto">
                     <button type="submit" name="action" value="save" class="group relative bg-gradient-to-r from-orange-500 to-red-500 text-white px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl shadow-orange-800/50 hover:shadow-orange-800/90 overflow-hidden">
                         <div class="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                         <div class="relative flex items-center justify-center">
@@ -209,13 +209,6 @@
                         </div>
                     </button>
                     
-                    <button type="submit" name="action" value="preview" class="group relative bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl shadow-blue-800/50 hover:shadow-blue-800/90 overflow-hidden">
-                        <div class="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                        <div class="relative flex items-center justify-center">
-                            <i class="fas fa-eye mr-3 text-xl"></i>
-                            <span>Prévisualiser</span>
-                        </div>
-                    </button>
                     
                     <a href="{% url 'blog:admin_index' %}" class="bg-slate-600/50 hover:bg-slate-600/70 text-slate-300 
                     hover:text-white px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 text-center flex gap-3 items-center justify-center">

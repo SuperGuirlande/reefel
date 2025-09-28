@@ -178,7 +178,7 @@
                                 <div class="flex flex-wrap items-center gap-2 sm:gap-4 text-slate-500 text-xs sm:text-sm">
                                     <span><i class="fas fa-calendar mr-1"></i>{{ post.created_at|date:"d M Y" }}</span>
                                     <span><i class="fas fa-user mr-1"></i>{{ post.author.username }}</span>
-                                    {% if post.is_published %}
+                                    {% if post.published %}
                                     <span class="text-green-400"><i class="fas fa-check-circle mr-1"></i>Publié</span>
                                     {% else %}
                                     <span class="text-yellow-400"><i class="fas fa-clock mr-1"></i>Brouillon</span>
@@ -189,10 +189,10 @@
                         
                         <!-- Actions -->
                         <div class="flex-shrink-0 flex sm:flex-col gap-2 w-full sm:w-auto">
-                            <a href="{% url 'blog:edit_post' post.slug %}" class="flex-1 sm:flex-none bg-blue-500/20 hover:bg-blue-500/30 text-blue-300 px-3 sm:px-4 py-2 rounded-lg transition-all duration-300 text-center text-xs sm:text-sm">
+                            <a href="{% url 'blog:admin_change_post_form' post.slug %}" class="flex-1 sm:flex-none bg-blue-500/20 hover:bg-blue-500/30 text-blue-300 px-3 sm:px-4 py-2 rounded-lg transition-all duration-300 text-center text-xs sm:text-sm">
                                 <i class="fas fa-edit mr-1"></i> <span class="hidden sm:inline">Éditer</span><span class="sm:hidden">Éd.</span>
                             </a>
-                            <a href="{% url 'blog:delete_post' post.slug %}" class="flex-1 sm:flex-none bg-red-500/20 hover:bg-red-500/30 text-red-300 px-3 sm:px-4 py-2 rounded-lg transition-all duration-300 text-center text-xs sm:text-sm">
+                            <a href="{% url 'blog:confirm_delete_article' post.slug %}" class="flex-1 sm:flex-none bg-red-500/20 hover:bg-red-500/30 text-red-300 px-3 sm:px-4 py-2 rounded-lg transition-all duration-300 text-center text-xs sm:text-sm">
                                 <i class="fas fa-trash mr-1"></i> <span class="hidden sm:inline">Suppr.</span><span class="sm:hidden">Del.</span>
                             </a>
                             {% if post.is_published %}

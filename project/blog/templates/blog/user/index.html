@@ -1,37 +1,114 @@
 {% extends 'main/base.html' %}
 {% load static %}
 
-{% block title %}Blog{% endblock %}
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/global_forms.css' %}">
+<link rel="stylesheet" href="{% static 'css/blog.css' %}">
+<meta name="description" content="{{ page_description }}">
+<meta name="keywords" content="{{ page_keywords }}">
+<meta name="author" content="Reefel Workshop">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="{{ request.build_absolute_uri }}">
+<meta property="og:title" content="{{ page_title }}">
+<meta property="og:description" content="{{ page_description }}">
+<meta property="og:image" content="{% static 'images/logo-graff.png' %}">
+<meta property="og:site_name" content="Reefel Workshop">
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:url" content="{{ request.build_absolute_uri }}">
+<meta property="twitter:title" content="{{ page_title }}">
+<meta property="twitter:description" content="{{ page_description }}">
+<meta property="twitter:image" content="{% static 'images/logo-graff.png' %}">
+
+<!-- Canonical URL -->
+<link rel="canonical" href="{{ request.build_absolute_uri }}">
+
+<!-- JSON-LD Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  "name": "Reefel Workshop Blog",
+  "description": "{{ page_description }}",
+  "url": "{{ request.build_absolute_uri }}",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Reefel Workshop",
+    "url": "{{ request.scheme }}://{{ request.get_host }}"
+  }
+}
+</script>
+{% endblock %}
 
 {% block content %}
-
-<section class="flex-1 bg-minsk-50 flex flex-col">
-    <div class="w-full max-w-[1080px] flex flex-col mx-auto px-3 py-6 sm:py-12">
+<!-- HERO SECTION -->
+<section class="flex-1 flex justify-center bg-slate-900 py-16 relative px-3 max-w-screen overflow-hidden">
+    <!-- Background Pattern -->
+    <div class="absolute inset-0 opacity-10">
+        <div class="absolute top-20 left-10 w-32 h-32 bg-orange-500 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-20 right-10 w-40 h-40 bg-cyan-500 rounded-full blur-3xl"></div>
+    </div>
+    
+    <!-- Container Flex -->
+    <div class="flex flex-col w-full max-w-screen-xl justify-center items-center min-h-96 relative z-20">
         
-        <!-- Title -->
-        <div class="w-full text-center pt-8">
-            <p class="text-minsk-800 text-base sm:text-lg md:text-xl uppercase font-light">
-                Notre Blog
-            </p>
-            <h1 class="text-minsk-500 text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold">
-                {% if current_category_obj %}
-                    Articles {{ current_category_obj.name }}
-                {% else %}
-                    Notre Actualité
-                {% endif %}
-            </h1>
-            <p class="text-slate-600 mt-4 text-sm sm:text-base max-w-2xl mx-auto font-light uppercase">
-                {% if current_category_obj %}
-                    Articles de la catégorie "{{ current_category_obj.name }}"
-                {% else %}
-                    Découvrez nos derniers articles et actualités
-                {% endif %}
-            </p>
+        <!-- Brand Center -->
+        <div class="flex flex-col items-center justify-center h-fit relative z-20">
+            <!-- Nom Graffiti -->
+            <img src="{% static 'images/logo-graff.png' %}" 
+            class="animate-gentle-rotate w-[400px] md:w-[550px] relative z-30 animate-graffiti " id="graffiti">
         </div>
 
-        <!-- Filtres et Recherche -->
-        <div class="w-full max-w-4xl mx-auto mt-8 sm:mt-12">
-            <form method="GET" class="bg-white rounded-lg shadow-md p-6">
+        <!-- Text Center -->
+        <div class="flex flex-col justify-center items-center pt-8 text-center">
+            <!-- Titre Principal -->
+            <h1 class="my-0 font-extrabold mb-4 leading-tight font-story drop-shadow-md">
+                <span class="text-[80px] md:text-[120px] lg:text-[150px] my-0 block translate-y-8 relative z-10 bg-gradient-to-b from-cyan-400 from-30% px-5
+                to-blue-500 bg-clip-text text-transparent animate-title opacity-0" id="blog-title">
+                    ACTUALITÉ
+                </span>
+                <span class="relative block translate-x-0 md:translate-x-20 mt-0 z-20 text-3xl md:text-5xl lg:text-6xl 
+                xl:-mt-4 drop-shadow-md animate-subtitle opacity-0" id="nautique">
+                    <span class="relative inset-0 bg-gradient-to-r from-orange-600 via-orange-500 
+                    to-yellow-500 bg-clip-text text-transparent px-5">
+                        REEFEL WORKSHOP
+                    </span>
+                </span>
+            </h1>
+        
+            <!-- Sous-titre -->
+            <p class="text-lg md:text-xl text-slate-400 mb-8 font-bold animate-description opacity-0 max-w-3xl">
+                {% if current_category_obj %}
+                    Articles sur {{ current_category_obj.name }} et l'entretien de bateaux
+                {% else %}
+                    Conseils d'experts, actualités nautiques et guides d'entretien
+                {% endif %}
+            </p>
+            
+            <!-- Breadcrumb -->
+            <nav class="flex items-center space-x-2 text-slate-300 animate-breadcrumb opacity-0">
+                <a href="{% url 'main:index' %}" class="hover:text-cyan-400 transition-colors">Accueil</a>
+                <i class="fas fa-chevron-right text-xs"></i>
+                <span class="text-cyan-400">Blog</span>
+                {% if current_category_obj %}
+                    <i class="fas fa-chevron-right text-xs"></i>
+                    <span class="text-orange-400">{{ current_category_obj.name }}</span>
+                {% endif %}
+            </nav>
+        </div>
+    </div>
+</section>
+
+<!-- FILTERS SECTION -->
+<section class="py-8 bg-slate-800 relative">
+    <div class="container mx-auto px-4 relative z-10">
+        <div class="max-w-4xl mx-auto">
+            <form method="GET" class="bg-slate-700/50 backdrop-blur-sm rounded-2xl p-6 border border-slate-600/50">
                 <!-- Barre de recherche -->
                 <div class="mb-6">
                     <div class="relative">
@@ -39,8 +116,8 @@
                                name="search" 
                                value="{{ current_search }}"
                                placeholder="Rechercher dans les articles... (Ctrl+K)"
-                               class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-minsk-500 focus:border-transparent">
-                        <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                               class="w-full pl-12 pr-4 py-4 bg-slate-800/50 border border-slate-600 rounded-xl text-white placeholder-slate-400 focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all">
+                        <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-400"></i>
                     </div>
                 </div>
 
@@ -48,8 +125,8 @@
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <!-- Catégories -->
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Catégorie</label>
-                        <select name="category" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-minsk-500 focus:border-transparent">
+                        <label class="block text-sm font-medium text-slate-300 mb-2">Catégorie</label>
+                        <select name="category" class="w-full p-3 bg-slate-800/50 border border-slate-600 rounded-xl text-white focus:ring-2 focus:ring-cyan-500 focus:border-transparent">
                             <option value="">Toutes les catégories</option>
                             {% for category in categories %}
                                 <option value="{{ category.slug }}" 
@@ -62,8 +139,8 @@
 
                     <!-- Tri -->
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Trier par</label>
-                        <select name="sort" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-minsk-500 focus:border-transparent">
+                        <label class="block text-sm font-medium text-slate-300 mb-2">Trier par</label>
+                        <select name="sort" class="w-full p-3 bg-slate-800/50 border border-slate-600 rounded-xl text-white focus:ring-2 focus:ring-cyan-500 focus:border-transparent">
                             <option value="created_desc" {% if current_sort == 'created_desc' %}selected{% endif %}>
                                 Plus récents
                             </option>
@@ -82,12 +159,12 @@
                     <!-- Boutons -->
                     <div class="flex items-end gap-2">
                         <button type="submit" 
-                                class="bg-minsk-500 text-white px-4 py-3 rounded-lg hover:bg-minsk-600 transition-colors duration-300 flex-1">
+                                class="bg-gradient-to-r from-cyan-500 to-blue-600 text-white px-6 py-3 rounded-xl hover:from-cyan-400 hover:to-blue-500 transition-all duration-300 flex-1 font-semibold">
                             <i class="fas fa-filter mr-2"></i>
                             Filtrer
                         </button>
                         <a href="{% url 'blog:index' %}" 
-                           class="bg-gray-500 text-white px-4 py-3 rounded-lg hover:bg-gray-600 transition-colors duration-300 text-center">
+                           class="bg-slate-600 text-white px-4 py-3 rounded-xl hover:bg-slate-500 transition-colors duration-300 text-center">
                             <i class="fas fa-times"></i>
                         </a>
                     </div>
@@ -97,22 +174,22 @@
             <!-- Filtres actifs -->
             {% if current_search or current_category or current_sort != 'created_desc' %}
                 <div class="mt-4 flex flex-wrap gap-2">
-                    <span class="text-sm text-gray-600">Filtres actifs :</span>
+                    <span class="text-sm text-slate-400">Filtres actifs :</span>
                     
                     {% if current_search %}
-                        <span class="bg-minsk-100 text-minsk-700 px-3 py-1 rounded-full text-sm">
+                        <span class="bg-cyan-500/20 text-cyan-300 px-3 py-1 rounded-full text-sm border border-cyan-500/30">
                             Recherche: "{{ current_search }}"
                         </span>
                     {% endif %}
                     
                     {% if current_category_obj %}
-                        <span class="bg-minsk-100 text-minsk-700 px-3 py-1 rounded-full text-sm">
+                        <span class="bg-orange-500/20 text-orange-300 px-3 py-1 rounded-full text-sm border border-orange-500/30">
                             Catégorie: {{ current_category_obj.name }}
                         </span>
                     {% endif %}
                     
                     {% if current_sort != 'created_desc' %}
-                        <span class="bg-minsk-100 text-minsk-700 px-3 py-1 rounded-full text-sm">
+                        <span class="bg-slate-500/20 text-slate-300 px-3 py-1 rounded-full text-sm border border-slate-500/30">
                             Tri: 
                             {% if current_sort == 'created_asc' %}Plus anciens
                             {% elif current_sort == 'updated_desc' %}Dernière modification
@@ -125,111 +202,158 @@
 
             <!-- Résultats -->
             <div class="mt-6 text-center">
-                <p class="text-sm text-gray-600">
+                <p class="text-sm text-slate-400">
                     {{ articles|length }} article{{ articles|length|pluralize }} trouvé{{ articles|length|pluralize }}
                 </p>
             </div>
         </div>
+    </div>
+</section>
 
-                <!-- Timeline Articles -->
-        <div class="mt-8 sm:mt-12">
-            {% if articles %}
-                <div class="relative max-w-4xl mx-auto">
-                    <!-- Timeline Line -->
-                    <div class="absolute left-8 top-0 bottom-0 w-0.5 bg-minsk-300 hidden md:block"></div>
-                    
-                    <!-- Timeline Items -->
-                    {% for article in articles %}
-                        <div class="relative mb-12">
-                            <!-- Timeline Dot -->
-                            <div class="absolute left-6 w-4 h-4 bg-minsk-500 rounded-full border-2 border-white shadow-md hidden md:block" style="top: 2rem;"></div>
+<!-- ARTICLES SECTION -->
+<section class="py-12 bg-slate-900 relative overflow-hidden">
+    <div class="container mx-auto px-4 relative z-10">
+        {% if articles %}
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+                {% for article in articles %}
+                    <article class="group bg-slate-800/50 backdrop-blur-sm rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl 
+                    transition-all duration-500 transform hover:-translate-y-2 border border-slate-700/50">
+                        
+                        <!-- Image -->
+                        {% if article.thumbnail %}
+                            <div class="h-48 md:h-56 overflow-hidden relative">
+                                <img src="{{ article.thumbnail.url }}" 
+                                     alt="{{ article.thumbnail_caption|default:article.title }}"
+                                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                <div class="absolute inset-0 bg-gradient-to-t from-slate-900/50 to-transparent"></div>
+                                
+                                <!-- Categories overlay -->
+                                {% if article.categories.all %}
+                                    <div class="absolute top-4 left-4 flex flex-wrap gap-2">
+                                        {% for category in article.categories.all %}
+                                            <span class="bg-orange-500/90 text-white text-xs px-3 py-1 rounded-full font-medium backdrop-blur-sm">
+                                                {{ category.name }}
+                                            </span>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        {% else %}
+                            <!-- Placeholder si pas d'image -->
+                            <div class="h-48 md:h-56 bg-gradient-to-br from-cyan-500/20 to-blue-600/20 flex items-center justify-center relative">
+                                <i class="fas fa-newspaper text-4xl text-slate-400"></i>
+                                {% if article.categories.all %}
+                                    <div class="absolute top-4 left-4 flex flex-wrap gap-2">
+                                        {% for category in article.categories.all %}
+                                            <span class="bg-orange-500/90 text-white text-xs px-3 py-1 rounded-full font-medium backdrop-blur-sm">
+                                                {{ category.name }}
+                                            </span>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                        
+                        <!-- Content -->
+                        <div class="p-6">
+                            <!-- Date -->
+                            <div class="text-sm text-slate-400 mb-3 flex items-center">
+                                <i class="fas fa-calendar mr-2"></i>
+                                {{ article.created_at|date:"d F Y" }}
+                            </div>
                             
-                            <!-- Article Card -->
-                            <a href="{% url 'blog:article_detail' article.slug %}" class="block group">
-                                <div class="md:ml-16">
-                                    <article class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                                        
-                                        <!-- Image -->
-                                        {% if article.thumbnail %}
-                                            <div class="h-48 md:h-56 overflow-hidden">
-                                                <img src="{{ article.thumbnail.url }}" 
-                                                     alt="{{ article.thumbnail_caption|default:article.title }}"
-                                                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                                            </div>
+                            <!-- Title -->
+                            <h2 class="text-xl md:text-2xl font-bold text-white mb-3 group-hover:text-cyan-400 transition-colors duration-300 line-clamp-2">
+                                <a href="{% url 'blog:article_detail' article.slug %}">{{ article.title }}</a>
+                            </h2>
+                            
+                            <!-- Introduction -->
+                            <p class="text-slate-300 mb-4 line-clamp-3 leading-relaxed">
+                                {{ article.introduction }}
+                            </p>
+                            
+                            <!-- Author -->
+                            {% if article.author %}
+                                <div class="flex items-center text-sm text-slate-400 mb-4">
+                                    <i class="fas fa-user mr-2"></i>
+                                    <span>
+                                        {% if article.author.first_name and article.author.last_name %}
+                                            {{ article.author.first_name }} {{ article.author.last_name }}
+                                        {% else %}
+                                            {{ article.author.username }}
                                         {% endif %}
-                                        
-                                        <!-- Content -->
-                                        <div class="p-6">
-                                            <!-- Categories -->
-                                            {% if article.categories.all %}
-                                                <div class="flex flex-wrap gap-2 mb-4">
-                                                    {% for category in article.categories.all %}
-                                                        <span class="bg-minsk-100 text-minsk-700 text-xs px-3 py-1 rounded-full font-medium">
-                                                            {{ category.name }}
-                                                        </span>
-                                                    {% endfor %}
-                                                </div>
-                                            {% endif %}
-                                            
-                                            <!-- Date -->
-                                            <div class="text-sm text-gray-500 mb-3">
-                                                <i class="fa-solid fa-calendar mr-2"></i>
-                                                {{ article.created_at|date:"d F Y" }}
-                                            </div>
-                                            
-                                            <!-- Title -->
-                                            <h2 class="text-xl md:text-2xl font-bold text-minsk-600 mb-3 group-hover:text-minsk-700 transition-colors duration-300">
-                                                {{ article.title }}
-                                            </h2>
-                                            
-                                            <!-- Introduction -->
-                                            <p class="text-gray-600 mb-4 line-clamp-3">
-                                                {{ article.introduction }}
-                                            </p>
-                                            
-                                            <!-- Author -->
-                                            {% if article.author %}
-                                                <div class="flex items-center text-sm text-gray-500">
-                                                    <i class="fa-solid fa-user mr-2"></i>
-                                                    <span>
-                                                        {% if article.author.first_name and article.author.last_name %}
-                                                            {{ article.author.first_name }} {{ article.author.last_name }}
-                                                        {% else %}
-                                                            {{ article.author.username }}
-                                                        {% endif %}
-                                                    </span>
-                                                </div>
-                                            {% endif %}
-                                            
-                                            <!-- Read More -->
-                                            <div class="mt-4 pt-4 border-t border-gray-100">
-                                                <span class="text-minsk-500 font-medium group-hover:text-minsk-600 flex items-center gap-2">
-                                                    Lire l'article
-                                                    <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform duration-300"></i>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </article>
+                                    </span>
                                 </div>
-                            </a>
+                            {% endif %}
+                            
+                            <!-- Read More -->
+                            <div class="pt-4 border-t border-slate-700/50">
+                                <a href="{% url 'blog:article_detail' article.slug %}" 
+                                   class="inline-flex items-center text-cyan-400 font-medium group-hover:text-cyan-300 transition-colors duration-300">
+                                    Lire l'article
+                                    <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform duration-300"></i>
+                                </a>
+                            </div>
                         </div>
-                    {% endfor %}
-                </div>
-            {% else %}
-                <!-- Empty State -->
-                <div class="text-center py-16">
-                    <div class="mx-auto w-24 h-24 bg-minsk-100 rounded-full flex items-center justify-center mb-6">
-                        <i class="fa-solid fa-newspaper text-3xl text-minsk-400"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold text-minsk-500 mb-2">
-                        Aucun article pour le moment
-                    </h3>
-                    <p class="text-slate-600 text-sm">
-                        Les premiers articles seront bientôt disponibles !
-                    </p>
+                    </article>
+                {% endfor %}
+            </div>
+
+            <!-- Pagination -->
+            {% if articles.has_other_pages %}
+                <div class="mt-12 flex justify-center">
+                    <nav class="flex items-center space-x-2">
+                        {% if articles.has_previous %}
+                            <a href="?page={{ articles.previous_page_number }}{% if current_search %}&search={{ current_search }}{% endif %}{% if current_category %}&category={{ current_category }}{% endif %}{% if current_sort != 'created_desc' %}&sort={{ current_sort }}{% endif %}" 
+                               class="px-4 py-2 bg-slate-700 text-white rounded-lg hover:bg-slate-600 transition-colors">
+                                <i class="fas fa-chevron-left"></i>
+                            </a>
+                        {% endif %}
+                        
+                        {% for num in articles.paginator.page_range %}
+                            {% if articles.number == num %}
+                                <span class="px-4 py-2 bg-cyan-500 text-white rounded-lg font-semibold">{{ num }}</span>
+                            {% elif num > articles.number|add:'-3' and num < articles.number|add:'3' %}
+                                <a href="?page={{ num }}{% if current_search %}&search={{ current_search }}{% endif %}{% if current_category %}&category={{ current_category }}{% endif %}{% if current_sort != 'created_desc' %}&sort={{ current_sort }}{% endif %}" 
+                                   class="px-4 py-2 bg-slate-700 text-white rounded-lg hover:bg-slate-600 transition-colors">{{ num }}</a>
+                            {% endif %}
+                        {% endfor %}
+                        
+                        {% if articles.has_next %}
+                            <a href="?page={{ articles.next_page_number }}{% if current_search %}&search={{ current_search }}{% endif %}{% if current_category %}&category={{ current_category }}{% endif %}{% if current_sort != 'created_desc' %}&sort={{ current_sort }}{% endif %}" 
+                               class="px-4 py-2 bg-slate-700 text-white rounded-lg hover:bg-slate-600 transition-colors">
+                                <i class="fas fa-chevron-right"></i>
+                            </a>
+                        {% endif %}
+                    </nav>
                 </div>
             {% endif %}
-        </div>
+
+        {% else %}
+            <!-- Empty State -->
+            <div class="text-center py-20">
+                <div class="mx-auto w-24 h-24 bg-slate-700/50 rounded-full flex items-center justify-center mb-6">
+                    <i class="fas fa-newspaper text-4xl text-slate-400"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-slate-300 mb-4">
+                    Aucun article trouvé
+                </h3>
+                <p class="text-slate-400 mb-8 max-w-md mx-auto">
+                    {% if current_search %}
+                        Aucun article ne correspond à votre recherche "{{ current_search }}".
+                    {% elif current_category_obj %}
+                        Aucun article dans la catégorie "{{ current_category_obj.name }}" pour le moment.
+                    {% else %}
+                        Les premiers articles seront bientôt disponibles !
+                    {% endif %}
+                </p>
+                <a href="{% url 'blog:index' %}" 
+                   class="inline-flex items-center bg-gradient-to-r from-cyan-500 to-blue-600 text-white px-6 py-3 rounded-xl hover:from-cyan-400 hover:to-blue-500 transition-all duration-300 font-semibold">
+                    <i class="fas fa-home mr-2"></i>
+                    Voir tous les articles
+                </a>
+            </div>
+        {% endif %}
     </div>
 </section>
 
@@ -348,6 +472,40 @@ document.addEventListener('DOMContentLoaded', function() {
             searchInput.focus();
         }
     });
+
+    // Animations d'entrée
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, observerOptions);
+
+    // Observer les éléments à animer
+    document.querySelectorAll('.animate-title, .animate-subtitle, .animate-description, .animate-breadcrumb').forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(20px)';
+        el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+        observer.observe(el);
+    });
+
+    // Animation séquentielle
+    setTimeout(() => {
+        const elements = document.querySelectorAll('.animate-title, .animate-subtitle, .animate-description, .animate-breadcrumb');
+        elements.forEach((el, index) => {
+            setTimeout(() => {
+                el.style.opacity = '1';
+                el.style.transform = 'translateY(0)';
+            }, index * 200);
+        });
+    }, 300);
 });
 </script>
 {% endblock %}

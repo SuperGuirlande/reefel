@@ -10,7 +10,7 @@ const graffiti = document.getElementById("graffiti");
 const subtitle = document.querySelector('.animate-subtitle');
 const locationCard = document.querySelector('.animate-location');
 const services = document.querySelectorAll('.animate-services .flex.items-center.text-slate-200.group');
-const buttons = document.querySelectorAll('.animate-buttons button');
+const buttons = document.querySelectorAll('.animate-buttons a');
 
 // Debug - vérifier si les éléments sont trouvés
 console.log('Services trouvés:', services.length);

@@ -1,7 +1,192 @@
-<section class="bg-minsk-900 flex justify-between text-white items-center py-2">
+{% load static %}
+<!-- FOOTER SECTION -->
+<footer class="bg-slate-900 relative overflow-hidden">
+    <!-- Background Pattern -->
+    <div class="absolute inset-0 opacity-10">
+        <div class="absolute top-10 left-10 w-32 h-32 bg-orange-500 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-10 right-10 w-40 h-40 bg-cyan-500 rounded-full blur-3xl"></div>
+    </div>
+    
+    <div class="relative z-10">
+        <!-- Main Footer Content -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                
+                <!-- Logo & Description -->
+                <div class="lg:col-span-2">
+                    <div class="flex items-center space-x-3 mb-6">
+                        <img src="{% static 'images/logo-graff.png' %}" 
+                             alt="Reefel Workshop" 
+                             class="h-12 w-auto">
+                        <div>
+                            <h3 class="text-2xl font-bold text-white">REEFEL</h3>
+                            <p class="text-sm text-slate-400 -mt-1">WORKSHOP</p>
+                        </div>
+                    </div>
+                    <p class="text-slate-300 mb-6 max-w-md leading-relaxed">
+                        Votre partenaire de confiance pour l'entretien et la réparation de bateaux à La Rochelle. 
+                        Expertise, qualité et passion nautique depuis des années.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="tel:{{ contact_infos.phone }}" 
+                           class="bg-gradient-to-r from-orange-500 to-red-500 text-white px-6 py-3 rounded-lg font-semibold hover:from-orange-400 hover:to-red-400 transition-all duration-300 flex items-center space-x-2 shadow-lg hover:shadow-xl">
+                            <i class="fas fa-phone text-sm"></i>
+                            <span>Appeler</span>
+                        </a>
+                        <a href="{% url 'main:index' %}#contact" 
+                           class="border-2 border-cyan-500 text-cyan-400 px-6 py-3 rounded-lg font-semibold hover:bg-cyan-500 hover:text-white transition-all duration-300 flex items-center space-x-2">
+                            <i class="fas fa-envelope text-sm"></i>
+                            <span>Contact</span>
+                        </a>
+                    </div>
+                </div>
 
-    <div class="w-full max-w-7xl mx-auto flex justify-between items-center">
-        <a href="{% url 'accounts:admin_index' %}">Administrateur</a>
+                <!-- Services -->
+                <div>
+                    <h4 class="text-lg font-semibold text-white mb-6">Nos Services</h4>
+                    <ul class="space-y-3">
+                        <li>
+                        <a href="{% url 'main:index' %}#services" class="text-slate-300 hover:text-cyan-400 transition-colors duration-300 flex items-center space-x-2">
+                            <i class="fas fa-ship text-xs"></i>
+                            <span>Remise et sortie d'eau</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'main:index' %}#services" class="text-slate-300 hover:text-cyan-400 transition-colors duration-300 flex items-center space-x-2">
+                            <i class="fas fa-paint-roller text-xs"></i>
+                            <span>Carénage</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'main:index' %}#services" class="text-slate-300 hover:text-cyan-400 transition-colors duration-300 flex items-center space-x-2">
+                            <i class="fas fa-tools text-xs"></i>
+                            <span>Réparation coques</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'main:index' %}#services" class="text-slate-300 hover:text-cyan-400 transition-colors duration-300 flex items-center space-x-2">
+                            <i class="fas fa-cogs text-xs"></i>
+                            <span>Entretien moteur</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'main:index' %}#services" class="text-slate-300 hover:text-cyan-400 transition-colors duration-300 flex items-center space-x-2">
+                            <i class="fas fa-snowflake text-xs"></i>
+                            <span>Hivernage</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'main:index' %}#services" class="text-slate-300 hover:text-cyan-400 transition-colors duration-300 flex items-center space-x-2">
+                            <i class="fas fa-lightbulb text-xs"></i>
+                            <span>Expertise & conseil</span>
+                        </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Contact & Navigation -->
+                <div>
+                    <h4 class="text-lg font-semibold text-white mb-6">Contact</h4>
+                    <div class="space-y-4">
+                        <!-- Adresse -->
+                        <div class="flex items-start space-x-3">
+                            <div class="w-8 h-8 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-map-marker-alt text-white text-sm"></i>
+                            </div>
+                            <div>
+                                <p class="text-slate-300 text-sm">
+                                    Port des Minimes<br>
+                                    17000 La Rochelle, France
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Téléphone -->
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 bg-gradient-to-br from-green-500 to-green-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-phone text-white text-sm"></i>
+                            </div>
+                            <div>
+                                <a href="tel:{{ contact_infos.phone }}" class="text-slate-300 hover:text-cyan-400 transition-colors duration-300 text-sm">
+                                    {{ contact_infos.phone }}
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 bg-gradient-to-br from-orange-500 to-red-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-envelope text-white text-sm"></i>
+                            </div>
+                            <div>
+                                <a href="mailto:{{ contact_infos.email }}" class="text-slate-300 hover:text-cyan-400 transition-colors duration-300 text-sm">
+                                    {{ contact_infos.email }}
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Horaires -->
+                        <div class="flex items-start space-x-3">
+                            <div class="w-8 h-8 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-clock text-white text-sm"></i>
+                            </div>
+                            <div>
+                                <p class="text-slate-300 text-sm">
+                                    Lun-Ven: 8h-18h<br>
+                                    Sam: 8h-17h<br>
+                                    Dim: Fermé
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Footer -->
+        <div class="border-t border-slate-700/50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+                <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+                    
+                    <!-- Copyright -->
+                    <div class="text-slate-400 text-sm">
+                        <p>&copy; {{ current_year|default:"2024" }} Reefel Workshop. Tous droits réservés.</p>
+                    </div>
+
+                    <!-- Navigation Footer -->
+                    <div class="flex flex-wrap items-center space-x-6">
+                        <a href="{% url 'main:index' %}" class="text-slate-400 hover:text-cyan-400 transition-colors duration-300 text-sm">
+                            Accueil
+                        </a>
+                        <a href="{% url 'main:index' %}#services" class="text-slate-400 hover:text-cyan-400 transition-colors duration-300 text-sm">
+                            Services
+                        </a>
+                        <a href="{% url 'blog:index' %}" class="text-slate-400 hover:text-cyan-400 transition-colors duration-300 text-sm">
+                            Blog
+                        </a>
+                        <a href="{% url 'main:index' %}#contact" class="text-slate-400 hover:text-cyan-400 transition-colors duration-300 text-sm">
+                            Contact
+                        </a>
+                    </div>
+
+                    <!-- Admin Link -->
+                    <div class="flex items-center space-x-4">
+                        <a href="{% url 'accounts:admin_index' %}" 
+                           class="text-slate-500 hover:text-slate-400 transition-colors duration-300 text-sm flex items-center space-x-1">
+                            <i class="fas fa-cog text-xs"></i>
+                            <span>Admin</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
-</section>
+    <div class="my-3 px-2 text-center text-slate-300 text-sm">
+        Site Web fait avec <i class="fas fa-heart text-white"></i> par <br class="sm:hidden">
+        <a href="https://www.agencecodemaster.com/" target="_blank" class="font-bold text-white uppercase">
+            Dylan Saint-Jalmes |
+            Agence Code Master
+        </a>
+    </div>
+</footer>

@@ -3,6 +3,11 @@
 
 {% block title %}Réparation & Entretien de Bateaux{% endblock %}
 
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/global_forms.css' %}">
+{% endblock %}
+
+
 {% block content %}
 <!-- HERO SECTION -->
 <section class="flex-1 flex justify-center bg-slate-900 py-24 relative min-h-screen px-3 max-w-screen overflow-hidden">
@@ -109,7 +114,8 @@
             
             <!-- CTA Buttons avec personnalité -->
             <div class="flex gap-4 animate-buttons flex-col md:flex-row">
-                <button class="group relative bg-gradient-to-r from-orange-500 to-red-500 text-white 
+                <a href="#contact" 
+                 class="group relative bg-gradient-to-r from-orange-500 to-red-500 text-white 
                 px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl shadow-orange-800/50 hover:shadow-orange-800/90 overflow-hidden opacity-0">
                     <div class="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     <div class="relative flex items-center">
@@ -117,15 +123,17 @@
                         <span>Nous Contacter</span>
                         <i class="fal fa-arrow-right ml-3 group-hover:translate-x-1 transition-transform duration-300"></i>
                     </div>
-                </button>
-                <button class="group bg-gradient-to-b from-cyan-500 to-indigo-700 text-white
-                px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl shadow-indigo-800/50 hover:shadow-indigo-800/50 opacity-0">
+                </a>
+                <a class="group bg-gradient-to-b from-cyan-500 to-indigo-700 text-white
+                px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl 
+                shadow-indigo-800/50 hover:shadow-indigo-800/50 opacity-0"
+                    href="#services">
                     <div class="flex items-center drop-shadow-sm shadow-black">
                         <i class="fal fa-info-circle mr-3 text-xl"></i>
                         <span class="drop-shadow-sm shadow-black">Nos Services</span>
                         <i class="fal fa-external-link-alt ml-3 group-hover:translate-x-1 transition-transform duration-300"></i>
                     </div>
-                </button>
+                </a>
             </div>
         </div>
 
@@ -135,7 +143,7 @@
 </section>
 
 <!-- SERVICES SECTION -->
-<section class="py-12 bg-slate-900 relative overflow-hidden">
+<section class="py-12 bg-slate-900 relative overflow-hidden" id="services">
     <div class="container mx-auto px-4 relative z-10">
         <div class="text-center mb-16">
             <h2 class="my-0 font-extrabold mb-6 leading-tight font-story drop-shadow-md">
@@ -270,12 +278,14 @@
                     Contactez-nous pour une estimation gratuite et personnalisée selon vos besoins
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <button class="bg-white text-orange-600 px-8 py-4 rounded-2xl font-bold text-lg hover:bg-slate-100 transition-colors duration-300">
+                    <a href="tel:{{ contact_infos.phone }}" 
+                    class="bg-white text-orange-600 px-8 py-4 rounded-2xl font-bold text-lg hover:bg-slate-100 transition-colors duration-300">
                         <i class="fas fa-phone mr-2"></i>Appeler Maintenant
-                    </button>
-                    <button class="border-2 border-white text-white px-8 py-4 rounded-2xl font-bold text-lg hover:bg-white hover:text-orange-600 transition-all duration-300">
+                    </a>
+                    <a href="#contact" 
+                    class="border-2 border-white text-white px-8 py-4 rounded-2xl font-bold text-lg hover:bg-white hover:text-orange-600 transition-all duration-300">
                         <i class="fas fa-envelope mr-2"></i>Demander un Devis
-                    </button>
+                    </a>
                 </div>
             </div>
         </div>
@@ -492,7 +502,7 @@
     </div>
 </section>
 
-<!-- LOCALISATION SECTION -->
+<!-- CONTACT SECTION -->
 <section class="py-20 pt-10 bg-slate-900 relative overflow-hidden">
     <!-- Background Pattern -->
     <div class="absolute inset-0 opacity-10">
@@ -500,20 +510,20 @@
         <div class="absolute bottom-20 left-10 w-40 h-40 bg-orange-500 rounded-full blur-3xl"></div>
     </div>
     
-    <div class="container mx-auto px-4 relative z-10">
+    <div class="container max-w-7xl mx-auto px-4 relative z-10">
         <!-- Section Header -->
         <div class="text-center mb-16">
             <h2 class="my-0 font-extrabold mb-6 leading-tight font-story drop-shadow-md">
                 <span class="text-[80px] md:text-[100px] lg:text-[130px] my-0 block translate-y-10 md:translate-y-12 translate-x-0 md:-translate-x-12 
-                relative z-10 bg-gradient-to-b from-cyan-400 from-30% px-5 px-12
+                relative z-10 bg-gradient-to-b from-cyan-400 from-30% px-5
                 to-blue-500 bg-clip-text text-transparent uppercase" id="notre">
-                    NOTRE
+                    NOUS
                 </span>
                 <span class="relative block translate-x-0 md:translate-x-32 mt-0 z-20 text-6xl md:text-8xl
                 xl:-mt-4 drop-shadow-md" id="localisation">
                     <span class="relative inset-0 bg-gradient-to-r from-orange-600 via-orange-500 
                     to-yellow-500 bg-clip-text text-transparent px-5">
-                        LOCALISATION
+                        CONTACTER
                     </span>
                 </span>
             </h2>
@@ -523,7 +533,7 @@
             </p>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-7xl mx-auto items-center">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-7xl mx-auto">
             <!-- Informations de contact -->
             <div class="space-y-3 sm:space-y-8">
                 <!-- Adresse -->
@@ -578,11 +588,13 @@
                             <h3 class="text-lg md:text-2xl font-bold text-white mb-2">Contact</h3>
                             <p class="text-slate-300 text-base sm:text-lg mb-2">
                                 <i class="fas fa-phone mr-2"></i>
-                                <a href="tel:+33546412345" class="hover:text-cyan-400 transition-colors">05 46 41 23 45</a>
+                                <a href="tel:{{ contact_infos.phone }}" class="hover:text-cyan-400 transition-colors">{{ contact_infos.phone }}</a>
                             </p>
                             <p class="text-slate-300 text-base sm:text-lg">
                                 <i class="fas fa-envelope mr-2"></i>
-                                <a href="mailto:contact@reefel-workshop.fr" class="hover:text-cyan-400 transition-colors">contact@reefel-workshop.fr</a>
+                                <a href="mailto:{{contact_infos.email}}" class="hover:text-cyan-400 transition-colors">
+                                    {{contact_infos.email}}
+                                </a>
                             </p>
                         </div>
                     </div>
@@ -593,35 +605,137 @@
                     <h4 class="text-lg md:text-xl font-bold mb-2 md:mb-3">Besoin d'un Rendez-vous ?</h4>
                     <p class="text-orange-100 mb-3 md:mb-4 text-base sm:text-lg">Appelez-nous ou passez nous voir directement au port</p>
                     <div class="flex flex-col sm:flex-row gap-3">
-                        <button class="bg-white text-orange-600 px-6 py-3 rounded-xl font-bold hover:bg-slate-100 transition-colors duration-300 text-base sm:text-lg">
+                        <a href="tel:{{ contact_infos.phone }}" 
+                        class="bg-white text-orange-600 px-6 py-3 rounded-xl font-bold hover:bg-slate-100 transition-colors duration-300 text-base sm:text-lg">
                             <i class="fas fa-phone mr-2"></i>Appeler
-                        </button>
-                        <button class="border-2 border-white text-white px-6 py-3 rounded-xl font-bold hover:bg-white hover:text-orange-600 transition-all duration-300 text-base sm:text-lg">
+                        </a>
+                        <a href="#google-map" 
+                        class="border-2 border-white text-white px-6 py-3 rounded-xl font-bold hover:bg-white hover:text-orange-600 transition-all duration-300 text-base sm:text-lg">
                             <i class="fas fa-directions mr-2"></i>Itinéraire
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>
 
-            <!-- Google Maps -->
-            <div class="relative">
-                <div class="bg-slate-800/50 backdrop-blur-sm rounded-3xl p-4 border border-slate-700/50">
-                    <div class="relative overflow-hidden rounded-2xl">
-                        <iframe 
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4649.077146476321!2d-1.168587295480059!3d46.143620648903934!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x480153ec40a1fe77%3A0xe993dbf31a0ee44d!2sPort%20de%20plaisance%20de%20La%20Rochelle!5e0!3m2!1sfr!2sfr!4v1757596664296!5m2!1sfr!2sfr" 
-                            width="100%" 
-                            height="450" 
-                            style="border:0;" 
-                            allowfullscreen="" 
-                            loading="lazy" 
-                            referrerpolicy="no-referrer-when-downgrade"
-                            class="rounded-2xl">
-                        </iframe>
+            <!-- Google Maps & Formulaire -->
+            <div class="relative flex flex-col gap-3 sm:gap-5 xl:gap-8" id="contact">
+                <form method="POST" class="flex flex-col gap-3 sm:gap-5 xl:gap-6">
+                    <h4 class="font-bold text-slate-300 text-lg md:text-xl xl:text-3xl mb-2 sm:mb-4">
+                        Envoyez-nous un message
+                    </h4>
+                    {% csrf_token %}
+
+                    <!-- Nom & Prenom -->
+                    <div class="flex gap-3 flex-wrap">
+                        <div class="flex flex-col gap-1 flex-1 min-w-[220px]">
+                            <label for="{{ form.first_name.id_for_label }}" class="text-slate-200 font-semibold">
+                                {{ form.first_name.label }}
+                            </label>
+                            {{ form.first_name }}
+                            {% if form.first_name.help_text %}
+                                <span class="text-xs text-slate-400">{{ form.first_name.help_text }}</span>
+                            {% endif %}
+                            {% if form.first_name.errors %}
+                                <span class="text-sm text-red-500">
+                                    {{ form.first_name.errors|striptags }}
+                                </span>
+                            {% endif %}
+                        </div>
+                        <div class="flex flex-col gap-1 flex-1 min-w-[220px]">
+                            <label for="{{ form.last_name.id_for_label }}" class="text-slate-200 font-semibold">
+                                {{ form.last_name.label }}
+                            </label>
+                            {{ form.last_name }}
+                            {% if form.last_name.help_text %}
+                                <span class="text-xs text-slate-400">{{ form.last_name.help_text }}</span>
+                            {% endif %}
+                            {% if form.last_name.errors %}
+                                <span class="text-sm text-red-500">
+                                    {{ form.last_name.errors|striptags }}
+                                </span>
+                            {% endif %}
+                        </div>
                     </div>
-                </div>
-                
+                    <!-- Email -->
+                    <div class="flex flex-col gap-1">
+                        <label for="{{ form.email.id_for_label }}" class="text-slate-200 font-semibold">
+                            {{ form.email.label }}
+                        </label>
+                        {{ form.email }}
+                        {% if form.email.help_text %}
+                            <span class="text-xs text-slate-400">{{ form.email.help_text }}</span>
+                        {% endif %}
+                        {% if form.email.errors %}
+                            <span class="text-sm text-red-500">
+                                {{ form.email.errors|striptags }}
+                            </span>
+                        {% endif %}
+                    </div>
+                    <!-- Téléphone -->
+                    <div class="flex flex-col gap-1">
+                        <label for="{{ form.phone.id_for_label }}" class="text-slate-200 font-semibold">
+                            {{ form.phone.label }}
+                        </label>
+                        {{ form.phone }}
+                        {% if form.phone.help_text %}
+                            <span class="text-xs text-slate-400">{{ form.phone.help_text }}</span>
+                        {% endif %}
+                        {% if form.phone.errors %}
+                            <span class="text-sm text-red-500">
+                                {{ form.phone.errors|striptags }}
+                            </span>
+                        {% endif %}
+                    </div>
+                    <!-- Message -->
+                    <div class="flex flex-col gap-1">
+                        <label for="{{ form.message.id_for_label }}" class="text-slate-200 font-semibold">
+                            {{ form.message.label }}
+                        </label>
+                        {{ form.message }}
+                        {% if form.message.help_text %}
+                            <span class="text-xs text-slate-400">{{ form.message.help_text }}</span>
+                        {% endif %}
+                        {% if form.message.errors %}
+                            <span class="text-sm text-red-500">
+                                {{ form.message.errors|striptags }}
+                            </span>
+                        {% endif %}
+                    </div>
+
+                    <!-- CGV accepted -->
+                    <div class="flex gap-1 sm:gap-3 items-start sm:items-center">
+                        {{ form.cgv_accepted }}
+                        <label for="id_cgv_accepted" class="text-sm font-semibold text-slate-200">
+                            En envoyant ce message, vous reconnaissez avoir lu et accepté les CGV ainsi que la politique de confidentialité 
+                        </label>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" 
+                       class="px-10 py-3 md:py-4 text-white w-fit mx-auto rounded-xl shadow-lg shadow-cyan-700/40 uppercase md:text-lg mt-2
+                       bg-gradient-to-br from-cyan-500 to-cyan-700 from-30% hover:from-cyan-400 hover:to-cyan-600 hover:-translate-y-1
+                        hover:shadow-xl hover:shadow-cyan-600/30 transition-all duration-200 ease-in-out">
+                        Poster le message
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Google Maps -->
+        <div class="bg-slate-800/50 backdrop-blur-sm rounded-3xl p-4 border border-slate-700/50 mt-3 sm:mt-5" id="google-map">
+            <div class="relative overflow-hidden rounded-2xl">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4649.077146476321!2d-1.168587295480059!3d46.143620648903934!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x480153ec40a1fe77%3A0xe993dbf31a0ee44d!2sPort%20de%20plaisance%20de%20La%20Rochelle!5e0!3m2!1sfr!2sfr!4v1757596664296!5m2!1sfr!2sfr" 
+                    width="100%" 
+                    height="450" 
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade"
+                    class="rounded-2xl">
+                </iframe>
                 <!-- Overlay avec informations -->
-                <div class="absolute top-6 left-6 bg-slate-900/90 backdrop-blur-sm rounded-2xl p-4 border border-slate-700/50">
+                <div class="absolute top-6 right-6 bg-slate-900/90 backdrop-blur-sm rounded-2xl p-4 border border-slate-700/50">
                     <div class="flex items-center text-white">
                         <div class="w-8 h-8 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-lg flex items-center justify-center mr-3">
                             <i class="fas fa-anchor text-white text-sm"></i>

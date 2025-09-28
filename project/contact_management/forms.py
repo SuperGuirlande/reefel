@@ -5,11 +5,6 @@ from accounts.models import CustomUser
 
 
 class ContactForm(forms.ModelForm):
-    subject = forms.ChoiceField(
-        choices=[('', 'Quel est le sujet de votre message')] + list(ContactMessage.Subjects.choices),
-        required=True,
-        widget=forms.Select(attrs={'class': 'form-field form-charfield'})
-    )
     cgv_accepted = forms.BooleanField(
         required=True,
         widget=forms.CheckboxInput(attrs={'class': 'form-field form-checkbox'})
@@ -17,7 +12,7 @@ class ContactForm(forms.ModelForm):
     
     class Meta:
         model = ContactMessage
-        fields = ['first_name', 'last_name', 'phone', 'email', 'subject', 'message', 'cgv_accepted']
+        fields = ['first_name', 'last_name', 'phone', 'email', 'message', 'cgv_accepted']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
