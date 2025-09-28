@@ -1,10 +1,150 @@
 {% extends 'main/base.html' %}
 {% load static %}
 
-{% block title %}Réparation & Entretien de Bateaux{% endblock %}
+{% block title %}Réparation & Entretien de Bateaux à La Rochelle | Reefel Workshop{% endblock %}
 
 {% block extra_head %}
 <link rel="stylesheet" href="{% static 'css/global_forms.css' %}">
+
+<!-- SEO Meta Tags -->
+<meta name="description" content="Reefel Workshop - Spécialiste réparation et entretien de bateaux à La Rochelle. Carénage, hivernage, réparation coques, entretien moteur. Port des Minimes. Devis gratuit.">
+<meta name="keywords" content="réparation bateau, entretien bateau, carénage, hivernage, La Rochelle, Port des Minimes, réparation coque, entretien moteur, expertise nautique, Reefel Workshop">
+<meta name="author" content="Reefel Workshop">
+<meta name="robots" content="index, follow">
+<meta name="language" content="fr-FR">
+<meta name="geo.region" content="FR-17">
+<meta name="geo.placename" content="La Rochelle">
+<meta name="geo.position" content="46.1436;-1.1686">
+<meta name="ICBM" content="46.1436, -1.1686">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="{{ request.build_absolute_uri }}">
+<meta property="og:title" content="Réparation & Entretien de Bateaux à La Rochelle | Reefel Workshop">
+<meta property="og:description" content="Spécialiste réparation et entretien de bateaux à La Rochelle. Carénage, hivernage, réparation coques, entretien moteur. Port des Minimes. Devis gratuit.">
+<meta property="og:image" content="{% static 'images/logo-graff.png' %}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:site_name" content="Reefel Workshop">
+<meta property="og:locale" content="fr_FR">
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:url" content="{{ request.build_absolute_uri }}">
+<meta property="twitter:title" content="Réparation & Entretien de Bateaux à La Rochelle | Reefel Workshop">
+<meta property="twitter:description" content="Spécialiste réparation et entretien de bateaux à La Rochelle. Carénage, hivernage, réparation coques, entretien moteur. Port des Minimes. Devis gratuit.">
+<meta property="twitter:image" content="{% static 'images/logo-graff.png' %}">
+
+<!-- Canonical URL -->
+<link rel="canonical" href="{{ request.build_absolute_uri }}">
+
+<!-- JSON-LD Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Reefel Workshop",
+  "description": "Spécialiste réparation et entretien de bateaux à La Rochelle",
+  "url": "{{ request.scheme }}://{{ request.get_host }}",
+  "logo": "{{ request.scheme }}://{{ request.get_host }}{% static 'images/logo-graff.png' %}",
+  "image": "{{ request.scheme }}://{{ request.get_host }}{% static 'images/logo-graff.png' %}",
+  "telephone": "{{ contact_infos.phone }}",
+  "email": "{{ contact_infos.email }}",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Port des Minimes",
+    "addressLocality": "La Rochelle",
+    "postalCode": "17000",
+    "addressCountry": "FR"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": "46.1436",
+    "longitude": "-1.1686"
+  },
+  "openingHours": [
+    "Mo-Fr 08:00-18:00",
+    "Sa 08:00-17:00"
+  ],
+  "serviceArea": {
+    "@type": "GeoCircle",
+    "geoMidpoint": {
+      "@type": "GeoCoordinates",
+      "latitude": "46.1436",
+      "longitude": "-1.1686"
+    },
+    "geoRadius": "50000"
+  },
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Services d'entretien nautique",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Remise et sortie d'eau",
+          "description": "Mise à l'eau et sortie d'eau professionnelle"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Carénage",
+          "description": "Carénage complet avec produits de qualité marine"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Réparation coques",
+          "description": "Réparation et restauration de coques en fibre de verre, aluminium ou bois"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Entretien moteur",
+          "description": "Entretien préventif et réparations mineures pour moteurs"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Hivernage",
+          "description": "Préparation complète pour l'hivernage et entretien saisonnier"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Expertise & conseil",
+          "description": "Conseil personnalisé et expertise technique"
+        }
+      }
+    ]
+  },
+  "sameAs": [
+    "https://www.facebook.com/reefelworkshop",
+    "https://www.instagram.com/reefelworkshop"
+  ]
+}
+</script>
+
+<!-- Preload critical resources -->
+<link rel="preload" href="{% static 'fonts/poppins/Poppins-Regular.woff2' %}" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{% static 'images/logo-graff.png' %}" as="image">
+<link rel="preload" href="{% static 'images/logo-ship.png' %}" as="image">
+<link rel="preload" href="{% static 'images/logo-paint.png' %}" as="image">
+
+<!-- DNS Prefetch pour ressources non critiques -->
+<link rel="dns-prefetch" href="//www.google.com">
+<link rel="dns-prefetch" href="//www.google-analytics.com">
 {% endblock %}
 
 

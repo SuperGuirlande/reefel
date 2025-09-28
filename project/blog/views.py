@@ -56,13 +56,15 @@ def blog_index(request, category_slug=None):
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
-    # Métadonnées SEO
+    # Métadonnées SEO optimisées
     if current_category_obj:
-        page_title = f"Articles {current_category_obj.name} - Reefel Workshop"
-        page_description = f"Découvrez nos articles sur {current_category_obj.name} et l'entretien de bateaux à La Rochelle."
+        page_title = f"Articles {current_category_obj.name} - Blog Nautique | Reefel Workshop"
+        page_description = f"Articles spécialisés sur {current_category_obj.name} et l'entretien de bateaux à La Rochelle. Conseils d'experts nautiques du Port des Minimes."
+        page_keywords = f"blog nautique, {current_category_obj.name}, entretien bateau, réparation bateau, La Rochelle, Port des Minimes, Reefel Workshop"
     else:
-        page_title = "Blog - Actualités & Conseils Nautiques | Reefel Workshop"
-        page_description = "Découvrez nos derniers articles sur l'entretien et la réparation de bateaux. Conseils d'experts nautiques à La Rochelle."
+        page_title = "Blog Nautique - Actualités & Conseils Entretien Bateaux | Reefel Workshop"
+        page_description = "Blog spécialisé en entretien et réparation de bateaux à La Rochelle. Conseils d'experts nautiques, guides pratiques et actualités du Port des Minimes."
+        page_keywords = "blog nautique, entretien bateau, réparation bateau, conseils nautiques, La Rochelle, Port des Minimes, Reefel Workshop, actualités nautiques"
 
     context = {
         'articles': page_obj,
@@ -116,18 +118,35 @@ def article_detail(request, slug):
         
         related_articles = list(related_articles) + list(recent_articles)
 
-    # Métadonnées SEO
-    page_title = f"{post.title} | Reefel Workshop Blog"
-    page_description = post.introduction[:160] if post.introduction else f"Découvrez {post.title} sur notre blog nautique."
+    # Métadonnées SEO optimisées
+    page_title = f"{post.title} - Blog Nautique | Reefel Workshop"
     
-    # Mots-clés combinés
+    # Description optimisée
+    if post.introduction:
+        page_description = post.introduction[:160]
+        if len(post.introduction) > 160:
+            page_description = page_description[:157] + "..."
+    else:
+        page_description = f"Article spécialisé sur {post.title} - Conseils d'experts en entretien nautique à La Rochelle."
+    
+    # Mots-clés optimisés
     keywords_list = []
     if post.keywords:
-        keywords_list.extend(post.keywords.split(','))
+        keywords_list.extend([kw.strip() for kw in post.keywords.split(',')])
     for category in post.categories.all():
         keywords_list.append(category.name)
-    keywords_list.extend(['blog nautique', 'entretien bateau', 'La Rochelle'])
-    page_keywords = ', '.join(set(keywords_list))
+    keywords_list.extend([
+        'blog nautique', 
+        'entretien bateau', 
+        'réparation bateau',
+        'La Rochelle', 
+        'Port des Minimes',
+        'Reefel Workshop',
+        'conseils nautiques'
+    ])
+    # Supprimer les doublons et limiter
+    unique_keywords = list(dict.fromkeys(keywords_list))[:15]
+    page_keywords = ', '.join(unique_keywords)
 
     context = {
         'post': post,
