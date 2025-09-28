@@ -33,8 +33,8 @@ tl.to(paintBg, {opacity: 1, scale: 1, rotation: 0, duration: 1.2, ease: 'back.ou
   .to(graffiti, {opacity: 1, scale: 1, rotation: 0, duration: 0.8, ease: 'elastic.out(1, 0.3)'}, "-=0.6")
 
 // Animation des titres principaux
-  .from(reefel, {opacity: 0, x: -260, duration: 1}, "-=0.4")
-  .from(workshop, {opacity: 0, x: 60, duration: 1}, "-=0.5")
+  .to(reefel, {opacity: 1, x: 0, duration: 1}, "-=0.4")
+  .to(workshop, {opacity: 1, x: 0, duration: 1}, "-=0.5")
   
   // Animation du sous-titre
   .to(subtitle, {opacity: 1, y: 0, duration: 0.8}, "-=0.3")
