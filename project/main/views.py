@@ -40,7 +40,7 @@ def robots_txt(request):
         
         # Remplacer l'URL du sitemap par l'URL réelle
         content = content.replace(
-            'https://votre-domaine.com/sitemap.xml',
+            'https://www.reefel.fr/sitemap.xml',
             f'{request.scheme}://{request.get_host()}/sitemap.xml'
         )
         
