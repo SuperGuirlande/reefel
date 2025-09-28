@@ -303,9 +303,6 @@ CKEDITOR_5_CONFIGS = {
         ],
         'language': 'fr',
         'ui': {
-            'viewportOffset': {
-                'top': 0
-            }
         },
         'htmlSupport': {
             'allow': [

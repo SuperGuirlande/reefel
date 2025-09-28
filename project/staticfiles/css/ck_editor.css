@@ -6,7 +6,24 @@
 }
 
 .ck-powered-by {
+    position: sticky !important;
     display: none !important;
+}
+
+/* ===== BARRE D'OUTILS ===== */
+.ck-editor__top {
+    border: 1px solid #334155 !important; /* slate-700 */
+    position: sticky !important;
+    border-radius: 1rem 1rem 0 0 !important;
+    border-bottom: none !important;
+}
+
+.ck-toolbar {
+    border: none !important;
+    padding: 0.75rem !important;
+    z-index: 100 !important;
+    position: sticky !important;
+    top: 64px !important;
 }
 
 /* ===== FORCER LE DARK MODE ===== */
@@ -14,7 +31,8 @@
     background-color: #0f172a !important; /* slate-900 */
     color: #f1f5f9 !important; /* slate-100 */
     border: 1px solid #334155 !important; /* slate-700 */
-    border-radius: 1rem !important;
+    border-top: none !important;
+    border-radius: 0 0 1rem 1rem !important;
 }
 
 .ck-editor__main {
