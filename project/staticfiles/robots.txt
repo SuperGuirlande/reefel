@@ -22,7 +22,7 @@ Disallow: *.xls$
 Disallow: *.xlsx$
 
 # Sitemap
-Sitemap: https://votre-domaine.com/sitemap.xml
+Sitemap: https://www.reefel.fr/sitemap.xml
 
 # Crawl-delay pour éviter la surcharge
 Crawl-delay: 1
