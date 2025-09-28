@@ -6,7 +6,7 @@
 
 {% block extra_head %}
 <link rel="stylesheet" href="{% static 'css/global_forms.css' %}">
-<link rel="stylesheet" href="{% static 'css/blog.css' %}">
+<link rel="stylesheet" href="{% static 'css/ck_editor.css' %}">
 
 <!-- SEO Meta Tags -->
 <meta name="description" content="{{ page_description }}">
@@ -217,7 +217,7 @@
 
             <!-- Article Content -->
             <article class="prose prose-lg prose-slate prose-invert max-w-none">
-                <div class="bg-slate-700/30 backdrop-blur-sm rounded-2xl p-8 border border-slate-600/50">
+                <div class="bg-slate-700/30 backdrop-blur-sm rounded-2xl p-8 border border-slate-600/50 ck-content">
                     {{ post.content|safe }}
                 </div>
             </article>

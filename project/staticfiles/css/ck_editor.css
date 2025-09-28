@@ -1,3 +1,6 @@
+/* ===== REEFEL WORKSHOP - CKEDITOR DARK THEME ===== */
+
+/* Masquer les éléments inutiles */
 #id_content_script-word-count {
     display: none !important;
 }
@@ -6,46 +9,126 @@
     display: none !important;
 }
 
-.ck-content p{
-    display: block !important;
+/* ===== FORCER LE DARK MODE ===== */
+.ck-editor__editable {
+    background-color: #0f172a !important; /* slate-900 */
+    color: #f1f5f9 !important; /* slate-100 */
+    border: 1px solid #334155 !important; /* slate-700 */
+    border-radius: 1rem !important;
 }
 
-.ck-content h2, .ck-content h3, .ck-content h4 {
-    font-weight: bold !important;
-    color: #5f5df7 !important;
+.ck-editor__main {
+    background-color: #0f172a !important; /* slate-900 */
+}
+
+.ck-editor__editable_inline {
+    background-color: #0f172a !important; /* slate-900 */
+    color: #f1f5f9 !important; /* slate-100 */
+}
+
+/* Forcer le dark mode sur tous les éléments de l'éditeur */
+.ck-editor__editable * {
+    color: inherit !important;
+}
+
+.ck-editor__editable p {
+    color: #cbd5e1 !important; /* slate-300 */
+}
+
+.ck-editor__editable h1, 
+.ck-editor__editable h2, 
+.ck-editor__editable h3, 
+.ck-editor__editable h4, 
+.ck-editor__editable h5, 
+.ck-editor__editable h6 {
+    color: #f1f5f9 !important; /* slate-100 */
     font-family: 'Montserrat', sans-serif !important;
+    font-weight: 700 !important;
+}
+
+.ck-editor__editable h2 {
+    color: #22d3ee !important; /* cyan-400 */
+}
+
+/* ===== CONFIGURATION GÉNÉRALE ===== */
+.ck-content {
+    background-color: #0f172a !important; /* slate-900 */
+    color: #f1f5f9 !important; /* slate-100 */
+    font-family: 'Poppins', sans-serif !important;
+    line-height: 1.6 !important;
+    padding: 2rem !important;
+    border-radius: 1rem !important;
+    border: 1px solid #334155 !important; /* slate-700 */
+}
+
+/* ===== TYPOGRAPHIE ===== */
+.ck-content p {
+    display: block !important;
+    font-size: 1rem !important;
+    line-height: 1.75 !important;
+    margin-bottom: 1.25rem !important;
+    color: #cbd5e1 !important; /* slate-300 */
+}
+
+.ck-content h1, .ck-content h2, .ck-content h3, .ck-content h4, .ck-content h5, .ck-content h6 {
+    font-family: 'Montserrat', sans-serif !important;
+    font-weight: 700 !important;
+    color: #f1f5f9 !important; /* slate-100 */
+    margin-bottom: 1rem !important;
+    line-height: 1.2 !important;
+}
+
+.ck-content h1 {
+    font-size: 2.5rem !important;
+    margin-top: 0 !important;
+    background: linear-gradient(135deg, #22d3ee, #06b6d4, #0891b2) !important; /* cyan-400 to cyan-500 to cyan-600 */
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
 }
 
 .ck-content h2 {
     font-size: 2rem !important;
-    margin-top: 25px;
+    margin-top: 2rem !important;
+    background: linear-gradient(135deg, #22d3ee, #06b6d4) !important; /* cyan-400 to cyan-500 */
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+    font-family: 'Montserrat', sans-serif !important;
+    font-weight: 700 !important;
 }
 
 .ck-content h3 {
     font-size: 1.5rem !important;
-    margin-top: 18px;
+    margin-top: 1.5rem !important;
+    background: linear-gradient(135deg, #f97316, #ea580c, #dc2626) !important; /* orange-500 to orange-600 to red-600 */
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
 }
 
 .ck-content h4 {
-    font-size: 1.3rem !important;
-    margin-top: 15px;
+    font-size: 1.25rem !important;
+    margin-top: 1.25rem !important;
+    background: linear-gradient(135deg, #f97316, #ea580c) !important; /* orange-500 to orange-600 */
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
 }
 
-.ck-content p {
-    font-size: 1rem !important;
-    line-height: 1.6 !important;
+.ck-content h5, .ck-content h6 {
+    font-size: 1.125rem !important;
+    margin-top: 1rem !important;
+    color: #eab308 !important; /* yellow-500 */
 }
 
-.ck-content h2:first-child {
-    margin-top: 0 !important;
-}
-
-/* Listes */
+/* ===== LISTES ===== */
 .ck-content ul, .ck-content ol {
     font-size: 1rem !important;
     line-height: 1.8 !important;
-    margin: 1rem 0 !important;
+    margin: 1.5rem 0 !important;
     padding-left: 2rem !important;
+    color: #cbd5e1 !important; /* slate-300 */
 }
 
 .ck-content ul {
@@ -58,6 +141,7 @@
 
 .ck-content li {
     margin-bottom: 0.5rem !important;
+    color: #cbd5e1 !important; /* slate-300 */
 }
 
 .ck-content ul ul, .ck-content ol ol, .ck-content ul ol, .ck-content ol ul {
@@ -65,164 +149,201 @@
     margin-bottom: 0.5rem !important;
 }
 
-/* Citations */
+/* ===== CITATIONS ===== */
 .ck-content blockquote {
-    border-left: 4px solid #5f5df7 !important;
-    background-color:  #605df71c !important;
-    border-radius: 6px !important;
-    padding: .5rem 1.5rem!important;
-    margin: 1.5rem 0 !important;
+    border-left: 4px solid #22d3ee !important; /* cyan-400 */
+    background: linear-gradient(135deg, rgba(34, 211, 238, 0.1), rgba(59, 130, 246, 0.1)) !important;
+    border-radius: 0.5rem !important;
+    padding: 1.5rem !important;
+    margin: 2rem 0 !important;
     font-style: italic !important;
-    color: #555 !important;
-    font-size: 1rem !important;
+    color: #94a3b8 !important; /* slate-400 */
+    font-size: 1.1rem !important;
+    position: relative !important;
 }
 
-/* Liens */
+.ck-content blockquote::before {
+    content: '"' !important;
+    font-size: 3rem !important;
+    color: #22d3ee !important; /* cyan-400 */
+    position: absolute !important;
+    top: -0.5rem !important;
+    left: 1rem !important;
+    font-family: serif !important;
+}
+
+/* ===== LIENS ===== */
 .ck-content a {
-    color: #5f5df7 !important;
+    color: #22d3ee !important; /* cyan-400 */
     text-decoration: underline !important;
     transition: color 0.3s ease !important;
+    font-weight: 500 !important;
 }
 
 .ck-content a:hover {
-    color: #003a87 !important;
+    color: #06b6d4 !important; /* cyan-500 */
+    text-decoration: none !important;
 }
 
-/* Emphase et gras */
+/* ===== EMPHASE ===== */
 .ck-content strong, .ck-content b {
-    font-weight: bold !important;
+    font-weight: 700 !important;
+    color: #f1f5f9 !important; /* slate-100 */
 }
 
 .ck-content em, .ck-content i {
     font-style: italic !important;
+    color: #94a3b8 !important; /* slate-400 */
 }
 
-/* Style par défaut pour tous les surligneurs */
+/* ===== CODE ===== */
+.ck-content code {
+    background: linear-gradient(135deg, #1e293b, #334155) !important; /* slate-800 to slate-700 */
+    color: #22d3ee !important; /* cyan-400 */
+    padding: 0.25rem 0.5rem !important;
+    border-radius: 0.375rem !important;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace !important;
+    font-size: 0.9em !important;
+    border: 1px solid #475569 !important; /* slate-600 */
+}
+
+.ck-content pre {
+    background: linear-gradient(135deg, #1e293b, #334155) !important; /* slate-800 to slate-700 */
+    color: #cbd5e1 !important; /* slate-300 */
+    padding: 1.5rem !important;
+    border-radius: 0.75rem !important;
+    overflow-x: auto !important;
+    margin: 2rem 0 !important;
+    border: 1px solid #475569 !important; /* slate-600 */
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace !important;
+    line-height: 1.6 !important;
+}
+
+.ck-content pre code {
+    background: none !important;
+    border: none !important;
+    padding: 0 !important;
+    color: inherit !important;
+}
+
+/* ===== SURLIGNEURS ===== */
 .ck-content mark {
     padding: 2px 4px !important;
+    border-radius: 0.25rem !important;
+    font-weight: 500 !important;
 }
 
-/* Stabilo */
-mark.marker-pink {
-    background-color: #ff69b4 !important;
-    color: #000 !important;
-    padding: 2px 4px !important;
-}
-
-mark.marker-yellow {
-    background-color: #ffff00 !important;
-    color: #000 !important;
-    padding: 2px 4px !important;
-}
-
-mark.marker-green {
-    background-color: #90ee90 !important;
-    color: #000 !important;
-    padding: 2px 4px !important;
+mark.marker-cyan {
+    background: linear-gradient(135deg, #22d3ee, #06b6d4) !important;
+    color: #0f172a !important; /* slate-900 */
 }
 
 mark.marker-blue {
-    background-color: #87ceeb !important;
-    color: #000 !important;
-    padding: 2px 4px !important;
+    background: linear-gradient(135deg, #3b82f6, #2563eb) !important;
+    color: #ffffff !important;
 }
 
-mark.marker-red {
-    background-color: #ff6b6b !important;
-    color: #fff !important;
-    padding: 2px 4px !important;
+mark.marker-orange {
+    background: linear-gradient(135deg, #f97316, #ea580c) !important;
+    color: #ffffff !important;
 }
 
-
-/* Code */
-.ck-content code {
-    background-color: #f5f5f5 !important;
-    padding: 2px 6px !important;
-    border-radius: 3px !important;
-    font-family: 'Consolas', 'Monaco', monospace !important;
-    font-size: 0.9em !important;
+mark.marker-yellow {
+    background: linear-gradient(135deg, #eab308, #facc15) !important;
+    color: #0f172a !important; /* slate-900 */
 }
 
-/* Séparateurs */
+mark.marker-green {
+    background: linear-gradient(135deg, #22c55e, #16a34a) !important;
+    color: #ffffff !important;
+}
+
+mark.marker-pink {
+    background: linear-gradient(135deg, #ec4899, #db2777) !important;
+    color: #ffffff !important;
+}
+
+/* ===== SÉPARATEURS ===== */
 .ck-content hr {
     border: none !important;
-    border-top: 2px solid #e0e0e0 !important;
-    margin: 2rem 0 !important;
+    height: 2px !important;
+    background: linear-gradient(90deg, #22d3ee, #3b82f6, #f97316) !important;
+    margin: 3rem 0 !important;
+    border-radius: 1px !important;
 }
 
-/* Tableaux améliorés */
+/* ===== TABLEAUX ===== */
 .ck-content table {
-    max-width: 100%;
-    overflow-x: auto;
-    display: block;
+    width: 100% !important;
     border-collapse: collapse !important;
-    margin: 1.5rem 0 !important;
+    margin: 2rem 0 !important;
+    background: #1e293b !important; /* slate-800 */
+    border-radius: 0.75rem !important;
+    overflow: hidden !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3) !important;
 }
 
 .ck-content th, .ck-content td {
-    border: 1px solid #b4b4b4 !important;
-    padding: 0.75rem !important;
+    border: 1px solid #334155 !important; /* slate-700 */
+    padding: 1rem !important;
     text-align: left !important;
 }
 
 .ck-content th {
-    background-color: #f8f9fa !important;
-    font-weight: bold !important;
+    background: linear-gradient(135deg, #22d3ee, #3b82f6) !important;
+    color: #ffffff !important;
+    font-weight: 700 !important;
+    font-family: 'Montserrat', sans-serif !important;
 }
 
-/* Styles pour éviter le débordement sur mobile */
-.ck-content {
-    word-wrap: break-word;
-    overflow-wrap: break-word;
+.ck-content td {
+    background: #1e293b !important; /* slate-800 */
+    color: #cbd5e1 !important; /* slate-300 */
 }
 
+.ck-content tr:nth-child(even) td {
+    background: #334155 !important; /* slate-700 */
+}
+
+/* ===== IMAGES ===== */
 .ck-content img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-    margin: 1rem auto;
+    max-width: 100% !important;
+    height: auto !important;
+    display: block !important;
+    margin: 2rem auto !important;
+    border-radius: 0.75rem !important;
+    box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.3) !important;
+    border: 2px solid #334155 !important; /* slate-700 */
 }
 
-.ck-content pre {
-    overflow-x: auto;
-    white-space: pre-wrap;
-    word-wrap: break-word;
-    background-color: #f5f5f5 !important;
-    padding: 1rem !important;
-    border-radius: 5px !important;
-    margin: 1rem 0 !important;
-}
-
-.ck-content iframe {
-    max-width: 100%;
-}
-
-/* Styles pour les médias intégrés - mise à jour pour cibler les classes spécifiques CKEditor */
+/* ===== MÉDIAS INTÉGRÉS ===== */
 .ck-content figure.media,
 .ck-content figure.media.ck-widget {
-    margin: 1.5rem 0;
-    width: 100%;
-    max-width: 100%;
-    position: relative;
+    margin: 2rem 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    position: relative !important;
     display: block !important;
-    min-height: 270px;
+    min-height: 270px !important;
+    border-radius: 0.75rem !important;
+    overflow: hidden !important;
+    box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.3) !important;
 }
 
-/* Style spécifique pour le wrapper utilisé par CKEditor */
 .ck-content .ck-media__wrapper {
-    position: relative;
-    width: 100%;
-    margin: 0;
+    position: relative !important;
+    width: 100% !important;
+    margin: 0 !important;
+    border-radius: 0.75rem !important;
+    overflow: hidden !important;
 }
 
-/* S'assurer que le div interne avec le style inline est correctement affiché */
 .ck-content .ck-media__wrapper > div {
     position: relative !important;
     height: 0 !important;
-    padding-bottom: 56.25% !important; /* Remplacer le 100% par 56.25% pour ratio 16:9 */
+    padding-bottom: 56.25% !important; /* Ratio 16:9 */
 }
 
-/* S'assurer que l'iframe est correctement affiché */
 .ck-content .ck-media__wrapper iframe {
     position: absolute !important;
     width: 100% !important;
@@ -232,143 +353,187 @@ mark.marker-red {
     border: 0 !important;
 }
 
-/* Cacher les boutons d'insertion autour du widget dans la vue finale */
+/* Cacher les boutons d'insertion */
 .ck-content .ck-reset_all,
 .ck-content .ck-widget__type-around {
     display: none !important;
 }
 
-/* Styles pour oembed - Garder pour compatibilité */
-.ck-content figure.media oembed,
-.ck-content figure.media div[data-oembed-url] {
-    display: block;
-    position: relative;
-    width: 100%;
-    padding-bottom: 56.25%; /* Ratio 16:9 pour les vidéos */
-    height: 0;
-    overflow: hidden;
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .ck-content {
+        padding: 1rem !important;
+        font-size: 0.9rem !important;
+    }
+    
+    .ck-content h1 {
+        font-size: 2rem !important;
+    }
+    
+    .ck-content h2 {
+        font-size: 1.75rem !important;
+    }
+    
+    .ck-content h3 {
+        font-size: 1.5rem !important;
+    }
+    
+    .ck-content h4 {
+        font-size: 1.25rem !important;
+    }
+    
+    .ck-content blockquote {
+        padding: 1rem !important;
+        font-size: 1rem !important;
+    }
+    
+    .ck-content pre {
+        padding: 1rem !important;
+        font-size: 0.8rem !important;
+    }
+    
+    .ck-content table {
+        font-size: 0.8rem !important;
+    }
+    
+    .ck-content th, .ck-content td {
+        padding: 0.5rem !important;
+    }
 }
 
-/* S'assurer que les vidéos de tous fournisseurs s'affichent correctement */
-.ck-content figure.media [data-oembed-url],
-.ck-content figure.media [data-oembed-url*="dai.ly"],
-.ck-content figure.media [data-oembed-url*="dailymotion.com"],
-.ck-content figure.media [data-oembed-url*="youtube.com"],
-.ck-content figure.media [data-oembed-url*="youtu.be"],
-.ck-content figure.media [data-oembed-url*="vimeo.com"] {
-    position: relative;
-    display: block;
-    width: 100%;
-    min-height: 270px;
+@media (max-width: 640px) {
+    .ck-content {
+        padding: 0.75rem !important;
+    }
+    
+    .ck-content h1 {
+        font-size: 1.75rem !important;
+    }
+    
+    .ck-content h2 {
+        font-size: 1.5rem !important;
+    }
+    
+    .ck-content h3 {
+        font-size: 1.25rem !important;
+    }
+    
+    .ck-content ul, .ck-content ol {
+        padding-left: 1.5rem !important;
+    }
 }
 
-/* Forcer l'affichage du conteneur - version pour la vue détaillée */
+/* ===== ANIMATIONS SUBTILES ===== */
+.ck-content a {
+    transition: all 0.3s ease !important;
+}
+
+.ck-content a:hover {
+    transform: translateY(-1px) !important;
+}
+
+.ck-content img {
+    transition: transform 0.3s ease !important;
+}
+
+.ck-content img:hover {
+    transform: scale(1.02) !important;
+}
+
+/* ===== FOCUS ET ACCESSIBILITÉ ===== */
+.ck-content a:focus {
+    outline: 2px solid #22d3ee !important; /* cyan-400 */
+    outline-offset: 2px !important;
+    border-radius: 0.25rem !important;
+}
+
+/* ===== STYLES POUR LA VUE DÉTAILLÉE ===== */
 body:not(.ck-editor) .media {
     display: block !important;
-    clear: both;
-    margin: 1em 0;
-    min-height: 270px;
+    clear: both !important;
+    margin: 2rem 0 !important;
+    min-height: 270px !important;
+    border-radius: 0.75rem !important;
+    overflow: hidden !important;
+    box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.3) !important;
 }
 
-/* Style spécifique pour le cas simple dans la vue détaillée */
-.ck-content figure.media oembed[url],
-figure.media oembed[url] {
-    display: block;
-    position: relative;
-    width: 100%;
-    height: 0;
-    padding-bottom: 56.25%; /* Ratio 16:9 */
-    overflow: hidden;
+/* ===== GESTION DU DÉBORDEMENT ===== */
+.ck-content {
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+    hyphens: auto !important;
 }
 
-/* Génération automatique d'un iframe pour oembed avec attribut url */
+.ck-content iframe {
+    max-width: 100% !important;
+}
+
+/* ===== STYLES POUR OEMBED ===== */
+.ck-content figure.media oembed,
+.ck-content figure.media div[data-oembed-url] {
+    display: block !important;
+    position: relative !important;
+    width: 100% !important;
+    padding-bottom: 56.25% !important;
+    height: 0 !important;
+    overflow: hidden !important;
+    border-radius: 0.75rem !important;
+}
+
+.ck-content figure.media [data-oembed-url] {
+    position: relative !important;
+    display: block !important;
+    width: 100% !important;
+    min-height: 270px !important;
+    border-radius: 0.75rem !important;
+}
+
+/* ===== STYLES POUR DAILYMOTION ===== */
 .ck-content figure.media oembed[url*="dai.ly"]::before,
 .ck-content figure.media oembed[url*="dailymotion.com"]::before,
 figure.media oembed[url*="dai.ly"]::before,
 figure.media oembed[url*="dailymotion.com"]::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.1);
-    z-index: 1;
-}
-
-/* Ajout d'une règle CSS pour transformer oembed en iframe pour Dailymotion */
-.ck-content figure.media oembed[url*="dai.ly"],
-.ck-content figure.media oembed[url*="dailymotion.com"],
-figure.media oembed[url*="dai.ly"],
-figure.media oembed[url*="dailymotion.com"] {
-    position: relative;
-    padding-bottom: 56.25%;
-    height: 0;
-    overflow: hidden;
-    max-width: 100%;
+    content: "" !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    background: rgba(0, 0, 0, 0.1) !important;
+    z-index: 1 !important;
+    border-radius: 0.75rem !important;
 }
 
 .ck-content figure.media oembed[url*="dai.ly"]::after,
 .ck-content figure.media oembed[url*="dailymotion.com"]::after,
 figure.media oembed[url*="dai.ly"]::after,
 figure.media oembed[url*="dailymotion.com"]::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23FF0000'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z'/%3E%3C/svg%3E");
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: 64px;
-    background-color: #f5f5f5;
-    cursor: pointer;
-    z-index: 2;
+    content: "" !important;
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    width: 64px !important;
+    height: 64px !important;
+    background: linear-gradient(135deg, #22d3ee, #3b82f6) !important;
+    border-radius: 50% !important;
+    cursor: pointer !important;
+    z-index: 2 !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3) !important;
 }
 
-/* Ajout d'un script pour remplacer oembed par iframe */
 .ck-content figure.media:has(oembed[url*="dai.ly"]),
 .ck-content figure.media:has(oembed[url*="dailymotion.com"]),
 figure.media:has(oembed[url*="dai.ly"]),
 figure.media:has(oembed[url*="dailymotion.com"]) {
-    position: relative;
-    width: 100%;
-    min-height: 300px;
-    display: block;
-    margin: 1em 0;
-    cursor: pointer;
+    position: relative !important;
+    width: 100% !important;
+    min-height: 300px !important;
+    display: block !important;
+    margin: 2rem 0 !important;
+    cursor: pointer !important;
+    border-radius: 0.75rem !important;
+    overflow: hidden !important;
+    box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.3) !important;
 }
-
-/* Responsive font sizes */
-@media (max-width: 640px) {
-    .ck-content h1 {
-        font-size: 1.875rem !important;
-        margin-top: 15px !important;
-    }
-    
-    .ck-content h2 {
-        font-size: 1.5rem !important;
-        margin-top: 12px !important;
-    }
-    
-    .ck-content h3 {
-        font-size: 1.25rem !important;
-        margin-top: 10px !important;
-    }
-
-    .ck-content p {
-        font-size: 1rem !important;
-    }
-    
-    .ck-content ul, .ck-content ol {
-        font-size: 1rem !important;
-        padding-left: 1.5rem !important;
-    }
-    
-    .ck-content blockquote {
-        padding-left: 1rem !important;
-        font-size: 1rem !important;
-    }
-}
-

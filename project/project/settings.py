@@ -156,67 +156,120 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # CKEDITOR #
 customColorPalette = [
-        # Variantes Minsk
+        # Palette Reefel Workshop - Dark Mode
+        # Slate (Backgrounds)
         {
-            'color': '#edf1ff',
-            'label': 'Minsk 50'
+            'color': '#0f172a',
+            'label': 'Slate 900'
         },
         {
-            'color': '#dfe5ff',
-            'label': 'Minsk 100'
+            'color': '#1e293b',
+            'label': 'Slate 800'
         },
         {
-            'color': '#c5cfff',
-            'label': 'Minsk 200'
+            'color': '#334155',
+            'label': 'Slate 700'
         },
         {
-            'color': '#a1afff',
-            'label': 'Minsk 300'
+            'color': '#475569',
+            'label': 'Slate 600'
         },
         {
-            'color': '#7c84fd',
-            'label': 'Minsk 400'
+            'color': '#64748b',
+            'label': 'Slate 500'
         },
         {
-            'color': '#5f5df7',
-            'label': 'Minsk 500'
+            'color': '#94a3b8',
+            'label': 'Slate 400'
         },
         {
-            'color': '#4f40eb',
-            'label': 'Minsk 600'
+            'color': '#cbd5e1',
+            'label': 'Slate 300'
         },
         {
-            'color': '#4332d0',
-            'label': 'Minsk 700'
+            'color': '#e2e8f0',
+            'label': 'Slate 200'
         },
         {
-            'color': '#372ba8',
-            'label': 'Minsk 800'
-        },
-        {
-            'color': '#362f92',
-            'label': 'Minsk 900'
-        },
-        {
-            'color': '#1e194d',
-            'label': 'Minsk 950'
+            'color': '#f1f5f9',
+            'label': 'Slate 100'
         },
         
-        # Noir et Blanc
+        # Cyan (Accent principal)
         {
-            'color': '#000000',
-            'label': 'Noir'
+            'color': '#22d3ee',
+            'label': 'Cyan 400'
         },
+        {
+            'color': '#06b6d4',
+            'label': 'Cyan 500'
+        },
+        {
+            'color': '#0891b2',
+            'label': 'Cyan 600'
+        },
+        {
+            'color': '#0e7490',
+            'label': 'Cyan 700'
+        },
+        
+        # Blue (Accent secondaire)
+        {
+            'color': '#3b82f6',
+            'label': 'Blue 500'
+        },
+        {
+            'color': '#2563eb',
+            'label': 'Blue 600'
+        },
+        {
+            'color': '#1d4ed8',
+            'label': 'Blue 700'
+        },
+        
+        # Orange (Accent tertiaire)
+        {
+            'color': '#ea580c',
+            'label': 'Orange 600'
+        },
+        {
+            'color': '#f97316',
+            'label': 'Orange 500'
+        },
+        {
+            'color': '#fb923c',
+            'label': 'Orange 400'
+        },
+        
+        # Yellow (Accent quaternaire)
+        {
+            'color': '#eab308',
+            'label': 'Yellow 500'
+        },
+        {
+            'color': '#facc15',
+            'label': 'Yellow 400'
+        },
+        
+        # Texte
         {
             'color': '#ffffff',
             'label': 'Blanc'
         },
         {
-            'color': '#6b7280',
-            'label': 'Gris'
+            'color': '#f1f5f9',
+            'label': 'Slate 100'
+        },
+        {
+            'color': '#cbd5e1',
+            'label': 'Slate 300'
+        },
+        {
+            'color': '#94a3b8',
+            'label': 'Slate 400'
         },
         
-        # Couleurs primaires
+        # Couleurs d'alerte
         {
             'color': '#ef4444',
             'label': 'Rouge'
@@ -226,28 +279,8 @@ customColorPalette = [
             'label': 'Vert'
         },
         {
-            'color': '#3b82f6',
-            'label': 'Bleu'
-        },
-        {
-            'color': '#eab308',
-            'label': 'Jaune'
-        },
-        {
-            'color': '#f97316',
-            'label': 'Orange'
-        },
-        {
-            'color': '#a855f7',
-            'label': 'Violet'
-        },
-        {
-            'color': '#ec4899',
-            'label': 'Rose'
-        },
-        {
-            'color': '#06b6d4',
-            'label': 'Cyan'
+            'color': '#f59e0b',
+            'label': 'Amber'
         },
     ]
 
@@ -269,6 +302,11 @@ CKEDITOR_5_CONFIGS = {
             'blockQuote',
         ],
         'language': 'fr',
+        'ui': {
+            'viewportOffset': {
+                'top': 0
+            }
+        },
         'htmlSupport': {
             'allow': [
                 {
@@ -320,44 +358,66 @@ CKEDITOR_5_CONFIGS = {
                 { 'model': 'heading3', 'view': 'h4', 'title': 'Sous-Titre 2', 'class': 'ck-heading_heading4' }
             ]
         },
+        'fontFamily': {
+            'options': [
+                'default',
+                'Poppins, sans-serif',
+                'Montserrat, sans-serif',
+                'Raleway, sans-serif',
+                'Story Script, cursive',
+                'Bebas Neue, sans-serif',
+                'Caveat Brush, cursive',
+                'Nosifer, sans-serif',
+                'Red Hat Display, sans-serif',
+                'Sedgwick Ave, cursive',
+                'Zen Dots, sans-serif'
+            ]
+        },
         'fontColor': {
             'colors': customColorPalette
         },
         'highlight': {
             'options': [
                 {
-                    'model': 'yellowMarker',
-                    'class': 'marker-yellow',
-                    'title': 'Surligneur jaune',
-                    'color': '#ffff00',
-                    'type': 'marker'
-                },
-                {
-                    'model': 'pinkMarker',
-                    'class': 'marker-pink',
-                    'title': 'Surligneur rose',
-                    'color': '#ff69b4',
-                    'type': 'marker'
-                },
-                {
-                    'model': 'greenMarker',
-                    'class': 'marker-green',
-                    'title': 'Surligneur vert',
-                    'color': '#90ee90',
+                    'model': 'cyanMarker',
+                    'class': 'marker-cyan',
+                    'title': 'Surligneur cyan',
+                    'color': '#22d3ee',
                     'type': 'marker'
                 },
                 {
                     'model': 'blueMarker',
                     'class': 'marker-blue',
                     'title': 'Surligneur bleu',
-                    'color': '#87ceeb',
+                    'color': '#3b82f6',
                     'type': 'marker'
                 },
                 {
-                    'model': 'redMarker',
-                    'class': 'marker-red',
-                    'title': 'Surligneur rouge',
-                    'color': '#ff6b6b',
+                    'model': 'orangeMarker',
+                    'class': 'marker-orange',
+                    'title': 'Surligneur orange',
+                    'color': '#f97316',
+                    'type': 'marker'
+                },
+                {
+                    'model': 'yellowMarker',
+                    'class': 'marker-yellow',
+                    'title': 'Surligneur jaune',
+                    'color': '#eab308',
+                    'type': 'marker'
+                },
+                {
+                    'model': 'greenMarker',
+                    'class': 'marker-green',
+                    'title': 'Surligneur vert',
+                    'color': '#22c55e',
+                    'type': 'marker'
+                },
+                {
+                    'model': 'pinkMarker',
+                    'class': 'marker-pink',
+                    'title': 'Surligneur rose',
+                    'color': '#ec4899',
                     'type': 'marker'
                 }
             ]
