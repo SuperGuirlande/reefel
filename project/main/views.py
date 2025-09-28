@@ -62,5 +62,5 @@ sitemaps = {
 @cache_page(60 * 60 * 12)  # Cache 12h
 def sitemap_xml(request):
     """Vue pour servir la sitemap avec le bon Content-Type"""
-    return sitemap(request, sitemaps, template_name='sitemap.xml', content_type='application/xml')
+    return sitemap(request, sitemaps, template_name='main/sitemap.xml', content_type='application/xml')
 
