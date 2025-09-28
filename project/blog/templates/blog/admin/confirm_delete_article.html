@@ -2,6 +2,114 @@
 {% load static %}
 
 {% block title %}
+    Supprimer l'article | Gestion du blog
+{% endblock %}
+
+{% block admin_content %}
+<section class="flex-1 bg-slate-900 flex flex-col py-12 md:py-20 w-full min-h-full">
+    <div class="w-full max-w-[800px] flex flex-col mx-auto px-5">
+
+        <!-- Header avec navigation -->
+        <div class="relative mb-8">
+            <!-- Retour Blog -->
+            <a href="{% url 'blog:admin_index' %}" 
+                class="absolute top-0 left-0 text-slate-300 hover:text-cyan-400 flex gap-3 hover:gap-5 items-center transition-all duration-300 ease-in-out text-sm group">
+                <i class="fas fa-arrow-left group-hover:-translate-x-1 transition-transform duration-300"></i>
+                <span>Retour au blog</span>
+            </a>
+            
+            <!-- Titre Principal -->
+            <div class="text-center pt-12">
+                <p class="text-red-400 text-sm md:text-base lg:text-lg uppercase font-light mb-2 md:mb-4">
+                    Attention - Action irréversible
+                </p>
+                <h1 class="text-[40px] sm:text-[50px] md:text-[70px] lg:text-[100px] uppercase my-0 font-extrabold mb-4 leading-tight font-story drop-shadow-md 
+                flex flex-col md:flex-row justify-center">
+                    <span class="bg-gradient-to-b from-cyan-400 from-30% px-1 sm:px-2 md:px-3
+                    to-blue-500 bg-clip-text text-transparent">
+                        Gestion
+                    </span>
+                    <span class="bg-gradient-to-r from-orange-600 via-orange-500 px-1 sm:px-2 md:px-3 -mt-2 sm:-mt-3 md:-mt-4 lg:-mt-0
+                    to-yellow-500 bg-clip-text text-transparent">
+                        Blog
+                    </span>
+                </h1>
+            </div>
+        </div>
+
+        <!-- Confirmation Container -->
+        <div class="bg-slate-800/50 backdrop-blur-sm border border-red-500/30 rounded-3xl p-8 shadow-lg">
+            <!-- Article info -->
+            <div class="bg-slate-700/50 rounded-2xl p-6 mb-8">
+                <div class="flex items-start gap-6">
+                    <!-- Image -->
+                    {% if post.thumbnail %}
+                    <div class="flex-shrink-0 w-24 h-24 bg-slate-600 rounded-xl overflow-hidden">
+                        <img src="{{ post.thumbnail.url }}" alt="{{ post.title }}" class="w-full h-full object-cover">
+                    </div>
+                    {% else %}
+                    <div class="flex-shrink-0 w-24 h-24 bg-slate-600 rounded-xl flex items-center justify-center">
+                        <i class="fas fa-image text-slate-400 text-2xl"></i>
+                    </div>
+                    {% endif %}
+                    
+                    <!-- Info -->
+                    <div class="flex-1">
+                        <h3 class="text-2xl font-bold text-white mb-3">{{ post.title }}</h3>
+                        <div class="flex flex-wrap gap-2 mb-3">
+                            {% for category in post.categories.all %}
+                            <span class="bg-cyan-500/20 text-cyan-300 text-xs px-2 py-1 rounded-full">{{ category.name }}</span>
+                            {% endfor %}
+                        </div>
+                        <p class="text-slate-300 mb-3">{{ post.introduction|truncatewords:15 }}</p>
+                        <div class="flex items-center gap-4 text-slate-400 text-sm">
+                            <span><i class="fas fa-calendar mr-1"></i>{{ post.created_at|date:"d M Y" }}</span>
+                            <span><i class="fas fa-user mr-1"></i>{{ post.author.username }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Warning -->
+            <div class="bg-red-500/10 border border-red-500/30 rounded-2xl p-6 mb-8">
+                <div class="flex items-start gap-4">
+                    <div class="w-12 h-12 bg-red-500/20 rounded-full flex items-center justify-center flex-shrink-0">
+                        <i class="fas fa-exclamation-triangle text-red-400 text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-red-300 font-bold mb-2">Cette action est irréversible</h3>
+                        <p class="text-red-200 leading-relaxed">
+                            L'article "<strong>{{ post.title }}</strong>" sera définitivement supprimé. <br>
+                            Toutes les données associées (contenu, images, métadonnées) seront perdues.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="flex flex-col sm:flex-row gap-4">
+                <form method="post" class="flex-1">
+                    {% csrf_token %}
+                    <button type="submit" class="w-full group relative bg-gradient-to-r from-red-500 to-red-700 text-white px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl shadow-red-800/50 hover:shadow-red-800/90 overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <div class="relative flex items-center justify-center">
+                            <i class="fas fa-trash mr-3 text-xl"></i>
+                            <span>Confirmer la suppression</span>
+                        </div>
+                    </button>
+                </form>
+                
+                <a href="{% url 'blog:admin_index' %}" class="flex-1 bg-slate-600/50 hover:bg-slate-600/70 text-slate-300 hover:text-white px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 text-center">
+                    Annuler
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+{% load static %}
+
+{% block title %}
     Créer une catégorie | Gestion du blog
 {% endblock %}
 

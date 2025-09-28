@@ -105,9 +105,19 @@ class PostForm(forms.ModelForm):
         )
     )
 
+    published = forms.BooleanField(
+        label="Publier sur le site",
+        required=False,
+        widget=forms.CheckboxInput(
+            attrs={
+                "class": 'form-field form-checkbox'
+            }
+        )
+    )
+
     class Meta:
         model = Post
-        fields = ["title", "slug", "introduction", "thumbnail", "thumbnail_caption", "content", "categories"]
+        fields = ["title", "slug", "introduction", "thumbnail", "thumbnail_caption", "content", "categories", "published"]
 
 
 

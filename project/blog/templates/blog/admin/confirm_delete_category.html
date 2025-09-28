@@ -1,65 +1,121 @@
 {% extends 'accounts/admin/admin_base.html' %}
 {% load static %}
 
-{% block title %}
-    Créer une catégorie | Gestion du blog
-{% endblock %}
-
-{% block admin_head %}
-<link rel="stylesheet" href="{% static 'css/global_forms.css' %}">
+{% block admin_title %}
+    Supprimer la catégorie | Gestion du blog
 {% endblock %}
 
 {% block admin_content %}
-<section class="flex-1 bg-minsk-50 flex flex-col min-h-full">
+<section class="flex-1 bg-slate-900 flex flex-col py-12 md:py-20 w-full min-h-full">
+    <div class="w-full max-w-[800px] flex flex-col mx-auto px-5">
 
-    <div class="w-full max-w-[1080px] flex flex-col mx-auto px-3 py-6 sm:py-12">
-
-        <!-- Title -->
-        <div class="relative w-full max-w-[720px] mx-auto px-3 text-center pt-8">
-            <!-- Retour Index -->
-            <a href="{% url 'blog:admin_index' %}" class="absolute top-0 left-0 text-red-700 hover:text-red-600 flex gap-3 hover:gap-5 items-center transition-all duration-300 ease-in-out text-sm">
-                <i class="fa-solid fa-right-from-bracket"></i>
-                <p>
-                    Gestion du blog
-                </p>
+        <!-- Header avec navigation -->
+        <div class="relative mb-8">
+            <!-- Retour Blog -->
+            <a href="{% url 'blog:admin_index' %}" 
+                class="absolute top-0 left-0 text-slate-300 hover:text-cyan-400 flex gap-3 hover:gap-5 items-center transition-all duration-300 ease-in-out text-sm group">
+                <i class="fas fa-arrow-left group-hover:-translate-x-1 transition-transform duration-300"></i>
+                <span>Retour au blog</span>
             </a>
-            <p class="text-minsk-800 text-base sm:text-lg md:text-xl uppercase font-light">
-                Gestion du blog
-            </p>
-            <h1 class="text-minsk-500 text-2xl sm:text-3xl md:text-4xl xl:text-5xl font-bold">
-                Confirmer la suppression
-            </h1>
-
-
-            <div class="mt-6 sm:mt-12 bg-red-200 border-l-4 border-red-400 py-3 sm:py-5 px-5 sm:px-10 flex flex-col sm:flex-row gap-3 sm:gap-5 
-            justify-center sm:justify-between items-center text-red-500 rounded-lg">
-                <i class="fa-solid fa-triangle-exclamation text-2xl sm:text-3xl"></i>
-                <p class="text-sm sm:text-base">
-                    Êtes-vous sûr de vouloir supprimer la catégorie <span class="font-bold">{{ category.name }}</span> ? <br>
-                    Cette action est irréversible.
+            
+            <!-- Titre Principal -->
+            <div class="text-center pt-12">
+                <p class="text-red-400 text-sm md:text-base lg:text-lg uppercase font-light mb-2 md:mb-4">
+                    Attention - Action irréversible
                 </p>
+                <h1 class="text-[40px] sm:text-[50px] md:text-[70px] lg:text-[100px] uppercase my-0 font-extrabold mb-4 leading-tight font-story drop-shadow-md 
+                flex flex-col md:flex-row justify-center">
+                    <span class="bg-gradient-to-b from-cyan-400 from-30% px-1 sm:px-2 md:px-3
+                    to-blue-500 bg-clip-text text-transparent">
+                        Gestion
+                    </span>
+                    <span class="bg-gradient-to-r from-orange-600 via-orange-500 px-1 sm:px-2 md:px-3 -mt-4 md:-mt-0
+                    to-yellow-500 bg-clip-text text-transparent">
+                        Blog
+                    </span>
+                </h1>
             </div>
-            <div class="flex gap-3 sm:gap-5 mt-3 sm:mt-6 w-fit mx-auto">
-                <a href="{% url 'blog:admin_index' %}" 
-                    class="bg-minsk-500 hover:bg-minsk-400 text-white px-4 py-2 rounded-md w-fit shadow-md hover:shadow-xl
-                    transition-all duration-300 ease-in-out hover:-translate-y-1">
-                    <i class="fa-solid fa-circle-xmark"></i>
+        </div>
+
+        <!-- Confirmation Container -->
+        <div class="bg-slate-800/50 backdrop-blur-sm border border-red-500/30 rounded-3xl p-8 shadow-lg">
+            <!-- Catégorie info -->
+            <div class="bg-slate-700/50 rounded-2xl p-6 mb-8 text-center">
+                <div class="w-16 h-16 bg-gradient-to-br from-cyan-400 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-tag text-white text-2xl"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-white mb-3">{{ category.name }}</h3>
+                {% if category.description %}
+                <p class="text-slate-300 mb-4">{{ category.description }}</p>
+                {% endif %}
+                <div class="flex items-center justify-center gap-4 text-slate-400">
+                    <span class="bg-cyan-500/20 text-cyan-300 px-3 py-1 rounded-full">
+                        <i class="fas fa-newspaper mr-1"></i>
+                        {{ category.blogpost_set.count }} article(s)
+                    </span>
+                </div>
+            </div>
+
+            <!-- Warning -->
+            <div class="bg-red-500/10 border border-red-500/30 rounded-2xl p-6 mb-8">
+                <div class="flex items-start gap-4">
+                    <div class="w-12 h-12 bg-red-500/20 rounded-full flex items-center justify-center flex-shrink-0">
+                        <i class="fas fa-exclamation-triangle text-red-400 text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-red-300 font-bold mb-2">Cette action est irréversible</h3>
+                        <p class="text-red-200 leading-relaxed">
+                            La catégorie "<strong>{{ category.name }}</strong>" sera définitivement supprimée. <br>
+                            {% if category.blogpost_set.count > 0 %}
+                            <strong class="text-red-300">Attention :</strong> Cette catégorie contient {{ category.blogpost_set.count }} article(s). 
+                            Ces articles ne seront pas supprimés mais perdront cette catégorie.
+                            {% else %}
+                            Cette catégorie est vide et peut être supprimée sans impact.
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Articles affectés -->
+            {% if category.blogpost_set.count > 0 %}
+            <div class="bg-yellow-500/10 border border-yellow-500/30 rounded-2xl p-6 mb-8">
+                <h3 class="text-yellow-300 font-bold mb-4 flex items-center gap-2">
+                    <i class="fas fa-newspaper"></i>
+                    Articles qui perdront cette catégorie :
+                </h3>
+                <div class="space-y-2 max-h-40 overflow-y-auto">
+                    {% for post in category.blogpost_set.all %}
+                    <div class="bg-slate-700/30 rounded-lg p-3 flex items-center gap-3">
+                        <i class="fas fa-file-alt text-yellow-400"></i>
+                        <span class="text-slate-200">{{ post.title }}</span>
+                        <span class="text-slate-400 text-sm ml-auto">{{ post.created_at|date:"d/m/Y" }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Actions -->
+            <div class="flex flex-col sm:flex-row gap-4">
+                <form method="post" class="flex-1" action="{% url 'blog:admin_category_delete' category.slug  %}">
+                    {% csrf_token %}
+                    <button type="submit" class="w-full group relative bg-gradient-to-r from-red-500 to-red-700 text-white px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl shadow-red-800/50 hover:shadow-red-800/90 overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <div class="relative flex items-center justify-center">
+                            <i class="fas fa-trash mr-3 text-xl"></i>
+                            <span>Confirmer la suppression</span>
+                        </div>
+                    </button>
+                </form>
+                
+                <a href="{% url 'blog:admin_index' %}" class="flex-1 bg-slate-600/50 hover:bg-slate-600/70 text-slate-300 hover:text-white 
+                px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 text-center flex justify-center items-center">
+                    <i class="fas fa-right-to-bracket mr-3"></i>
                     Annuler
                 </a>
-
-                <a href="{% url 'blog:admin_category_delete' category.slug %}" 
-                    class="bg-red-500 hover:bg-red-400 text-white px-4 py-2 rounded-md w-fit shadow-md hover:shadow-xl
-                    transition-all duration-300 ease-in-out hover:-translate-y-1">
-                    <i class="fa-solid fa-trash"></i>
-                    Supprimer
-                </a>
-                
             </div>
         </div>
     </div>
-
-
-
 </section>
-
 {% endblock %}

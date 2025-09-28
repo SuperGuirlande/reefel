@@ -1,115 +1,171 @@
 
+// create_category_modal.js - Gestion de la modale de création de catégorie
 
 // Récupérer le token CSRF
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
 const csrftoken = getCookie('csrftoken');
 
 // Ouvrir la modal
-document.getElementById('open_category_modal').addEventListener('click', function(e) {
-    e.preventDefault();
-    document.getElementById('category_modal').style.display = 'flex';
-});
-
-// Fermer la modal
-document.getElementById('close_category_modal').addEventListener('click', function() {
-    document.getElementById('category_modal').style.display = 'none';
-});
-
-
-
-
-// Créer une catégorie en AJAX
 document.addEventListener('DOMContentLoaded', function() {
-    // L'URL sera passée via un attribut data du bouton
+    const modal = document.getElementById('category_modal');
+    const openBtn = document.getElementById('open_category_modal');
+    const closeBtn = document.getElementById('close_category_modal');
+    const cancelBtn = document.getElementById('cancel_category_btn');
+    
+    if (openBtn) {
+        openBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            modal.style.display = 'flex';
+            modal.classList.remove('hidden');
+            console.log('Modal ouverte');
+        });
+    }
+
+    // Fermer la modal
+    if (closeBtn) {
+        closeBtn.addEventListener('click', function() {
+            modal.style.display = 'none';
+            modal.classList.add('hidden');
+        });
+    }
+    
+    if (cancelBtn) {
+        cancelBtn.addEventListener('click', function() {
+            modal.style.display = 'none';
+            modal.classList.add('hidden');
+        });
+    }
+
+    // Fermer en cliquant à l'extérieur
+    modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+            modal.style.display = 'none';
+            modal.classList.add('hidden');
+        }
+    });
+
+    // Créer une catégorie en AJAX
     const submitBtn = document.getElementById('create_category_btn');
     const categoryNameInput = document.getElementById('category_name_input');
-    const createCategoryUrl = submitBtn.getAttribute('data-url');
-    const categoryGrid = document.getElementById('id_categories');
+    const message = document.getElementById('category-message');
 
-    submitBtn.addEventListener('click', function(e) {
-        e.preventDefault();
+    if (submitBtn && categoryNameInput) {
+        submitBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            console.log('Bouton créer cliqué');
 
-        const categoryName = categoryNameInput.value;
+            const categoryName = categoryNameInput.value.trim();
 
-        if (!categoryName) {
-            alert('Veuillez entrer un nom de catégorie');
-            return;
-        }
+            if (!categoryName) {
+                showMessage('Veuillez entrer un nom de catégorie', 'error');
+                return;
+            }
 
-        //Désactiver le bouto pêndant l'envoi de la requête
-        submitBtn.disabled = true;
-        submitBtn.querySelector('#create_category_btn_text').textContent = 'Ajout en cours...';
+            // Désactiver le bouton pendant l'envoi de la requête
+            submitBtn.disabled = true;
+            const btnText = submitBtn.querySelector('#create_category_btn_text');
+            if (btnText) {
+                btnText.textContent = 'Création...';
+            }
 
-        //Envoyer la requête AJAX
-        makeAjaxRequest(
-            createCategoryUrl,
-            'POST',
-            {
-                category_name: categoryName
-            },
-            // Fonction de succès
-            function(response) {
+            // Envoyer la requête AJAX
+            fetch(submitBtn.dataset.url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrftoken,
+                },
+                body: JSON.stringify({name: categoryName})
+            })
+            .then(response => response.json())
+            .then(response => {
+                console.log('Réponse reçue:', response);
+                
                 if (response.success) {
-                    // Réinitialiser le bouton
-                    submitBtn.querySelector('#create_category_btn_text').textContent = 'Ajouter la catégorie';
-                    submitBtn.disabled = false;
-
-                    // Afficher la notification
-                    notifications.success('Catégorie créée avec succès !');     
-                    // Fermer la modal
-                    document.getElementById('category_modal').style.display = 'none';   
-                    // Ajouter la nouvelle catégorie à la grid        
-
-                    const newCategory = document.createElement('div');
-                    newCategory.classList.add('flex', 'flex-col', 'gap-3');
-                    newCategory.innerHTML = `
-                        <label for="id_categories_${response.category.id}">
-                            <input type="checkbox" name="categories" value="${response.category.id}" class="form-checkbox" id="id_categories_${response.category.id}" checked>
-                            ${response.category.name}
-                        </label>
-                    `;
-                    categoryGrid.appendChild(newCategory);
-
-                    // Récupérer la nouvelle checkbox et son label
-                    const newCheckbox = document.getElementById(`id_categories_${response.category.id}`);
-                    const newLabel = newCheckbox.parentElement;
-
-                    // Fonction pour mettre à jour l'état visuel (copié de global_forms.js)
-                    function updateCheckboxState() {
-                        if (newCheckbox.checked) {
-                            newLabel.style.backgroundColor = '#5f5df7'; // minsk-500
-                            newLabel.style.borderColor = '#5f5df7';
-                            newLabel.style.color = 'white';
-                            newLabel.style.boxShadow = '0 4px 12px rgba(95, 93, 247, 0.3)';
-                            newLabel.classList.add('selected'); // Ajouter la classe pour l'icône
-                        } else {
-                            newLabel.style.backgroundColor = 'white';
-                            newLabel.style.borderColor = '#adbcfd'; // minsk-100
-                            newLabel.style.color = '';
-                            newLabel.style.boxShadow = '';
-                            newLabel.classList.remove('selected'); // Enlever la classe pour l'icône
-                        }
+                    showMessage('Catégorie créée avec succès !', 'success');
+                    
+                    // Ajouter la nouvelle catégorie à la grid
+                    if (window.addCategoryToForm) {
+                        window.addCategoryToForm({
+                            id: response.category.id,
+                            name: response.category.name
+                        });
+                    } else {
+                        // Fallback si la fonction globale n'est pas disponible
+                        addCategoryToGrid(response.category);
                     }
 
-                    // Initialiser l'état visuel (checkbox cochée par défaut)
-                    updateCheckboxState();
-
-                    // Ajouter l'event listener pour les futurs changements
-                    newCheckbox.addEventListener('change', updateCheckboxState);
-
-                    // Vider le champ de saisie
-                    categoryNameInput.value = '';
+                    // Fermer la modal après un délai
+                    setTimeout(() => {
+                        modal.style.display = 'none';
+                        modal.classList.add('hidden');
+                        categoryNameInput.value = '';
+                        message.classList.add('hidden');
+                    }, 1000);
 
                 } else {
-                    notifications.error(response.error);
+                    showMessage(response.error || 'Erreur lors de la création', 'error');
                 }
-            },
-            function(error) {
-                notifications.error(error);
+            })
+            .catch(error => {
+                console.error('Erreur:', error);
+                showMessage('Erreur de connexion', 'error');
+            })
+            .finally(() => {
                 submitBtn.disabled = false;
-                submitBtn.querySelector('#create_category_btn_text').textContent = 'Ajouter la catégorie';
+                if (btnText) {
+                    btnText.textContent = 'Créer la catégorie';
+                }
+            });
+        });
+    }
 
-            }
-        )
-    });
-    
+    // Fonction pour afficher les messages
+    function showMessage(text, type) {
+        if (message) {
+            message.className = `p-4 rounded-2xl ${type === 'success' ? 'bg-green-500/20 border border-green-500/30 text-green-300' : 'bg-red-500/20 border border-red-500/30 text-red-300'}`;
+            message.textContent = text;
+            message.classList.remove('hidden');
+        }
+    }
+
+    // Fonction de fallback pour ajouter la catégorie
+    function addCategoryToGrid(categoryData) {
+        const categoryGrid = document.getElementById('id_categories');
+        if (!categoryGrid) return;
+
+        const newCategory = document.createElement('div');
+        
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.name = 'categories';
+        checkbox.value = categoryData.id;
+        checkbox.id = `id_categories_${categoryData.id}`;
+        checkbox.checked = true;
+        
+        const label = document.createElement('label');
+        label.htmlFor = checkbox.id;
+        label.textContent = categoryData.name;
+        label.classList.add('selected');
+        
+        newCategory.appendChild(checkbox);
+        newCategory.appendChild(label);
+        categoryGrid.appendChild(newCategory);
+        
+        console.log('Catégorie ajoutée avec fallback');
+    }
 });

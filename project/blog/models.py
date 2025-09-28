@@ -38,9 +38,11 @@ class Post(models.Model):
 
     content = CKEditor5Field(verbose_name="Contenu", config_name='blog')
     categories = models.ManyToManyField(Category, verbose_name="Catégories")
+    keywords = models.CharField(max_length=255, verbose_name="Mots-clés")
+
+    published = models.BooleanField(verbose_name="Publié sur le site", default=True, blank=True, null=True)
 
     author = models.ForeignKey(CustomUser, verbose_name="Auteur", on_delete=models.SET_NULL, null=True, blank=True)
-
 
     created_at = models.DateTimeField(verbose_name="Date de création", auto_now_add=True)
     updated_at = models.DateTimeField(verbose_name="Date de mise à jour", auto_now=True)

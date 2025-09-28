@@ -28,8 +28,6 @@ INSTALLED_APPS = [
     'accounts',
     'main',
     'blog',
-    'shop',
-
     'contact_management',
 ]
 
@@ -108,17 +106,21 @@ USE_TZ = True
 # STATIC & MEDIA #
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [
-    BASE_DIR / 'static',
     BASE_DIR / 'main' / 'static',
-    BASE_DIR / 'accounts' / 'static',
-    BASE_DIR / 'blog' / 'static',
-    BASE_DIR / 'shop' / 'static',
-    BASE_DIR / 'ckeditor_config' / 'static',
+    # BASE_DIR / 'accounts' / 'static',
+    # BASE_DIR / 'blog' / 'static',
+    # BASE_DIR / 'shop' / 'static',
+    # BASE_DIR / 'ckeditor_config' / 'static',
     ]
-STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 MEDIA_URL = 'media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+
+if DEBUG:
+        STATIC_ROOT = BASE_DIR / 'staticfiles'
+        MEDIA_ROOT = BASE_DIR / 'media'
+else:
+        STATIC_ROOT=env('STATIC_ROOT')
+        MEDIA_ROOT=env('MEDIA_ROOT')
 
 # TAILWIND #
 NPM_BIN_PATH = 'C:/Program Files/nodejs/npm.cmd'
@@ -131,20 +133,25 @@ AUTH_USER_MODEL = 'accounts.CustomUser'
 LOGIN_URL = 'accounts:login'
 LOGIN_REDIRECT_URL = 'accounts:my_account'
 
-# # EMAIL SETTINGS #
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_HOST = env('SMTP_HOST')
-# EMAIL_PORT = 465
-# EMAIL_USE_TLS = False
-# EMAIL_USE_SSL = True
-# EMAIL_HOST_USER = 'apikey'
-# EMAIL_HOST_PASSWORD = env('SMTP_PASS')
-# DEFAULT_FROM_EMAIL = 'contact@agencecodemaster.com'
+# EMAIL SETTINGS #
+EMAIL_BACKEND = 'accounts.backends.CustomEmailBackend'  # Backend personnalisé
+EMAIL_HOST = env('SMTP_HOST')
+EMAIL_PORT = 465
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
+EMAIL_HOST_USER = 'apikey'
+EMAIL_HOST_PASSWORD = env('SMTP_PASS')
+DEFAULT_FROM_EMAIL = 'Site Web Reefel <contact@agencecodemaster.com>'
+
+# Debug email en développement
+if DEBUG:
+    EMAIL_TIMEOUT = 30  # Timeout plus long pour debug
+    print(f"🔧 Configuration EMAIL - Host: {env('SMTP_HOST', default='NON_DEFINI')}")
+    print(f"🔧 Configuration EMAIL - Port: 465")
+    print(f"🔧 Configuration EMAIL - User: apikey")
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-
 
 
 # CKEDITOR #

@@ -1,11 +1,11 @@
 {% extends 'main/base.html' %}
 {% load static %}
 
-{% block title %}Accueil{% endblock %}
+{% block title %}Réparation & Entretien de Bateaux{% endblock %}
 
 {% block content %}
 <!-- HERO SECTION -->
-<section class="flex-1 flex justify-center bg-slate-900 py-24 relative min-h-screen">
+<section class="flex-1 flex justify-center bg-slate-900 py-24 relative min-h-screen px-3 max-w-screen overflow-hidden">
     <!-- Container Flex -->
     <div class="flex flex-col xl:flex-row w-full max-w-screen-xl justify-center items-center min-h-96 relative h-hit">
 
@@ -23,10 +23,10 @@
         </div>
 
         <!-- Text Right -->
-        <div class="flex-1 flex flex-col justify-center items-start 
+        <div class="flex-1 flex flex-col justify-center items-center md:items-start pt-10 sm:pt-2
         pl-4 pr-4 sm:pl-8 sm:pr-8 md:pl-16 md:pr-8">
             <!-- Titre Principal avec personnalité -->
-            <h1 class="my-0 font-extrabold mb-4 leading-tight font-story drop-shadow-md -mt-40">
+            <h1 class="hidden md:block my-0 font-extrabold mb-4 leading-tight font-story drop-shadow-md -mt-40">
                 <span class="text-[200px] my-0 block translate-y-20 relative z-10 bg-gradient-to-b from-cyan-400 from-30% px-5 px-12
                 to-blue-500 bg-clip-text text-transparent" id="reefel">
                     REEFEL
@@ -39,9 +39,20 @@
                     </span>
                 </span>
             </h1>
-            
+            <h1 class="md:hidden text-[70px] uppercase my-0 font-extrabold mb-4 leading-tight font-story drop-shadow-md 
+                flex flex-col md:flex-row justify-center items-center">
+                <span class="bg-gradient-to-b from-cyan-400 from-30% px-2 sm:px-2 md:px-3
+                to-blue-500 bg-clip-text text-transparent">
+                    REEFEL
+                </span>
+                <span class="bg-gradient-to-r from-orange-600 via-orange-500 px-2 sm:px-2 md:px-3 -mt-4 md:-mt-0
+                to-yellow-500 bg-clip-text text-transparent">
+                    WORKSHOP
+                </span>
+            </h1>
+        
             <!-- Sous-titre avec style -->
-            <p class="text-xl text-slate-700 mb-2 font-bold animate-subtitle opacity-0">
+            <p class="text-xl text-slate-400 mb-5 font-bold animate-subtitle opacity-0">
                 Réparation & Entretien de Bateaux
             </p>
             
@@ -97,7 +108,7 @@
             </div>
             
             <!-- CTA Buttons avec personnalité -->
-            <div class="flex gap-4 animate-buttons">
+            <div class="flex gap-4 animate-buttons flex-col md:flex-row">
                 <button class="group relative bg-gradient-to-r from-orange-500 to-red-500 text-white 
                 px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl shadow-orange-800/50 hover:shadow-orange-800/90 overflow-hidden opacity-0">
                     <div class="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -132,7 +143,7 @@
                 to-blue-500 bg-clip-text text-transparent uppercase" id="nos-services">
                     NOS
                 </span>
-                <span class="relative block translate-x-32 z-20 text-2xl sm:text-4xl lg:text-8xl mt-1 
+                <span class="relative block md:translate-x-32 z-20 text-6xl md:text-8xl mt-1 
                 xl:-mt-4 drop-shadow-md" id="services-title">
                     <span class="relative inset-0 bg-gradient-to-r from-orange-600 via-orange-500 
                     to-yellow-500 bg-clip-text text-transparent px-5">
@@ -140,7 +151,7 @@
                     </span>
                 </span>
             </h2>
-            <p class="text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed">
+            <p class="text-base md:text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed">
                 Des solutions complètes pour l'entretien et la réparation de votre bateau, 
                 réalisées avec passion et expertise à La Rochelle
             </p>
@@ -148,12 +159,13 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
             <!-- Service 1: Remise et sortie d'eau -->
-            <div class="group bg-slate-800/50 backdrop-blur-sm rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-slate-700/50">
+            <div class="group bg-slate-800/50 backdrop-blur-sm rounded-3xl p-8 shadow-lg hover:shadow-2xl 
+            transition-all duration-500 transform hover:-translate-y-2 border border-slate-700/50">
                 <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                     <i class="fas fa-ship text-white text-2xl"></i>
                 </div>
-                <h3 class="text-2xl font-bold text-white mb-4">Remise et Sortie d'Eau</h3>
-                <p class="text-slate-300 mb-6 leading-relaxed">
+                <h3 class="text-xl md:text-2xl font-bold text-white mb-4">Remise et Sortie d'Eau</h3>
+                <p class="text-slate-300 mb-6 leading-relaxed text-sm md:text-base">
                     Mise à l'eau et sortie d'eau professionnelle avec toutes les précautions nécessaires pour préserver votre embarcation.
                 </p>
                 <ul class="space-y-2 text-slate-300 mb-6">
@@ -161,7 +173,7 @@
                     <li class="flex items-center"><i class="fas fa-check text-green-400 mr-3"></i>Vérifications préalables</li>
                     <li class="flex items-center"><i class="fas fa-check text-green-400 mr-3"></i>Stockage temporaire</li>
                 </ul>
-                <div class="text-2xl font-bold text-orange-400">À partir de 150€</div>
+                <div class="text-xl font-bold text-orange-400">À partir de 150€</div>
             </div>
 
             <!-- Service 2: Carénage -->
@@ -169,7 +181,7 @@
                 <div class="w-16 h-16 bg-gradient-to-br from-orange-500 to-red-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                     <i class="fas fa-paint-roller text-white text-2xl"></i>
                 </div>
-                <h3 class="text-2xl font-bold text-white mb-4">Carénage</h3>
+                <h3 class="text-xl md:text-2xl  font-bold text-white mb-4">Carénage</h3>
                 <p class="text-slate-300 mb-6 leading-relaxed">
                     Carénage complet avec produits de qualité marine pour protéger et optimiser les performances de votre coque.
                 </p>
@@ -178,7 +190,7 @@
                     <li class="flex items-center"><i class="fas fa-check text-green-400 mr-3"></i>Antifouling professionnel</li>
                     <li class="flex items-center"><i class="fas fa-check text-green-400 mr-3"></i>Finition soignée</li>
                 </ul>
-                <div class="text-2xl font-bold text-orange-400">À partir de 300€</div>
+                <div class="text-xl font-bold text-orange-400">À partir de 300€</div>
             </div>
 
             <!-- Service 3: Réparation coques -->
@@ -186,7 +198,7 @@
                 <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                     <i class="fas fa-tools text-white text-2xl"></i>
                 </div>
-                <h3 class="text-2xl font-bold text-white mb-4">Réparation Coques</h3>
+                <h3 class="text-xl md:text-2xl font-bold text-white mb-4">Réparation Coques</h3>
                 <p class="text-slate-300 mb-6 leading-relaxed">
                     Réparation et restauration de coques en fibre de verre, aluminium ou bois avec expertise et matériaux de qualité.
                 </p>
@@ -195,7 +207,7 @@
                     <li class="flex items-center"><i class="fas fa-check text-green-400 mr-3"></i>Réparation structurelle</li>
                     <li class="flex items-center"><i class="fas fa-check text-green-400 mr-3"></i>Finition marine</li>
                 </ul>
-                <div class="text-2xl font-bold text-orange-400">Sur devis</div>
+                <div class="text-xl font-bold text-orange-400">Sur devis</div>
             </div>
 
             <!-- Service 4: Petit entretien moteur -->
@@ -203,7 +215,7 @@
                 <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                     <i class="fas fa-cogs text-white text-2xl"></i>
                 </div>
-                <h3 class="text-2xl font-bold text-white mb-4">Petit Entretien Moteur</h3>
+                <h3 class="text-xl md:text-2xl font-bold text-white mb-4">Petit Entretien Moteur</h3>
                 <p class="text-slate-300 mb-6 leading-relaxed">
                     Entretien préventif et réparations mineures pour maintenir votre moteur en parfait état de fonctionnement.
                 </p>
@@ -212,7 +224,7 @@
                     <li class="flex items-center"><i class="fas fa-check text-green-400 mr-3"></i>Vérifications générales</li>
                     <li class="flex items-center"><i class="fas fa-check text-green-400 mr-3"></i>Réglages moteur</li>
                 </ul>
-                <div class="text-2xl font-bold text-orange-400">À partir de 120€</div>
+                <div class="text-xl font-bold text-orange-400">À partir de 120€</div>
             </div>
 
             <!-- Service 5: Entretien, hivernage -->
@@ -220,7 +232,7 @@
                 <div class="w-16 h-16 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                     <i class="fas fa-snowflake text-white text-2xl"></i>
                 </div>
-                <h3 class="text-2xl font-bold text-white mb-4">Entretien & Hivernage</h3>
+                <h3 class="text-xl md:text-2xl font-bold text-white mb-4">Entretien & Hivernage</h3>
                 <p class="text-slate-300 mb-6 leading-relaxed">
                     Préparation complète pour l'hivernage et entretien saisonnier pour préserver votre bateau pendant l'hiver.
                 </p>
@@ -229,7 +241,7 @@
                     <li class="flex items-center"><i class="fas fa-check text-green-400 mr-3"></i>Protection moteur</li>
                     <li class="flex items-center"><i class="fas fa-check text-green-400 mr-3"></i>Stockage sécurisé</li>
                 </ul>
-                <div class="text-2xl font-bold text-orange-400">À partir de 200€</div>
+                <div class="text-xl font-bold text-orange-400">À partir de 200€</div>
             </div>
 
             <!-- Service 6: Expertise & Conseil -->
@@ -237,7 +249,7 @@
                 <div class="w-16 h-16 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                     <i class="fas fa-lightbulb text-white text-2xl"></i>
                 </div>
-                <h3 class="text-2xl font-bold mb-4">Expertise & Conseil</h3>
+                <h3 class="text-xl md:text-2xl font-bold mb-4">Expertise & Conseil</h3>
                 <p class="text-slate-300 mb-6 leading-relaxed">
                     Conseil personnalisé et expertise technique pour optimiser l'entretien et les performances de votre bateau.
                 </p>
@@ -246,7 +258,7 @@
                     <li class="flex items-center"><i class="fas fa-check text-yellow-400 mr-3"></i>Plan d'entretien</li>
                     <li class="flex items-center"><i class="fas fa-check text-yellow-400 mr-3"></i>Conseil technique</li>
                 </ul>
-                <div class="text-2xl font-bold text-yellow-400">Gratuit</div>
+                <div class="text-xl font-bold text-yellow-400">Gratuit</div>
             </div>
         </div>
 
@@ -282,11 +294,11 @@
         <!-- Section Header -->
         <div class="text-center mb-16">
             <h2 class="my-0 font-extrabold mb-6 leading-tight font-story drop-shadow-md">
-                <span class="text-[80px] -translate-x-12 md:text-[100px] lg:text-[130px] my-0 block translate-y-12 relative z-10 bg-gradient-to-b from-cyan-400 from-30% px-5 px-12
+                <span class="text-[80px] md:-translate-x-12 md:text-[100px] lg:text-[130px] my-0 block translate-y-10 md:translate-y-12 relative z-10 bg-gradient-to-b from-cyan-400 from-30% px-5 px-12
                 to-blue-500 bg-clip-text text-transparent uppercase" id="nos">
                     NOS
                 </span>
-                <span class="relative translate-x-40 mt-0 z-20 block text-2xl sm:text-4xl lg:text-8xl  
+                <span class="relative md:translate-x-40 mt-0 z-20 block text-6xl md:text-8xl  
                 xl:-mt-4 drop-shadow-md" id="realisations">
                     <span class="relative inset-0 bg-gradient-to-r from-orange-600 via-orange-500 
                     to-yellow-500 bg-clip-text text-transparent px-5">
@@ -294,7 +306,7 @@
                     </span>
                 </span>
             </h2>
-            <p class="text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed">
+            <p class="text-base md:text-xl text-slate-400 max-w-3xl mx-auto leading-relaxed">
                 Découvrez quelques-unes de nos réalisations et la qualité de notre travail 
                 sur différents types d'embarcations
             </p>
@@ -303,10 +315,10 @@
         <!-- Carrousel Container -->
         <div class="relative max-w-6xl mx-auto">
             <!-- Navigation Buttons -->
-            <button id="prevBtn" class="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white/90 backdrop-blur-sm rounded-full shadow-lg hover:bg-white hover:scale-110 transition-all duration-300 flex items-center justify-center group">
+            <button id="prevBtn" class="absolute -left-2 sm:left-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white/90 backdrop-blur-sm rounded-full shadow-lg hover:bg-white hover:scale-110 transition-all duration-300 flex items-center justify-center group">
                 <i class="fas fa-chevron-left text-slate-700 group-hover:text-orange-600"></i>
             </button>
-            <button id="nextBtn" class="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white/90 backdrop-blur-sm rounded-full shadow-lg hover:bg-white hover:scale-110 transition-all duration-300 flex items-center justify-center group">
+            <button id="nextBtn" class="absolute -right-2 sm:right-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white/90 backdrop-blur-sm rounded-full shadow-lg hover:bg-white hover:scale-110 transition-all duration-300 flex items-center justify-center group">
                 <i class="fas fa-chevron-right text-slate-700 group-hover:text-orange-600"></i>
             </button>
 
@@ -462,16 +474,16 @@
 
         <!-- CTA Section -->
         <div class="text-center mt-16">
-            <div class="bg-gradient-to-r from-orange-500 to-red-500 rounded-3xl p-8 text-white max-w-4xl mx-auto">
-                <h3 class="text-3xl font-bold mb-4">Intéressé par nos Services ?</h3>
-                <p class="text-xl mb-6 opacity-90">
+            <div class="bg-gradient-to-r from-orange-500/80 to-red-500/80 rounded-3xl p-8 text-white max-w-4xl mx-auto">
+                <h3 class="text-xl md:text-3xl font-bold mb-4">Intéressé par <br class="md:hidden"> nos Services ?</h3>
+                <p class="text-lg sm:text-xl mb-6 opacity-90">
                     Contactez-nous pour discuter de votre projet et obtenir un devis personnalisé
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <button class="bg-white text-orange-600 px-8 py-4 rounded-2xl font-bold text-lg hover:bg-slate-100 transition-colors duration-300">
+                    <button class="bg-white text-orange-600 px-8 py-3 sm:py-4 rounded-2xl font-bold text-base sm:text-lg hover:bg-slate-100 transition-colors duration-300">
                         <i class="fas fa-phone mr-2"></i>Nous Contacter
                     </button>
-                    <button class="border-2 border-white text-white px-8 py-4 rounded-2xl font-bold text-lg hover:bg-white hover:text-orange-600 transition-all duration-300">
+                    <button class="border-2 border-white text-white px-8 py-3 sm:py-4 rounded-2xl font-bold text-base sm:text-lg hover:bg-white hover:text-orange-600 transition-all duration-300">
                         <i class="fas fa-images mr-2"></i>Voir Plus de Photos
                     </button>
                 </div>
@@ -481,7 +493,7 @@
 </section>
 
 <!-- LOCALISATION SECTION -->
-<section class="py-20 bg-slate-900 relative overflow-hidden">
+<section class="py-20 pt-10 bg-slate-900 relative overflow-hidden">
     <!-- Background Pattern -->
     <div class="absolute inset-0 opacity-10">
         <div class="absolute top-20 right-10 w-32 h-32 bg-cyan-500 rounded-full blur-3xl"></div>
@@ -492,11 +504,12 @@
         <!-- Section Header -->
         <div class="text-center mb-16">
             <h2 class="my-0 font-extrabold mb-6 leading-tight font-story drop-shadow-md">
-                <span class="text-[80px] md:text-[100px] lg:text-[130px] my-0 block translate-y-12 -translate-x-12 relative z-10 bg-gradient-to-b from-cyan-400 from-30% px-5 px-12
+                <span class="text-[80px] md:text-[100px] lg:text-[130px] my-0 block translate-y-10 md:translate-y-12 translate-x-0 md:-translate-x-12 
+                relative z-10 bg-gradient-to-b from-cyan-400 from-30% px-5 px-12
                 to-blue-500 bg-clip-text text-transparent uppercase" id="notre">
                     NOTRE
                 </span>
-                <span class="relative block translate-x-32 mt-0 z-20 text-2xl sm:text-4xl lg:text-8xl
+                <span class="relative block translate-x-0 md:translate-x-32 mt-0 z-20 text-6xl md:text-8xl
                 xl:-mt-4 drop-shadow-md" id="localisation">
                     <span class="relative inset-0 bg-gradient-to-r from-orange-600 via-orange-500 
                     to-yellow-500 bg-clip-text text-transparent px-5">
@@ -504,7 +517,7 @@
                     </span>
                 </span>
             </h2>
-            <p class="text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed">
+            <p class="text-base sm:text-lg md:text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed">
                 Situés au cœur du Port des Minimes à La Rochelle, nous sommes facilement accessibles 
                 pour tous vos besoins d'entretien et de réparation nautique
             </p>
@@ -512,16 +525,16 @@
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-7xl mx-auto items-center">
             <!-- Informations de contact -->
-            <div class="space-y-8">
+            <div class="space-y-3 sm:space-y-8">
                 <!-- Adresse -->
-                <div class="bg-slate-800/50 backdrop-blur-sm rounded-3xl p-8 border border-slate-700/50">
-                    <div class="flex items-start mb-6">
+                <div class="bg-slate-800/50 backdrop-blur-sm rounded-3xl p-8 py-3 md:py-8 border border-slate-700/50">
+                    <div class="flex items-start mb-3 sm:mb-6">
                         <div class="w-12 h-12 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-2xl flex items-center justify-center mr-4 flex-shrink-0">
                             <i class="fas fa-map-marker-alt text-white text-xl"></i>
                         </div>
                         <div>
-                            <h3 class="text-2xl font-bold text-white mb-2">Adresse</h3>
-                            <p class="text-slate-300 text-lg">
+                            <h3 class="text-lg md:text-2xl font-bold text-white mb-2">Adresse</h3>
+                            <p class="text-slate-300 text-base sm:text-lg">
                                 Port des Minimes<br>
                                 17000 La Rochelle, France
                             </p>
@@ -530,14 +543,14 @@
                 </div>
 
                 <!-- Horaires -->
-                <div class="bg-slate-800/50 backdrop-blur-sm rounded-3xl p-8 border border-slate-700/50">
-                    <div class="flex items-start mb-6">
+                <div class="bg-slate-800/50 backdrop-blur-sm rounded-3xl p-8 py-3 md:py-8 border border-slate-700/50">
+                    <div class="flex items-start mb-3 sm:mb-6">
                         <div class="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-500 rounded-2xl flex items-center justify-center mr-4 flex-shrink-0">
                             <i class="fas fa-clock text-white text-xl"></i>
                         </div>
                         <div>
-                            <h3 class="text-2xl font-bold text-white mb-4">Horaires d'Ouverture</h3>
-                            <div class="space-y-2 text-slate-300">
+                            <h3 class="text-lg md:text-2xl font-bold text-white mb-2 sm:mb-4">Horaires d'Ouverture</h3>
+                            <div class="space-y-1 sm:space-y-2 text-slate-300 text-base sm:text-lg">
                                 <div class="flex justify-between">
                                     <span>Lundi - Vendredi</span>
                                     <span class="font-semibold">8h00 - 18h00</span>
@@ -556,18 +569,18 @@
                 </div>
 
                 <!-- Contact -->
-                <div class="bg-slate-800/50 backdrop-blur-sm rounded-3xl p-8 border border-slate-700/50">
-                    <div class="flex items-start mb-6">
+                <div class="bg-slate-800/50 backdrop-blur-sm rounded-3xl p-8 py-3 md:py-8 border border-slate-700/50">
+                    <div class="flex items-start mb-3 sm:mb-6">
                         <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center mr-4 flex-shrink-0">
                             <i class="fas fa-phone text-white text-xl"></i>
                         </div>
                         <div>
-                            <h3 class="text-2xl font-bold text-white mb-2">Contact</h3>
-                            <p class="text-slate-300 text-lg mb-2">
+                            <h3 class="text-lg md:text-2xl font-bold text-white mb-2">Contact</h3>
+                            <p class="text-slate-300 text-base sm:text-lg mb-2">
                                 <i class="fas fa-phone mr-2"></i>
                                 <a href="tel:+33546412345" class="hover:text-cyan-400 transition-colors">05 46 41 23 45</a>
                             </p>
-                            <p class="text-slate-300 text-lg">
+                            <p class="text-slate-300 text-base sm:text-lg">
                                 <i class="fas fa-envelope mr-2"></i>
                                 <a href="mailto:contact@reefel-workshop.fr" class="hover:text-cyan-400 transition-colors">contact@reefel-workshop.fr</a>
                             </p>
@@ -577,13 +590,13 @@
 
                 <!-- CTA -->
                 <div class="bg-gradient-to-r from-orange-500 to-red-500 rounded-3xl p-6 text-white">
-                    <h4 class="text-xl font-bold mb-3">Besoin d'un Rendez-vous ?</h4>
-                    <p class="text-orange-100 mb-4">Appelez-nous ou passez nous voir directement au port</p>
+                    <h4 class="text-lg md:text-xl font-bold mb-2 md:mb-3">Besoin d'un Rendez-vous ?</h4>
+                    <p class="text-orange-100 mb-3 md:mb-4 text-base sm:text-lg">Appelez-nous ou passez nous voir directement au port</p>
                     <div class="flex flex-col sm:flex-row gap-3">
-                        <button class="bg-white text-orange-600 px-6 py-3 rounded-xl font-bold hover:bg-slate-100 transition-colors duration-300">
+                        <button class="bg-white text-orange-600 px-6 py-3 rounded-xl font-bold hover:bg-slate-100 transition-colors duration-300 text-base sm:text-lg">
                             <i class="fas fa-phone mr-2"></i>Appeler
                         </button>
-                        <button class="border-2 border-white text-white px-6 py-3 rounded-xl font-bold hover:bg-white hover:text-orange-600 transition-all duration-300">
+                        <button class="border-2 border-white text-white px-6 py-3 rounded-xl font-bold hover:bg-white hover:text-orange-600 transition-all duration-300 text-base sm:text-lg">
                             <i class="fas fa-directions mr-2"></i>Itinéraire
                         </button>
                     </div>

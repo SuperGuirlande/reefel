@@ -72,33 +72,115 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // === GESTION DES CHECKBOXES MULTIPLES ===
     
-    // Gérer les checkboxes de catégories
-    const categoryCheckboxes = document.querySelectorAll('#id_categories input[type="checkbox"]');
-    console.log('Checkboxes de catégories trouvées:', categoryCheckboxes.length); // Debug
-    
-    categoryCheckboxes.forEach(function(checkbox) {
-        // Fonction pour mettre à jour l'état visuel
-        function updateCheckboxState() {
-            const label = checkbox.parentElement; // Le label est le parent direct de l'input
-            if (checkbox.checked) {
-                label.style.backgroundColor = '#5f5df7'; // minsk-500
-                label.style.borderColor = '#5f5df7';
-                label.style.color = 'white';
-                label.style.boxShadow = '0 4px 12px rgba(95, 93, 247, 0.3)';
-                label.classList.add('selected'); // Ajouter la classe pour l'icône
-            } else {
-                label.style.backgroundColor = 'white';
-                label.style.borderColor = '#adbcfd'; // minsk-100
-                label.style.color = '';
-                label.style.boxShadow = '';
-                label.classList.remove('selected'); // Enlever la classe pour l'icône
+    // Fonction pour initialiser les checkboxes
+    function initializeCheckboxes() {
+        const categoryCheckboxes = document.querySelectorAll('#id_categories input[type="checkbox"]');
+        console.log('Checkboxes de catégories trouvées:', categoryCheckboxes.length);
+        
+        categoryCheckboxes.forEach(function(checkbox) {
+            // Retirer les anciens event listeners
+            checkbox.removeEventListener('change', handleCheckboxChange);
+            
+            // Fonction pour mettre à jour l'état visuel
+            function updateCheckboxState() {
+                const label = checkbox.nextElementSibling; // Le label suit l'input
+                if (label && label.tagName === 'LABEL') {
+                    if (checkbox.checked) {
+                        label.classList.add('selected');
+                    } else {
+                        label.classList.remove('selected');
+                    }
+                }
             }
+            
+            // Créer la fonction de gestion
+            function handleCheckboxChange() {
+                console.log('Checkbox changé:', checkbox.checked, checkbox.value);
+                updateCheckboxState();
+                triggerContainerResize();
+            }
+            
+            // Stocker la référence pour pouvoir la retirer
+            checkbox.handleCheckboxChange = handleCheckboxChange;
+            
+            // Initialiser l'état au chargement
+            updateCheckboxState();
+            
+            // Écouter les changements
+            checkbox.addEventListener('change', handleCheckboxChange);
+        });
+    }
+    
+    // Fonction pour déclencher le redimensionnement du conteneur
+    function triggerContainerResize() {
+        const container = document.getElementById('id_categories');
+        if (container) {
+            // Forcer le recalcul des dimensions
+            container.style.height = 'auto';
+            const height = container.scrollHeight;
+            container.style.height = height + 'px';
+            
+            // Remettre en auto après une courte pause
+            setTimeout(() => {
+                container.style.height = 'auto';
+            }, 100);
         }
-        
-        // Initialiser l'état au chargement
-        updateCheckboxState();
-        
-        // Écouter les changements
-        checkbox.addEventListener('change', updateCheckboxState);
+    }
+    
+    // Initialiser les checkboxes au chargement
+    initializeCheckboxes();
+    
+    // Observer les changements DOM pour les nouvelles catégories
+    const observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+            if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
+                // Réinitialiser les checkboxes quand de nouveaux éléments sont ajoutés
+                setTimeout(initializeCheckboxes, 50);
+            }
+        });
     });
+    
+    const categoriesContainer = document.getElementById('id_categories');
+    if (categoriesContainer) {
+        observer.observe(categoriesContainer, {
+            childList: true,
+            subtree: true
+        });
+    }
+    
+    // Fonction globale pour ajouter une catégorie dynamiquement
+    window.addCategoryToForm = function(categoryData) {
+        const container = document.getElementById('id_categories');
+        if (!container) return;
+        
+        console.log('Ajout de la catégorie:', categoryData);
+        
+        // Créer le nouveau div
+        const categoryDiv = document.createElement('div');
+        
+        // Créer le checkbox
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.name = 'categories';
+        checkbox.value = categoryData.id;
+        checkbox.id = `id_categories_${categoryData.id}`;
+        checkbox.checked = true; // Sélectionné par défaut
+        
+        // Créer le label
+        const label = document.createElement('label');
+        label.htmlFor = checkbox.id;
+        label.textContent = categoryData.name;
+        
+        // Assembler
+        categoryDiv.appendChild(checkbox);
+        categoryDiv.appendChild(label);
+        
+        // Ajouter au conteneur
+        container.appendChild(categoryDiv);
+        
+        // Réinitialiser les checkboxes pour prendre en compte le nouveau
+        setTimeout(initializeCheckboxes, 50);
+        
+        console.log('Catégorie ajoutée au formulaire');
+    };
 }); 

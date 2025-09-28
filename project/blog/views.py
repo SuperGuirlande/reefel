@@ -135,7 +135,7 @@ def create_category_ajax(request):
         try:
             import json
             data = json.loads(request.body)
-            name = data.get('category_name')
+            name = data.get('name') or data.get('category_name')  # Support des deux formats
 
             if not name:
                 return JsonResponse({'success': False, 'error': 'Le nom de la catégorie est requis'})
@@ -144,7 +144,14 @@ def create_category_ajax(request):
                 return JsonResponse({'success': False, 'error': 'La catégorie existe déjà'})
 
             category = Category.objects.create(name=name)
-            return JsonResponse({'success': True, 'category': {'id': category.id, 'name': category.name}})
+            return JsonResponse({
+                'success': True, 
+                'category': {
+                    'id': category.id, 
+                    'name': category.name,
+                    'slug': category.slug
+                }
+            })
         except json.JSONDecodeError:
             return JsonResponse({'success': False, 'error': 'Données JSON invalides'})
         except Exception as e:

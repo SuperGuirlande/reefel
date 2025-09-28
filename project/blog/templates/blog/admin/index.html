@@ -8,185 +8,221 @@
 
 {% block admin_content %}
 
-<section class="w-full max-w-screen overflow-x-hidden bg-minsk-50 flex-1  min-h-full">
-
+<section class="flex-1 bg-slate-900 flex flex-col py-12 md:py-20 w-full min-h-full">
     <!-- Container -->
-    <div class="w-full max-w-[1280px] mx-auto px-3 py-10 md:py-20 font-poppins flex flex-col gap-5 relative">
+    <div class="w-full max-w-[1280px] mx-auto px-5 flex flex-col gap-8">
 
-        <!-- Title -->
-        <div class="relative w-full max-w-[720px] mx-auto px-3 text-center pt-8">
+        <!-- Header avec navigation -->
+        <div class="relative">
             <!-- Retour Index -->
             <a href="{% url 'accounts:admin_index' %}"
-                class="absolute top-0 left-0 text-red-700 hover:text-red-600 flex gap-3 hover:gap-5 items-center transition-all duration-300 ease-in-out text-sm">
-                <i class="fa-solid fa-right-from-bracket"></i>
-                <p>
-                    Espace Administrateur
-                </p>
+                class="absolute top-0 left-0 text-slate-300 hover:text-orange-400 flex gap-3 hover:gap-5 items-center transition-all duration-300 ease-in-out text-sm group">
+                <i class="fas fa-arrow-left group-hover:-translate-x-1 transition-transform duration-300"></i>
+                <span>Retour à l'espace admin</span>
             </a>
-            <p class="text-minsk-800 text-base sm:text-lg md:text-xl uppercase font-light">
-                Espace Administrateur
-            </p>
-
-            <div class="w-fit relative group mx-auto">
-                <h1
-                    class="text-minsk-500 group-hover:text-minsk-400 transition-all group-hover:scale-105 duration-200 ease-out text-2xl sm:text-3xl md:text-4xl xl:text-5xl font-bold">
-                    Gestion du blog
+            
+            <!-- Titre Principal -->
+            <div class="text-center pt-12">
+                <p class="text-cyan-400 text-sm md:text-base lg:text-lg uppercase font-light mb-2 md:mb-4">
+                    Espace Blog
+                </p>
+                <h1 class="text-[40px] sm:text-[50px] md:text-[70px] lg:text-[100px] uppercase my-0 font-extrabold mb-4 leading-tight font-story drop-shadow-md 
+                flex flex-col md:flex-row justify-center">
+                    <span class="bg-gradient-to-b from-cyan-400 from-30% px-1 sm:px-2 md:px-3
+                    to-blue-500 bg-clip-text text-transparent">
+                        Gestion
+                    </span>
+                    <span class="bg-gradient-to-r from-orange-600 via-orange-500 px-1 sm:px-2 md:px-3 -mt-2 sm:-mt-3 md:-mt-4 lg:-mt-0
+                    to-yellow-500 bg-clip-text text-transparent">
+                        Blog
+                    </span>
                 </h1>
-
-                <div
-                    class="w-48 h-[1px] bg-minsk-500 absolute bottom-0 left-1/2 -translate-x-1/2 group-hover:w-60 transition-all duration-200 ease-out">
-                </div>
             </div>
         </div>
 
-        <!-- Les catégories -->
-        <h2 class="text-minsk-500 text-2xl sm:text-3xl md:text-4xl font-bold mt-6 sm:mt-12">
-            Les catégories
-        </h2>
-        {% if categories %}
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-            {% for category in categories %}
-            <div class="bg-minsk-200 text-minsk-700 rounded-md w-full text-center justify-center
-                        text-base hover:bg-minsk-300 hover:scale-110 transition-all duration-300 ease-in-out relative z-30 hover:z-[31]
-                        flex group">
-                <!-- Overlay -->
-                <div
-                    class="absolute z-40 h-full w-0 bg-minsk-200 opacity-35 group-hover:w-full transition-all duration-300 ease-in-out">
+        <!-- Actions rapides -->
+        <div class="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 justify-center mb-8 px-2">
+            <a href="{% url 'blog:admin_post_form' %}" class='group relative bg-gradient-to-r from-orange-500 to-red-500 text-white 
+            px-4 sm:px-5 md:px-6 py-2.5 sm:py-3 rounded-xl sm:rounded-2xl font-bold text-sm sm:text-base md:text-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl shadow-orange-800/50 hover:shadow-orange-800/90 overflow-hidden inline-flex items-center justify-center w-full sm:w-auto'>
+                <div class="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div class="relative flex items-center">
+                    <i class="fas fa-plus mr-2 sm:mr-3 text-base sm:text-lg md:text-xl"></i>
+                    <span>Nouvel Article</span>
                 </div>
-                <!-- Bouton de suppression -->
-                <a href="{% url 'blog:confirm_delete_category' category.slug %}"
-                    class="absolute z-50 text-xs h-6 w-6 flex justify-center items-center bg-red-500 text-white rounded-md
-                            right-0 top-0 translate-x-2 -translate-y-2 group-hover:-translate-x-1 group-hover:scale-105 hover:bg-red-600 transition-all duration-300 ease-in-out">
-                    <i class="fa-solid fa-trash"></i>
+            </a>
+            
+            <a href="{% url 'blog:admin_category_form' %}" class='group relative bg-gradient-to-r from-cyan-500 to-blue-500 text-white 
+            px-4 sm:px-5 md:px-6 py-2.5 sm:py-3 rounded-xl sm:rounded-2xl font-bold text-sm sm:text-base md:text-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl shadow-blue-800/50 hover:shadow-blue-800/90 overflow-hidden inline-flex items-center justify-center w-full sm:w-auto'>
+                <div class="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div class="relative flex items-center">
+                    <i class="fas fa-tag mr-2 sm:mr-3 text-base sm:text-lg md:text-xl"></i>
+                    <span>Nouvelle Catégorie</span>
+                </div>
+            </a>
+        </div>
+
+        <!-- Statistiques -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-8 px-2">
+            <div class="bg-slate-800/50 backdrop-blur-sm border border-slate-700/50 rounded-2xl sm:rounded-3xl p-4 sm:p-6 text-center">
+                <div class="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-blue-400 to-blue-600 rounded-xl sm:rounded-2xl flex items-center justify-center mx-auto mb-3 sm:mb-4">
+                    <i class="fas fa-newspaper text-white text-xl sm:text-2xl"></i>
+                </div>
+                <h3 class="text-2xl sm:text-3xl font-bold text-white mb-1 sm:mb-2">{{ posts.count }}</h3>
+                <p class="text-slate-300 text-sm sm:text-base">Articles publiés</p>
+            </div>
+            
+            <div class="bg-slate-800/50 backdrop-blur-sm border border-slate-700/50 rounded-2xl sm:rounded-3xl p-4 sm:p-6 text-center">
+                <div class="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-cyan-400 to-cyan-600 rounded-xl sm:rounded-2xl flex items-center justify-center mx-auto mb-3 sm:mb-4">
+                    <i class="fas fa-tags text-white text-xl sm:text-2xl"></i>
+                </div>
+                <h3 class="text-2xl sm:text-3xl font-bold text-white mb-1 sm:mb-2">{{ categories.count }}</h3>
+                <p class="text-slate-300 text-sm sm:text-base">Catégories actives</p>
+            </div>
+            
+            <div class="bg-slate-800/50 backdrop-blur-sm border border-slate-700/50 rounded-2xl sm:rounded-3xl p-4 sm:p-6 text-center sm:col-span-2 lg:col-span-1">
+                <div class="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-purple-400 to-purple-600 rounded-xl sm:rounded-2xl flex items-center justify-center mx-auto mb-3 sm:mb-4">
+                    <i class="fas fa-eye text-white text-xl sm:text-2xl"></i>
+                </div>
+                <h3 class="text-2xl sm:text-3xl font-bold text-white mb-1 sm:mb-2">-</h3>
+                <p class="text-slate-300 text-sm sm:text-base">Vues totales</p>
+            </div>
+        </div>
+
+        <!-- Catégories -->
+        <div class="mb-8 sm:mb-12 px-2">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-4 sm:mb-6 gap-3">
+                <h2 class="text-xl sm:text-2xl lg:text-3xl font-bold text-white flex items-center gap-3 sm:gap-4">
+                    <div class="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-cyan-400 to-cyan-600 rounded-lg sm:rounded-xl flex items-center justify-center">
+                        <i class="fas fa-tags text-white text-sm sm:text-lg"></i>
+                    </div>
+                    Catégories
+                </h2>
+                <a href="{% url 'blog:admin_category_form' %}" class="text-cyan-400 hover:text-cyan-300 transition-colors duration-300 flex items-center gap-2 text-sm sm:text-base">
+                    <i class="fas fa-plus"></i>
+                    <span class="hidden sm:inline">Ajouter</span>
+                    <span class="sm:hidden">Nouvelle catégorie</span>
                 </a>
-                <!-- Nom de la catégorie -->
-                <div class="px-4 py-2">
-                    {{ category.name }}
-                </div>
             </div>
-            {% endfor %}
+            
+            {% if categories %}
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4">
+                {% for category in categories %}
+                <div class="group bg-slate-800/50 backdrop-blur-sm border border-slate-700/50 rounded-xl sm:rounded-2xl p-3 sm:p-4 hover:border-cyan-500/50 transition-all duration-300 hover:-translate-y-1">
+                    <div class="flex items-center justify-between mb-2 sm:mb-3">
+                        <h3 class="text-white font-semibold group-hover:text-cyan-300 transition-colors flex-1 duration-300 text-sm sm:text-base truncate">{{ category.name }}</h3>
+                        <a href="{% url 'blog:confirm_delete_category' category.slug %}" class=" w-fit flex-1 bg-red-500/20 hover:bg-red-500/30 text-red-300 text-xs sm:text-sm px-2 sm:px-3 py-1.5 sm:py-2 rounded-md sm:rounded-lg transition-all duration-300 text-center">
+                            <i class="fas fa-trash mr-0.5 sm:mr-1"></i> <span class="hidden sm:inline">Suppr.</span><span class="sm:hidden">Del.</span>
+                        </a>
+                    </div>
+                    
+                    <div class="flex gap-1 sm:gap-2">
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="bg-slate-800/30 backdrop-blur-sm border border-slate-700/30 rounded-2xl p-8 text-center">
+                <div class="w-16 h-16 bg-slate-700/50 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-tags text-slate-400 text-2xl"></i>
+                </div>
+                <p class="text-slate-400 mb-4">Aucune catégorie créée pour le moment</p>
+                <a href="{% url 'blog:admin_category_form' %}" class="text-cyan-400 hover:text-cyan-300 transition-colors duration-300">
+                    Créer votre première catégorie →
+                </a>
+            </div>
+            {% endif %}
         </div>
-        {% else %}
-        <p class="text-slate-800 text-base sm:text-lg md:text-xl text-center uppercase font-light">
-            Aucune catégorie trouvée
-        </p>
-        {% endif %}
 
-        <!-- Créer une catégorie -->
-        <a href="{% url 'blog:admin_category_form' %}" class="bg-minsk-500 text-white rounded-md w-fit shadow-md
-            text-base hover:bg-minsk-600 transition-all duration-300 ease-in-out hover:shadow-xl hover:-translate-y-1 relative
-            overflow-hidden flex group">
-            <div
-                class="absolute h-full w-0 bg-minsk-200 opacity-35 group-hover:w-full transition-all duration-300 ease-in-out">
+        <!-- Articles -->
+        <div class="px-2">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-4 sm:mb-6 gap-3">
+                <h2 class="text-xl sm:text-2xl lg:text-3xl font-bold text-white flex items-center gap-3 sm:gap-4">
+                    <div class="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-orange-400 to-orange-600 rounded-lg sm:rounded-xl flex items-center justify-center">
+                        <i class="fas fa-newspaper text-white text-sm sm:text-lg"></i>
+                    </div>
+                    Articles récents
+                </h2>
+                <a href="{% url 'blog:admin_post_form' %}" class="text-orange-400 hover:text-orange-300 transition-colors duration-300 flex items-center gap-2 text-sm sm:text-base">
+                    <i class="fas fa-plus"></i>
+                    <span class="hidden sm:inline">Nouvel article</span>
+                    <span class="sm:hidden">Nouvel article</span>
+                </a>
             </div>
-            <div class="px-4 py-2">
-                Créer une catégorie
-            </div>
-        </a>
-
-
-        <!-- Les Articles -->
-        <h2 class="text-minsk-500 text-2xl sm:text-3xl md:text-4xl font-bold mt-6 sm:mt-12 md:mt-16">
-            Les Articles
-        </h2>
-        {% if posts %}
-        <div class="flex flex-col gap-8">
-
-            {% for post in posts %}
-            <div class="bg-minsk-200 rounded-xl border-2 border-minsk-300 px-5 sm:px-8 md:px-12 py-4 flex gap-5 items-center 
-                hover:bg-minsk-300 hover:border-minsk-400 transition-all duration-300 ease-in-out">
-                <!-- Image -->
-                <div
-                    class="h-32 w-56  rounded-md shadow-md shadow-minsk-700/50 overflow-hidden group-hover:shadow-minsk-700/70">
-                    <img src="{{ post.thumbnail.url }}" alt="{{ post.thumbnail_caption }}" class="h-full w-full object-cover rounded-md 
-                            transition-all duration-300 ease-in-out hover:scale-105">
-                </div>
-
-                <!-- Contenu -->
-                <div class="flex flex-1 justify-between">
-                    <!-- Gauche -->
-                    <div class="flex flex-col gap-3">
-                        <div class="flex gap-2 items-center">
-                            <div class="flex gap-2">
-                                {% for category in post.categories.all %}
-                                <a href="" class="bg-minsk-500 text-white rounded-md px-2 py-1 text-xs">
-                                    {{ category.name }}
-                                </a>
-                                {% endfor %}
-                            </div>
-
-                            <p class="text-xs text-minsk-500">
-                                <!-- Date -->
-                                Rédigé le <span class="capitalize font-semibold">{{ post.created_at|date:"d F Y" }}</span> 
-                                {% if post.updated_at|date:"d F Y" != post.created_at|date:"d F Y" %}
-                                | Dernière mise à jour le <span class="capitalize font-semibold">{{ post.updated_at|date:"d F Y" }}</span>
-                                {% endif %}
-                            </p>
+            
+            {% if posts %}
+            <div class="space-y-3 sm:space-y-4">
+                {% for post in posts %}
+                <div class="group bg-slate-800/50 backdrop-blur-sm border border-slate-700/50 rounded-xl sm:rounded-2xl p-4 sm:p-6 hover:border-orange-500/50 transition-all duration-300">
+                    <div class="flex flex-col sm:flex-row items-start gap-4 sm:gap-6">
+                        <!-- Image -->
+                        {% if post.thumbnail %}
+                        <div class="flex-shrink-0 w-full sm:w-20 md:w-24 h-32 sm:h-20 md:h-24 bg-slate-700 rounded-lg sm:rounded-xl overflow-hidden">
+                            <img src="{{ post.thumbnail.url }}" alt="{{ post.title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
                         </div>
-                        <!-- Titre -->
-                        <h4 class="text-minsk-500 text-base sm:text-lg md:text-xl font-bold">
-                            {{ post.title }}
-                        </h4>
-                        <p class='text-sm md:text-base'>
-                            {{ post.introduction|truncatechars:100 }}
-                        </p>
-                    </div>
-
-                    <!-- Droite -->
-                    <div class="flex flex-col gap-2 self-stretch justify-between text-sm">
-                        <!-- Voir l'article -->
-                        <a href="{% url 'blog:article_detail' post.slug %}" class="bg-blue-500 text-white rounded-md w-8 h-8 flex justify-center items-center shadow-md
-                        hover:scale-110 hover:shadow-lg transition-all duration-300 ease-in-out">
-                            <i class="fas fa-eye"></i>
-                        </a>
-                        <!-- Modifier l'article -->
-                        <a href="{% url 'blog:admin_change_post_form' post.slug %}" class="bg-green-500 text-white rounded-md w-8 h-8 flex justify-center items-center shadow-md
-                        hover:scale-110 hover:shadow-lg transition-all duration-300 ease-in-out">
-                            <i class="fas fa-pen"></i>
-                        </a>
-                        <!-- Supprimer l'article -->
-                        <a href="{% url 'blog:confirm_delete_article' post.slug %}" class="bg-red-500 text-white rounded-md w-8 h-8 flex justify-center items-center shadow-md
-                        hover:scale-110 hover:shadow-lg transition-all duration-300 ease-in-out">
-                            <i class="fas fa-trash"></i>
-                        </a>
+                        {% else %}
+                        <div class="flex-shrink-0 w-full sm:w-20 md:w-24 h-32 sm:h-20 md:h-24 bg-slate-700 rounded-lg sm:rounded-xl flex items-center justify-center">
+                            <i class="fas fa-image text-slate-500 text-xl sm:text-2xl"></i>
+                        </div>
+                        {% endif %}
+                        
+                        <!-- Contenu -->
+                        <div class="flex-1 w-full">
+                            <div class="mb-3">
+                                <h3 class="text-lg sm:text-xl font-semibold text-white group-hover:text-orange-300 transition-colors duration-300 mb-2 line-clamp-2">{{ post.title }}</h3>
+                                <div class="flex flex-wrap gap-1 sm:gap-2 mb-2 sm:mb-3">
+                                    {% for category in post.categories.all %}
+                                    <span class="bg-cyan-500/20 text-cyan-300 text-xs px-2 py-1 rounded-full">{{ category.name }}</span>
+                                    {% endfor %}
+                                </div>
+                                <p class="text-slate-400 text-xs sm:text-sm mb-2 sm:mb-3 line-clamp-2 sm:line-clamp-1">{{ post.introduction|truncatewords:15 }}</p>
+                                <div class="flex flex-wrap items-center gap-2 sm:gap-4 text-slate-500 text-xs sm:text-sm">
+                                    <span><i class="fas fa-calendar mr-1"></i>{{ post.created_at|date:"d M Y" }}</span>
+                                    <span><i class="fas fa-user mr-1"></i>{{ post.author.username }}</span>
+                                    {% if post.is_published %}
+                                    <span class="text-green-400"><i class="fas fa-check-circle mr-1"></i>Publié</span>
+                                    {% else %}
+                                    <span class="text-yellow-400"><i class="fas fa-clock mr-1"></i>Brouillon</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Actions -->
+                        <div class="flex-shrink-0 flex sm:flex-col gap-2 w-full sm:w-auto">
+                            <a href="{% url 'blog:edit_post' post.slug %}" class="flex-1 sm:flex-none bg-blue-500/20 hover:bg-blue-500/30 text-blue-300 px-3 sm:px-4 py-2 rounded-lg transition-all duration-300 text-center text-xs sm:text-sm">
+                                <i class="fas fa-edit mr-1"></i> <span class="hidden sm:inline">Éditer</span><span class="sm:hidden">Éd.</span>
+                            </a>
+                            <a href="{% url 'blog:delete_post' post.slug %}" class="flex-1 sm:flex-none bg-red-500/20 hover:bg-red-500/30 text-red-300 px-3 sm:px-4 py-2 rounded-lg transition-all duration-300 text-center text-xs sm:text-sm">
+                                <i class="fas fa-trash mr-1"></i> <span class="hidden sm:inline">Suppr.</span><span class="sm:hidden">Del.</span>
+                            </a>
+                            {% if post.is_published %}
+                            <a href="{{ post.get_absolute_url }}" target="_blank" class="flex-1 sm:flex-none bg-green-500/20 hover:bg-green-500/30 text-green-300 px-3 sm:px-4 py-2 rounded-lg transition-all duration-300 text-center text-xs sm:text-sm">
+                                <i class="fas fa-external-link-alt mr-1"></i> <span class="hidden sm:inline">Voir</span><span class="sm:hidden">Vue</span>
+                            </a>
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
-
-
-
-
+                {% endfor %}
             </div>
-            {% endfor %}
-
+            {% else %}
+            <div class="bg-slate-800/30 backdrop-blur-sm border border-slate-700/30 rounded-2xl p-8 text-center">
+                <div class="w-16 h-16 bg-slate-700/50 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-newspaper text-slate-400 text-2xl"></i>
+                </div>
+                <p class="text-slate-400 mb-4">Aucun article créé pour le moment</p>
+                <a href="{% url 'blog:admin_post_form' %}" class="text-orange-400 hover:text-orange-300 transition-colors duration-300">
+                    Rédiger votre premier article →
+                </a>
+            </div>
+            {% endif %}
         </div>
-        {% else %}
-        <p class="text-slate-800 text-base sm:text-lg md:text-xl text-center uppercase font-light">
-            Aucun article pour le moment
-        </p>
-        {% endif %}
-
-        <!-- Créer une catégorie -->
-        <a href="{% url 'blog:admin_post_form' %}" class="bg-minsk-500 text-white rounded-md w-fit shadow-md
-            text-base hover:bg-minsk-600 transition-all duration-300 ease-in-out hover:shadow-xl hover:-translate-y-1 relative
-            overflow-hidden flex group">
-            <div
-                class="absolute h-full w-0 bg-minsk-200 opacity-35 group-hover:w-full transition-all duration-300 ease-in-out">
-            </div>
-            <div class="px-4 py-2">
-                Rédiger un article
-            </div>
-        </a>
-
-
 
     </div>
-
-
 </section>
 
-
 {% endblock %}
-
+       
 
 {% block admin_scripts %}
 {% endblock %}

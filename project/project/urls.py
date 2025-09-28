@@ -14,7 +14,6 @@ urlpatterns = [
 
     # Apps
     path('blog/', include('blog.urls')),
-    path('boutique/', include('shop.urls')),
     path('contact/', include('contact_management.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

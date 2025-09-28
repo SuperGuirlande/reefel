@@ -5,42 +5,48 @@
 {% endblock %}
 
 {% block content %}
-<section class='py-12 md:py-20 flex flex-col justify-center items-center flex-1 bg-minsk-50'>
+<section class='py-12 md:py-20 flex flex-col justify-center items-center flex-1 bg-slate-900 px-2'>
 
     <!-- Title -->
-    <div class="w-fit mx-auto text-center mb-5 sm:mb-10 relative group">
-        <p class="text-minsk-800 text-base md:text-lg uppercase font-light">
+    <div class="w-fit mx-auto text-center mb-5 sm:mb-10 flex flex-col">
+        <p class="text-orange-500 text-base md:text-lg uppercase font-light">
             Espace Administrateur
         </p>
-        <h1 class='text-3xl sm:text-4xl md:text-5xl font-semibold text-minsk-500'>
-            Se Connecter
+        <!-- Titre Principal avec personnalité -->
+        <h1 class="text-5xl md:text-[100px] uppercase my-0 font-extrabold mb-4 leading-tight font-story drop-shadow-md flex">
+            <span class="bg-gradient-to-b from-cyan-400 from-30% px-2 sm:px-3
+            to-blue-500 bg-clip-text text-transparent" id="reefel">
+                Se
+            </span>
+            <span class="bg-gradient-to-r from-orange-600 via-orange-500 px-2 sm:px-3
+            to-yellow-500 bg-clip-text text-transparent">
+                Connecter
+            </span>
         </h1>
-
-        <!-- LIGNE DECORATIVE -->
-        <div class="absolute top-full left-1/2 -translate-x-1/2 translate-y-1 w-32 sm:w-48 h-[2px] bg-minsk-500 group-hover:w-full transition-all duration-500 ease-in-out"></div>
     </div>
 
     <!-- Form -->
-    <form method='post' class='w-full max-w-[500px] mx-auto px-5 flex flex-col gap-5'>
+    <form method='post' class='w-full max-w-[500px] mx-auto px-5 flex flex-col gap-5 text-slate-200'>
         {% csrf_token %}
         {{ form.as_p }}
 
-        <button class='py-2 px-6 bg-minsk-500 hover:bg-minsk-600 transition-all duration-300 text-white rounded-md my-2
-        ease-in-out hover:-translate-y-1 shadow-md hover:shadow-lg' 
+        <button class='group relative bg-gradient-to-r from-orange-500 to-red-500 text-white 
+        px-8 py-3 sm:py-4 rounded-lg sm:rounded-2xl font-bold text-base sm:text-lg transition-all duration-300 transform hover:scale-105 
+        shadow-lg hover:shadow-xl shadow-orange-800/50 hover:shadow-orange-800/90 overflow-hidden' 
             type="submit">
-            Se Connecter
+            <div class="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div class="relative flex items-center justify-center">
+                <i class="fas fa-sign-in-alt mr-3 text-lg sm:text-xl"></i>
+                <span>Se Connecter</span>
+                <i class="fas fa-arrow-right ml-3 group-hover:translate-x-1 transition-transform 
+                duration-300"></i>
+            </div>
         </button>
 
-        <!-- REGISTER -->
-        <!-- <p class="classic-p secondary">
-            Pas encore membre ? <br>
-            <a href="{% url 'accounts:register' %}">Créer un Compte ici →</a>
-        </p> -->
-
         <!-- PASSWORD RESET -->
-        <p class="text-sm sm:text-base text-gray-600">
+        <p class="text-xs sm:text-base text-gray-300 mt-2">
             Mot de passe perdu ? 
-            <a href="{% url 'accounts:password_reset' %}" class="text-minsk-500 hover:text-minsk-600 transition-all duration-300">
+            <a href="{% url 'accounts:password_reset' %}" class="text-cyan-400 hover:text-cyan-600 transition-all duration-300">
                 Réinitialiser le mot de passe ici →
             </a>
         </p>
