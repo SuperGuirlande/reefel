@@ -8,7 +8,7 @@ class BlogSitemap(Sitemap):
     priority = 0.8
     
     def items(self):
-        return Post.objects.filter(published=True).select_related('author').prefetch_related('categories')
+        return Post.objects.filter(published=True).select_related('author').prefetch_related('categories').order_by('-updated_at')
     
     def lastmod(self, obj):
         return obj.updated_at
@@ -34,7 +34,7 @@ class CategorySitemap(Sitemap):
     priority = 0.6
     
     def items(self):
-        return Category.objects.all()
+        return Category.objects.all().order_by('name')
     
     def location(self, obj):
         return reverse('blog:blog_category', kwargs={'category_slug': obj.slug})
