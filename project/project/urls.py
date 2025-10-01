@@ -9,6 +9,7 @@ import os
 @require_GET
 def robots_txt(request):
     """Vue pour servir le fichier robots.txt"""
+    print("🔥🔥🔥 VUE ROBOTS.TXT APPELÉE !!! 🔥🔥🔥")
     # Contenu direct du robots.txt (pas de dépendance aux chemins)
     robots_content = """User-agent: *
 Allow: /
