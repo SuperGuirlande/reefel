@@ -9,14 +9,22 @@ import os
 @require_GET
 def robots_txt(request):
     """Vue pour servir le fichier robots.txt"""
-    robots_path = os.path.join(settings.STATICFILES_DIRS[0], 'robots.txt')
-    try:
-        with open(robots_path, 'r', encoding='utf-8') as f:
-            content = f.read()
-        return HttpResponse(content, content_type='text/plain')
-    except FileNotFoundError:
-        # Fallback si le fichier n'existe pas
-        return HttpResponse("User-agent: *\nAllow: /", content_type='text/plain')
+    # Essayer d'abord dans main/static, puis dans staticfiles
+    robots_paths = [
+        os.path.join(settings.STATICFILES_DIRS[0], 'robots.txt'),
+        os.path.join(settings.STATIC_ROOT, 'robots.txt')
+    ]
+    
+    for robots_path in robots_paths:
+        try:
+            with open(robots_path, 'r', encoding='utf-8') as f:
+                content = f.read()
+            return HttpResponse(content, content_type='text/plain')
+        except FileNotFoundError:
+            continue
+    
+    # Fallback si le fichier n'existe pas
+    return HttpResponse("User-agent: *\nAllow: /", content_type='text/plain')
 
 urlpatterns = [
     # Admin
