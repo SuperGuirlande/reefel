@@ -9,22 +9,52 @@ import os
 @require_GET
 def robots_txt(request):
     """Vue pour servir le fichier robots.txt"""
-    # Essayer d'abord dans main/static, puis dans staticfiles
-    robots_paths = [
-        os.path.join(settings.STATICFILES_DIRS[0], 'robots.txt'),
-        os.path.join(settings.STATIC_ROOT, 'robots.txt')
-    ]
+    # Contenu direct du robots.txt (pas de dépendance aux chemins)
+    robots_content = """User-agent: *
+Allow: /
+
+# Pages importantes
+Allow: /blog/
+Allow: /blog/article/
+Allow: /blog/categorie/
+
+# Pages à exclure
+Disallow: /admin/
+Disallow: /compte/
+Disallow: /contact/
+Disallow: /ckeditor5/
+Disallow: /static/admin/
+Disallow: /media/blog/images/
+
+# Fichiers à exclure
+Disallow: *.pdf$
+Disallow: *.doc$
+Disallow: *.docx$
+Disallow: *.xls$
+Disallow: *.xlsx$
+
+# Sitemap
+Sitemap: https://www.reefel.fr/sitemap.xml
+
+# Crawl-delay pour éviter la surcharge
+Crawl-delay: 1
+
+# User-agent spécifique pour Google
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+# User-agent spécifique pour Bing
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+# User-agent spécifique pour Facebook
+User-agent: facebookexternalhit
+Allow: /
+Crawl-delay: 0"""
     
-    for robots_path in robots_paths:
-        try:
-            with open(robots_path, 'r', encoding='utf-8') as f:
-                content = f.read()
-            return HttpResponse(content, content_type='text/plain')
-        except FileNotFoundError:
-            continue
-    
-    # Fallback si le fichier n'existe pas
-    return HttpResponse("User-agent: *\nAllow: /", content_type='text/plain')
+    return HttpResponse(robots_content, content_type='text/plain')
 
 urlpatterns = [
     # Admin
