@@ -34,21 +34,55 @@ def index(request):
 @cache_page(60 * 60 * 24)  # Cache 24h
 def robots_txt(request):
     """Vue pour servir le fichier robots.txt"""
-    robots_path = os.path.join(settings.STATICFILES_DIRS[0], 'robots.txt')
+    # Construction de l'URL du sitemap dynamiquement
+    sitemap_url = f'{request.scheme}://{request.get_host()}/sitemap.xml'
     
-    try:
-        with open(robots_path, 'r', encoding='utf-8') as f:
-            content = f.read()
-        
-        # Remplacer l'URL du sitemap par l'URL réelle
-        content = content.replace(
-            'https://www.reefel.fr/sitemap.xml',
-            f'{request.scheme}://{request.get_host()}/sitemap.xml'
-        )
-        
-        return HttpResponse(content, content_type='text/plain')
-    except FileNotFoundError:
-        return HttpResponse('User-agent: *\nDisallow: /', content_type='text/plain')
+    # Contenu du robots.txt optimisé
+    robots_content = f"""User-agent: *
+Allow: /
+
+# Pages importantes à indexer
+Allow: /blog/
+Allow: /blog/article/
+Allow: /blog/categorie/
+
+# Pages à exclure de l'indexation
+Disallow: /admin/
+Disallow: /compte/
+Disallow: /contact/
+Disallow: /ckeditor5/
+Disallow: /static/admin/
+Disallow: /media/blog/images/
+
+# Fichiers à exclure
+Disallow: *.pdf$
+Disallow: *.doc$
+Disallow: *.docx$
+Disallow: *.xls$
+Disallow: *.xlsx$
+
+# Sitemap
+Sitemap: {sitemap_url}
+
+# Crawl-delay pour éviter la surcharge
+Crawl-delay: 1
+
+# User-agent spécifique pour Google
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+# User-agent spécifique pour Bing
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+# User-agent spécifique pour Facebook
+User-agent: facebookexternalhit
+Allow: /
+Crawl-delay: 0"""
+    
+    return HttpResponse(robots_content, content_type='text/plain')
 
 
 # Configuration des sitemaps
