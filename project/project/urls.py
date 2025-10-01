@@ -2,6 +2,21 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.http import HttpResponse
+from django.views.decorators.http import require_GET
+import os
+
+@require_GET
+def robots_txt(request):
+    """Vue pour servir le fichier robots.txt"""
+    robots_path = os.path.join(settings.STATICFILES_DIRS[0], 'robots.txt')
+    try:
+        with open(robots_path, 'r', encoding='utf-8') as f:
+            content = f.read()
+        return HttpResponse(content, content_type='text/plain')
+    except FileNotFoundError:
+        # Fallback si le fichier n'existe pas
+        return HttpResponse("User-agent: *\nAllow: /", content_type='text/plain')
 
 urlpatterns = [
     # Admin
@@ -15,5 +30,8 @@ urlpatterns = [
     # Apps
     path('blog/', include('blog.urls')),
     path('contact/', include('contact_management.urls')),
+    
+    # Robots.txt
+    path('robots.txt', robots_txt, name='robots_txt'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
