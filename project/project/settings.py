@@ -20,6 +20,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
 
     'tailwind',
     'django_ckeditor_5',
@@ -103,6 +104,9 @@ TIME_ZONE = 'Europe/Paris'
 USE_I18N = True
 USE_TZ = True
 
+# SITES FRAMEWORK
+SITE_ID = 1
+
 # STATIC & MEDIA #
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [
@@ -146,9 +150,9 @@ DEFAULT_FROM_EMAIL = 'Site Web Reefel <contact@agencecodemaster.com>'
 # Debug email en développement
 if DEBUG:
     EMAIL_TIMEOUT = 30  # Timeout plus long pour debug
-    print(f"🔧 Configuration EMAIL - Host: {env('SMTP_HOST', default='NON_DEFINI')}")
-    print(f"🔧 Configuration EMAIL - Port: 465")
-    print(f"🔧 Configuration EMAIL - User: apikey")
+    print(f"Configuration EMAIL - Host: {env('SMTP_HOST', default='NON_DEFINI')}")
+    print(f"Configuration EMAIL - Port: 465")
+    print(f"Configuration EMAIL - User: apikey")
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

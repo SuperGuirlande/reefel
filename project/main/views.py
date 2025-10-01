@@ -96,5 +96,58 @@ sitemaps = {
 @cache_page(60 * 60 * 12)  # Cache 12h
 def sitemap_xml(request):
     """Vue pour servir la sitemap avec le bon Content-Type"""
-    return sitemap(request, sitemaps, template_name='main/sitemap.xml', content_type='application/xml')
+    from django.contrib.sites.models import Site
+    from django.conf import settings
+    from django.http import HttpResponse
+    from django.template.loader import render_to_string
+    
+    # Construire l'URL de base correcte
+    if settings.DEBUG:
+        base_url = f"{request.scheme}://{request.get_host()}"
+    else:
+        site = Site.objects.get_current()
+        base_url = f"https://{site.domain}"
+    
+    # Générer le contenu XML manuellement pour contrôler les URLs
+    urls = []
+    
+    # Page d'accueil
+    urls.append({
+        'loc': f"{base_url}/",
+        'lastmod': '2025-10-01',
+        'changefreq': 'weekly',
+        'priority': '1.0'
+    })
+    
+    # Blog index
+    urls.append({
+        'loc': f"{base_url}/blog/",
+        'lastmod': '2025-09-28',
+        'changefreq': 'daily',
+        'priority': '0.9'
+    })
+    
+    # Articles de blog
+    from blog.models import Post
+    for post in Post.objects.filter(published=True):
+        urls.append({
+            'loc': f"{base_url}/blog/article/{post.slug}/",
+            'lastmod': post.updated_at.strftime('%Y-%m-%d'),
+            'changefreq': 'weekly',
+            'priority': '0.9'
+        })
+    
+    # Catégories
+    from blog.models import Category
+    for category in Category.objects.all():
+        urls.append({
+            'loc': f"{base_url}/blog/categorie/{category.slug}/",
+            'changefreq': 'monthly',
+            'priority': '0.6'
+        })
+    
+    context = {'urls': urls}
+    xml_content = render_to_string('main/sitemap.xml', context)
+    
+    return HttpResponse(xml_content, content_type='application/xml')
 
